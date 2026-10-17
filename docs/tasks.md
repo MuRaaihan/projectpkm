@@ -36,7 +36,7 @@ Acuan utama: [`docs/prd.md`](./prd.md). Jika ada pertentangan antara file ini da
 | Fase | Nama | Prioritas | Status |
 |---|---|---|---|
 | 0 | Persiapan dan fondasi proyek | P0 | ✅ |
-| 1 | Autentikasi, peran, dan sesi | P0 | ⬜ |
+| 1 | Autentikasi, peran, dan sesi | P0 | ✅ |
 | 2 | Modul Master: akun, impor Excel, kelas | P0 | ⬜ |
 | 3 | Modul Siswa: membuat dan memantau laporan | P0 | ⬜ |
 | 4 | Modul Guru BK: kelola laporan dan kategori | P0 | ⬜ |
@@ -101,39 +101,39 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 **Kebutuhan PRD:** FR-01 sampai FR-07
 
 ### Database
-- [ ] **Sesuaikan migrasi bawaan Laravel.** Database masih kosong dan belum berisi data asli, jadi **boleh** mengubah migrasi bawaan (`users`, dll.) sesuai `docs/database.md`, lalu menjalankan `php artisan migrate:fresh`. Tunjukkan rencana dan **tunggu persetujuan** sebelum menjalankan `migrate:fresh`
-- [ ] Buang kolom `email` dan `email_verified_at` dari `users`, serta hapus tabel `password_reset_tokens` (tidak dipakai; reset password dilakukan Master). Pastikan tabel `sessions`, `cache`, dan `jobs` tetap ada
-- [ ] Migrasi tabel `users`: `role`, `login_id` (unik; NIS/NIP/username), `name`, `password`, `class_id` (nullable), `photo_path`, `phone`, `locked_until`, `is_active`, `must_change_password`, `last_login_at`, `deleted_at` (soft delete)
-- [ ] Migrasi `academic_years` dan `classes`
-- [ ] Migrasi `activity_logs`
+- [x] **Sesuaikan migrasi bawaan Laravel.** Database masih kosong dan belum berisi data asli, jadi **boleh** mengubah migrasi bawaan (`users`, dll.) sesuai `docs/database.md`, lalu menjalankan `php artisan migrate:fresh`. Tunjukkan rencana dan **tunggu persetujuan** sebelum menjalankan `migrate:fresh`
+- [x] Buang kolom `email` dan `email_verified_at` dari `users`, serta hapus tabel `password_reset_tokens` (tidak dipakai; reset password dilakukan Master). Pastikan tabel `sessions`, `cache`, dan `jobs` tetap ada
+- [x] Migrasi tabel `users`: `role`, `login_id` (unik; NIS/NIP/username), `name`, `password`, `class_id` (nullable), `photo_path`, `phone`, `locked_until`, `is_active`, `must_change_password`, `last_login_at`, `deleted_at` (soft delete)
+- [x] Migrasi `academic_years` dan `classes`
+- [x] Migrasi `activity_logs`
 
 ### Login dan sesi
-- [ ] Halaman **login tunggal**: siswa memakai **NIS**, guru BK memakai NIP/username, master memakai username (FR-01)
-- [ ] Setelah login, arahkan ke dashboard sesuai peran (FR-02)
-- [ ] Tolak login bila akun **nonaktif**
-- [ ] Pesan error login **tidak membocorkan** apakah NIS/username terdaftar
-- [ ] **Rate limiting** dan penguncian sementara setelah beberapa kali gagal (FR-05)
-- [ ] Regenerasi sesi setelah login; **session timeout** otomatis saat tidak aktif (FR-06)
-- [ ] Cookie sesi `Secure`, `HttpOnly`, `SameSite`
-- [ ] **Logout** (FR-06)
+- [x] Halaman **login tunggal**: siswa memakai **NIS**, guru BK memakai NIP/username, master memakai username (FR-01)
+- [x] Setelah login, arahkan ke dashboard sesuai peran (FR-02)
+- [x] Tolak login bila akun **nonaktif**
+- [x] Pesan error login **tidak membocorkan** apakah NIS/username terdaftar
+- [x] **Rate limiting** dan penguncian sementara setelah beberapa kali gagal (FR-05)
+- [x] Regenerasi sesi setelah login; **session timeout** otomatis saat tidak aktif (FR-06)
+- [x] Cookie sesi `Secure`, `HttpOnly`, `SameSite`
+- [x] **Logout** (FR-06)
 
 ### Password
-- [ ] Hash password dengan bcrypt/argon2
-- [ ] **Wajib ganti password** pada login pertama dan setelah reset: semua route lain diblokir sampai password diganti (FR-03)
-- [ ] Aturan password: minimal 8 karakter, tidak boleh sama dengan NIS/username
-- [ ] Halaman **ganti password sendiri** (FR-04)
-- [ ] Middleware peran: `master`, `bk`, `siswa`, dan halaman 403 yang ramah
-- [ ] Catat login berhasil/gagal ke `activity_logs`
+- [x] Hash password dengan bcrypt/argon2
+- [x] **Wajib ganti password** pada login pertama dan setelah reset: semua route lain diblokir sampai password diganti (FR-03)
+- [x] Aturan password: minimal 8 karakter, tidak boleh sama dengan NIS/username
+- [x] Halaman **ganti password sendiri** (FR-04)
+- [x] Middleware peran: `master`, `bk`, `siswa`, dan halaman 403 yang ramah
+- [x] Catat login berhasil/gagal ke `activity_logs`
 
 ### Dashboard kerangka
-- [ ] Dashboard kosong untuk tiap peran (hanya kerangka dan menu)
+- [x] Dashboard kosong untuk tiap peran (hanya kerangka dan menu)
 
 **Gerbang Fase 1**
-- [ ] Ketiga peran dapat login dari satu halaman dan masuk ke dashboard yang benar
-- [ ] Siswa tidak bisa membuka URL dashboard Master/BK (dan sebaliknya)
-- [ ] Login pertama memaksa ganti password
-- [ ] Uji: 5+ kali salah password memicu pembatasan
-- [ ] Uji: akun nonaktif tidak bisa login
+- [x] Ketiga peran dapat login dari satu halaman dan masuk ke dashboard yang benar
+- [x] Siswa tidak bisa membuka URL dashboard Master/BK (dan sebaliknya)
+- [x] Login pertama memaksa ganti password
+- [x] Uji: 5+ kali salah password memicu pembatasan
+- [x] Uji: akun nonaktif tidak bisa login
 
 ---
 
