@@ -26,6 +26,10 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/kebijakan-privasi', function () {
+    return view('privacy');
+})->name('privacy');
+
 // Autentikasi Pengguna
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

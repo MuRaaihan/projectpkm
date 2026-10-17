@@ -7,7 +7,7 @@
                     Ruang Aman Peserta Didik
                 </span>
                 <h1 class="text-xl sm:text-3xl font-bold tracking-tight text-white mb-2">
-                    Halo, {{ auth()->user()->name }}! 👋
+                    Halo, {{ auth()->user()->name }}
                 </h1>
                 <p class="text-xs sm:text-sm text-emerald-50 leading-relaxed">
                     Jangan takut bersuara. Jika kamu atau temanmu mengalami atau melihat tindakan perundungan (bullying), ceritakan kepada kami di sini. Identitasmu dapat dirahasiakan dan selalu dilindungi.

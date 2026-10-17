@@ -6,11 +6,13 @@
     'value' => null,
     'placeholder' => null,
     'helper' => null,
+    'hint' => null,
     'required' => false,
 ])
 
 @php
     $id = $id ?? $name;
+    $helperText = $helper ?? $hint;
     $hasError = $errors->has($name);
 @endphp
 
@@ -43,8 +45,8 @@
         />
     </div>
 
-    @if ($helper && !$hasError)
-        <p class="text-[11px] text-slate-500 leading-normal">{{ $helper }}</p>
+    @if ($helperText && !$hasError)
+        <p class="text-[11px] text-slate-500 leading-normal">{{ $helperText }}</p>
     @endif
 
     @error($name)
