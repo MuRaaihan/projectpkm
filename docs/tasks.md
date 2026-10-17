@@ -35,7 +35,7 @@ Acuan utama: [`docs/prd.md`](./prd.md). Jika ada pertentangan antara file ini da
 
 | Fase | Nama | Prioritas | Status |
 |---|---|---|---|
-| 0 | Persiapan dan fondasi proyek | P0 | 🟨 |
+| 0 | Persiapan dan fondasi proyek | P0 | ✅ |
 | 1 | Autentikasi, peran, dan sesi | P0 | ⬜ |
 | 2 | Modul Master: akun, impor Excel, kelas | P0 | ⬜ |
 | 3 | Modul Siswa: membuat dan memantau laporan | P0 | ⬜ |
@@ -63,35 +63,35 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 - [x] `php artisan migrate` sudah dijalankan satu kali (hanya migrasi bawaan Laravel, belum ada data asli)
 
 ### Lingkungan dan proyek
-- [ ] Verifikasi lingkungan: **PHP 8.3+** (syarat Laravel 13), Composer, Node.js, dan MySQL/MariaDB (`php -v`, `composer -V`, `node -v`); **jangan** menginstal ulang atau menjalankan skrip internet
-- [ ] Verifikasi `.env`: `DB_CONNECTION=mysql`, `DB_HOST=127.0.0.1`, `DB_PORT=3306`, `DB_DATABASE=db_project` (bukan SQLite, yang merupakan bawaan Laravel bila `.env` belum diubah)
-- [ ] Jalankan `php artisan db:show` dan pastikan terhubung ke **MySQL/MariaDB `db_project`**, serta tabel bawaan (`users`, `sessions`, `cache`, `jobs`, dll.) ada di sana. Jika tabel justru ada di `database/database.sqlite`, perbaiki `.env` lalu `php artisan migrate` ulang
-- [ ] Pastikan `AGENTS.md` berisi aturan SISPERKA dan **tidak** lagi berisi petunjuk bootstrap lama (tag `<laravel-boost-guidelines>`)
-- [ ] Pastikan Taste Skill terdeteksi agent (panel Customizations atau tanya agent), dan stack tampilan tetap **Blade + Tailwind**
-- [ ] Inisialisasi Git (bila belum), pastikan `.gitignore` memuat `.env`, `vendor/`, `node_modules/`, file bukti di `storage/`, dan backup; buat commit awal
-- [ ] Buat `.env.example` tanpa nilai rahasia
-- [ ] Atur zona waktu `Asia/Jakarta` dan bahasa `id`
-- [ ] **Jangan** mengubah migrasi bawaan atau menjalankan `migrate:fresh` pada Fase 0 (dilakukan di Fase 1)
+- [x] Verifikasi lingkungan: **PHP 8.3+** (syarat Laravel 13), Composer, Node.js, dan MySQL/MariaDB (`php -v`, `composer -V`, `node -v`); **jangan** menginstal ulang atau menjalankan skrip internet
+- [x] Verifikasi `.env`: `DB_CONNECTION=mysql` (diset `mariadb`), `DB_HOST=127.0.0.1`, `DB_PORT=3306`, `DB_DATABASE=db_project` (bukan SQLite, yang merupakan bawaan Laravel bila `.env` belum diubah)
+- [x] Jalankan `php artisan db:show` dan pastikan terhubung ke **MySQL/MariaDB `db_project`**, serta tabel bawaan (`users`, `sessions`, `cache`, `jobs`, dll.) ada di sana. Jika tabel justru ada di `database/database.sqlite`, perbaiki `.env` lalu `php artisan migrate` ulang
+- [x] Pastikan `AGENTS.md` berisi aturan SISPERKA dan **tidak** lagi berisi petunjuk bootstrap lama (tag `<laravel-boost-guidelines>`)
+- [x] Pastikan Taste Skill terdeteksi agent (panel Customizations atau tanya agent), dan stack tampilan tetap **Blade + Tailwind**
+- [x] Inisialisasi Git (bila belum), pastikan `.gitignore` memuat `.env`, `vendor/`, `node_modules/`, file bukti di `storage/`, dan backup; buat commit awal
+- [x] Buat `.env.example` tanpa nilai rahasia
+- [x] Atur zona waktu `Asia/Jakarta` dan bahasa `id`
+- [x] **Jangan** mengubah migrasi bawaan atau menjalankan `migrate:fresh` pada Fase 0 (dilakukan di Fase 1)
 
 ### Paket dan tampilan
-- [ ] Pasang Tailwind CSS (atau Bootstrap, sesuai keputusan)
-- [ ] Peran memakai kolom `role` + Policy/middleware (Spatie Permission **tidak dipakai** pada versi 1)
-- [ ] Pasang `maatwebsite/excel` (impor/ekspor Excel); **pastikan versinya mendukung Laravel 13**
-- [ ] Pasang `barryvdh/laravel-dompdf` (ekspor PDF); **pastikan versinya mendukung Laravel 13**
-- [ ] Siapkan layout dasar yang responsif (mobile-first): layout publik dan layout dashboard
-- [ ] Siapkan komponen UI dasar: tombol, form, tabel, kartu, modal konfirmasi, penanda notifikasi, pesan sukses/gagal
+- [x] Pasang Tailwind CSS (atau Bootstrap, sesuai keputusan)
+- [x] Peran memakai kolom `role` + Policy/middleware (Spatie Permission **tidak dipakai** pada versi 1)
+- [x] Pasang `maatwebsite/excel` (impor/ekspor Excel); **pastikan versinya mendukung Laravel 13**
+- [x] Pasang `barryvdh/laravel-dompdf` (ekspor PDF); **pastikan versinya mendukung Laravel 13**
+- [x] Siapkan layout dasar yang responsif (mobile-first): layout publik dan layout dashboard
+- [x] Siapkan komponen UI dasar: tombol, form, tabel, kartu, modal konfirmasi, penanda notifikasi, pesan sukses/gagal
 
 ### Fondasi
-- [ ] Pastikan struktur dokumentasi lengkap (`docs/` dan `AGENTS.md`); tidak perlu membuat ulang
-- [ ] Siapkan kerangka seeder awal: **minimal 2 akun Master** (password dari `.env`/prompt, bukan ditulis di kode); pembuatannya baru dijalankan setelah tabel `users` disesuaikan di Fase 1
+- [x] Pastikan struktur dokumentasi lengkap (`docs/` dan `AGENTS.md`); tidak perlu membuat ulang
+- [x] Siapkan kerangka seeder awal: **minimal 2 akun Master** (password dari `.env`/prompt, bukan ditulis di kode); pembuatannya baru dijalankan setelah tabel `users` disesuaikan di Fase 1
 
 **Gerbang Fase 0**
-- [ ] `php artisan serve` berjalan tanpa error
-- [ ] `php artisan db:show` menunjukkan **MySQL/MariaDB** dengan database **`db_project`**
-- [ ] Tabel bawaan berada di `db_project` (bukan SQLite)
-- [ ] `AGENTS.md` tanpa petunjuk bootstrap lama
-- [ ] `.env` tidak masuk Git (`git status` bersih dari `.env`)
-- [ ] Commit Git awal sudah dibuat
+- [x] `php artisan serve` berjalan tanpa error
+- [x] `php artisan db:show` menunjukkan **MySQL/MariaDB** dengan database **`db_project`**
+- [x] Tabel bawaan berada di `db_project` (bukan SQLite)
+- [x] `AGENTS.md` tanpa petunjuk bootstrap lama
+- [x] `.env` tidak masuk Git (`git status` bersih dari `.env`)
+- [x] Commit Git awal sudah dibuat
 
 ---
 
