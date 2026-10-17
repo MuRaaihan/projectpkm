@@ -26,20 +26,42 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'role' => 'siswa',
+            'login_id' => fake()->unique()->numerify('######'),
+            'password' => static::$password ??= Hash::make('Password123!'),
+            'is_active' => true,
+            'must_change_password' => false,
             'remember_token' => Str::random(10),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
+    public function master(): static
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'role' => 'master',
+            'login_id' => 'master_'.fake()->unique()->word(),
+        ]);
+    }
+
+    public function bk(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'bk',
+            'login_id' => fake()->unique()->numerify('19850101########'),
+        ]);
+    }
+
+    public function inactive(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_active' => false,
+        ]);
+    }
+
+    public function mustChangePassword(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'must_change_password' => true,
         ]);
     }
 }

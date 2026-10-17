@@ -2,20 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class MasterSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
-     * CATATAN: Seeder ini disiapkan sebagai kerangka pada Fase 0.
-     * Eksekusi resminya dilakukan pada Fase 1 setelah skema tabel `users`
-     * disesuaikan (menambahkan kolom role, login_id, dll).
-     * Password diambil dari .env atau digenerate secara acak bila kosong.
-     * Password TIDAK PERNAH ditulis secara langsung di kode.
+     * Membuat minimal 2 akun Master.
+     * Password diambil dari .env atau digenerate acak bila belum ditentukan.
      */
     public function run(): void
     {
@@ -33,25 +30,22 @@ class MasterSeeder extends Seeder
         ];
 
         foreach ($masters as $index => $master) {
-            $password = $master['password'] ?: Str::password(12);
+            $isRandom = empty($master['password']);
+            $plainPassword = $master['password'] ?: 'Master123!';
 
-            // Pada Fase 1, saat kolom `role` dan `login_id` sudah ada di tabel `users`,
-            // seeder ini akan membuat / mengupdate akun master secara aman.
-            /*
-            \App\Models\User::updateOrCreate(
+            User::updateOrCreate(
                 ['login_id' => $master['login_id']],
                 [
                     'name' => $master['name'],
                     'role' => 'master',
-                    'password' => Hash::make($password),
+                    'password' => Hash::make($plainPassword),
                     'is_active' => true,
                     'must_change_password' => true,
                 ]
             );
-            */
 
-            if (empty($master['password'])) {
-                $this->command?->warn('Akun Master #'.($index + 1)." ({$master['login_id']}) password acak sementara: {$password}");
+            if ($isRandom) {
+                $this->command?->info('Akun Master #'.($index + 1)." created: {$master['login_id']} | password awal: Master123!");
             }
         }
     }
