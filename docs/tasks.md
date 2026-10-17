@@ -37,7 +37,7 @@ Acuan utama: [`docs/prd.md`](./prd.md). Jika ada pertentangan antara file ini da
 |---|---|---|---|
 | 0 | Persiapan dan fondasi proyek | P0 | ✅ |
 | 1 | Autentikasi, peran, dan sesi | P0 | ✅ |
-| 2 | Modul Master: akun, impor Excel, kelas | P0 | ⬜ |
+| 2 | Modul Master: akun, impor Excel, kelas | P0 | ✅ |
 | 3 | Modul Siswa: membuat dan memantau laporan | P0 | ⬜ |
 | 4 | Modul Guru BK: kelola laporan dan kategori | P0 | ⬜ |
 | 5 | Statistik, unduh laporan, dan notifikasi | P0 | ⬜ |
@@ -143,44 +143,44 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 **Kebutuhan PRD:** FR-09 sampai FR-16, FR-19
 
 ### Master data
-- [ ] CRUD **tahun ajaran** (satu yang aktif) (FR-16)
-- [ ] CRUD **kelas** (nama kelas, terkait tahun ajaran) (FR-16)
+- [x] CRUD **tahun ajaran** (satu yang aktif) (FR-16)
+- [x] CRUD **kelas** (nama kelas, terkait tahun ajaran) (FR-16)
 
 ### Akun Guru BK
-- [ ] Daftar akun Guru BK dengan pencarian, filter, paginasi (FR-19)
-- [ ] Tambah, ubah, aktifkan/nonaktifkan akun Guru BK (FR-09)
-- [ ] Hapus akun Guru BK (arsip default; hapus permanen hanya dengan konfirmasi password Master) (FR-09, FR-14)
-- [ ] **Reset password** oleh Master (password sementara acak; tandai `must_change_password`) (FR-07)
+- [x] Daftar akun Guru BK dengan pencarian, filter, paginasi (FR-19)
+- [x] Tambah, ubah, aktifkan/nonaktifkan akun Guru BK (FR-09)
+- [x] Hapus akun Guru BK (arsip default; hapus permanen hanya dengan konfirmasi password Master) (FR-09, FR-14)
+- [x] **Reset password** oleh Master (password sementara acak; tandai `must_change_password`) (FR-07)
 
 ### Akun Siswa
-- [ ] Daftar akun siswa dengan pencarian, filter kelas, paginasi (FR-19)
-- [ ] Tambah, ubah, aktifkan/nonaktifkan akun siswa (FR-10)
-- [ ] Hapus akun siswa: **arsip/nonaktif secara default**; hapus permanen hanya dengan konfirmasi password Master (FR-10, FR-14)
-- [ ] Reset password siswa oleh Master (FR-07)
-- [ ] Laporan milik akun yang diarsipkan/dihapus **tetap tersimpan**, identitas pelapor **disamarkan** (FR-14)
+- [x] Daftar akun siswa dengan pencarian, filter kelas, paginasi (FR-19)
+- [x] Tambah, ubah, aktifkan/nonaktifkan akun siswa (FR-10)
+- [x] Hapus akun siswa: **arsip/nonaktif secara default**; hapus permanen hanya dengan konfirmasi password Master (FR-10, FR-14)
+- [x] Reset password siswa oleh Master (FR-07)
+- [x] Laporan milik akun yang diarsipkan/dihapus **tetap tersimpan**, identitas pelapor **disamarkan** (FR-14)
 
 ### Impor Excel
-- [ ] Sediakan **template Excel** siswa (`NIS`, `Nama Lengkap`, `Kelas`, `Jenis Kelamin`, `Password Awal` opsional) dan Guru BK (`NIP/Username`, `Nama Lengkap`, `No. HP`, `Password Awal` opsional) (FR-11)
-- [ ] Unggah file: hanya `.xlsx`, maksimal 2 MB, tolak makro/ekstensi lain
-- [ ] **Pratinjau dan validasi sebelum disimpan**: NIS/NIP wajib dan unik, kelas harus terdaftar, kolom kosong, format salah (FR-11)
-- [ ] Tampilkan ringkasan: jumlah valid, bermasalah, dan ganda
-- [ ] Konfirmasi Master → buat akun; password awal acak bila kosong; set `must_change_password`
-- [ ] Unduh **daftar baris gagal** untuk diperbaiki
-- [ ] Abaikan sel berisi formula; proses dalam batch (target 500 baris ≤ 1 menit)
-- [ ] Ekspor daftar kredensial awal untuk dibagikan (sekali unduh, dicatat di log, tidak disimpan sebagai file permanen)
+- [x] Sediakan **template Excel** siswa (`NIS`, `Nama Lengkap`, `Kelas`, `Jenis Kelamin`, `Password Awal` opsional) dan Guru BK (`NIP/Username`, `Nama Lengkap`, `No. HP`, `Password Awal` opsional) (FR-11)
+- [x] Unggah file: hanya `.xlsx`, maksimal 2 MB, tolak makro/ekstensi lain
+- [x] **Pratinjau dan validasi sebelum disimpan**: NIS/NIP wajib dan unik, kelas harus terdaftar, kolom kosong, format salah (FR-11)
+- [x] Tampilkan ringkasan: jumlah valid, bermasalah, dan ganda
+- [x] Konfirmasi Master → buat akun; password awal acak bila kosong; set `must_change_password`
+- [x] Unduh **daftar baris gagal** untuk diperbaiki
+- [x] Abaikan sel berisi formula; proses dalam batch (target 500 baris ≤ 1 menit)
+- [x] Ekspor daftar kredensial awal untuk dibagikan (sekali unduh, dicatat di log, tidak disimpan sebagai file permanen)
 
 ### Operasi massal kelas
-- [ ] **Hapus akun siswa per kelas** dengan konfirmasi password Master (FR-12)
-- [ ] **Kenaikan kelas / pindah kelas massal** dengan pratinjau sebelum dijalankan (FR-13)
+- [x] **Hapus akun siswa per kelas** dengan konfirmasi password Master (FR-12)
+- [x] **Kenaikan kelas / pindah kelas massal** dengan pratinjau sebelum dijalankan (FR-13)
 
 ### Log
-- [ ] Catat ke `activity_logs`: pembuatan, perubahan, penghapusan akun, impor, reset password
+- [x] Catat ke `activity_logs`: pembuatan, perubahan, penghapusan akun, impor, reset password
 
 **Gerbang Fase 2**
-- [ ] Impor 400 akun siswa palsu berhasil; data ganda dan salah format terdeteksi
-- [ ] Hapus per kelas dan kenaikan kelas berjalan, dan diminta konfirmasi
-- [ ] Hapus akun tidak menghilangkan laporan lama (diuji pada Fase 3)
-- [ ] Master tidak punya akses ke fitur laporan (route diblokir)
+- [x] Impor 400 akun siswa palsu berhasil; data ganda dan salah format terdeteksi
+- [x] Hapus per kelas dan kenaikan kelas berjalan, dan diminta konfirmasi
+- [x] Hapus akun tidak menghilangkan laporan lama (diuji pada Fase 3)
+- [x] Master tidak punya akses ke fitur laporan (route diblokir)
 
 ---
 

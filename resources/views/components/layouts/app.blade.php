@@ -46,6 +46,19 @@
                         <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border {{ $roleColors[$role] ?? 'bg-slate-100 text-slate-700' }}">
                             {{ $roleLabels[$role] ?? ucfirst($role) }}
                         </span>
+
+                        @if($role === 'master')
+                            <nav class="hidden xl:flex items-center gap-1 ml-4 text-xs font-medium text-slate-600">
+                                <a href="{{ route('master.dashboard') }}" class="px-2 py-1 rounded-md hover:bg-slate-100 hover:text-slate-900 {{ request()->routeIs('master.dashboard') ? 'bg-purple-50 text-purple-700 font-semibold' : '' }}">Dashboard</a>
+                                <a href="{{ route('master.students.index') }}" class="px-2 py-1 rounded-md hover:bg-slate-100 hover:text-slate-900 {{ request()->routeIs('master.students.*') ? 'bg-purple-50 text-purple-700 font-semibold' : '' }}">Siswa</a>
+                                <a href="{{ route('master.bk-users.index') }}" class="px-2 py-1 rounded-md hover:bg-slate-100 hover:text-slate-900 {{ request()->routeIs('master.bk-users.*') ? 'bg-purple-50 text-purple-700 font-semibold' : '' }}">Guru BK</a>
+                                <a href="{{ route('master.import.index') }}" class="px-2 py-1 rounded-md hover:bg-slate-100 hover:text-slate-900 {{ request()->routeIs('master.import.*') ? 'bg-purple-50 text-purple-700 font-semibold' : '' }}">Impor</a>
+                                <a href="{{ route('master.class-operations.index') }}" class="px-2 py-1 rounded-md hover:bg-slate-100 hover:text-slate-900 {{ request()->routeIs('master.class-operations.*') ? 'bg-purple-50 text-purple-700 font-semibold' : '' }}">Operasi Kelas</a>
+                                <a href="{{ route('master.classes.index') }}" class="px-2 py-1 rounded-md hover:bg-slate-100 hover:text-slate-900 {{ request()->routeIs('master.classes.*') ? 'bg-purple-50 text-purple-700 font-semibold' : '' }}">Kelas</a>
+                                <a href="{{ route('master.academic-years.index') }}" class="px-2 py-1 rounded-md hover:bg-slate-100 hover:text-slate-900 {{ request()->routeIs('master.academic-years.*') ? 'bg-purple-50 text-purple-700 font-semibold' : '' }}">Tahun Ajaran</a>
+                                <a href="{{ route('master.activity-logs.index') }}" class="px-2 py-1 rounded-md hover:bg-slate-100 hover:text-slate-900 {{ request()->routeIs('master.activity-logs.*') ? 'bg-purple-50 text-purple-700 font-semibold' : '' }}">Log</a>
+                            </nav>
+                        @endif
                     @endauth
                 </div>
 
