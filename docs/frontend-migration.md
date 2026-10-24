@@ -48,45 +48,45 @@ Dokumen ini disusun pada **Tahap 1: Inventarisasi** untuk memetakan seluruh aset
 
 | No | Halaman / Route | View Blade Saat Ini | Desain di `frontend/` | Status Migrasi |
 |---|---|---|---|---|
-| 1 | Beranda Publik (`GET /`) | `resources/views/welcome.blade.php` | `frontend/src/app/page.tsx` | **Ada desain** |
-| 2 | Kebijakan Privasi (`GET /kebijakan-privasi`) | `resources/views/privacy.blade.php` | Tidak ada desain khusus (ada modal/card privasi di berbagai halaman) | **Tidak ada desain (tiru gaya)** |
-| 3 | Login Universal (`GET /login`, `POST /login`) | `resources/views/auth/login.blade.php` | `frontend/src/app/login/page.tsx` | **Ada desain** |
-| 4 | Tantangan 2FA (`GET /two-factor-challenge`, `POST /two-factor-challenge`) | `resources/views/auth/two-factor-challenge.blade.php` | `frontend/src/components/ui/OTPInput.tsx` (komponen OTP) | **Tidak ada desain (tiru gaya)** |
-| 5 | Ganti Password (`GET /ganti-password`, `PUT /ganti-password`) | `resources/views/auth/change-password.blade.php` | Terkandung dalam `frontend/src/app/profil/page.tsx` | **Tidak ada desain (tiru gaya)** |
-| 6 | Notifikasi (`GET /notifikasi`) | `resources/views/notifications/index.blade.php` | `frontend/src/app/admin/notifikasi/page.tsx` & `frontend/src/app/guru-bk/notifikasi/page.tsx` | **Ada desain** |
-| 7 | Dashboard Siswa (`GET /siswa/dashboard`) | `resources/views/siswa/dashboard.blade.php` | `frontend/src/app/dashboard/page.tsx` | **Ada desain** |
-| 8 | Riwayat Laporan Siswa (`GET /siswa/laporan`) | `resources/views/siswa/reports/index.blade.php` | `frontend/src/app/laporan/page.tsx` | **Ada desain** |
-| 9 | Form Buat Laporan Siswa (`GET /siswa/laporan/buat`, `POST /siswa/laporan`) | `resources/views/siswa/reports/create.blade.php` | `frontend/src/app/laporan/buat/page.tsx` | **Ada desain** |
-| 10 | Detail Laporan Siswa (`GET /siswa/laporan/{report}`) | `resources/views/siswa/reports/show.blade.php` | `frontend/src/app/laporan/[id]/page.tsx` | **Ada desain** |
-| 11 | Bantuan & Kontak Siswa (`GET /siswa/bantuan`) | `resources/views/siswa/bantuan.blade.php` | Tidak ada halaman khusus (kontak ringkas di profil/beranda) | **Tidak ada desain (tiru gaya)** |
-| 12 | Profil Siswa (`GET /siswa/profil`) | `resources/views/siswa/profile.blade.php` | `frontend/src/app/profil/page.tsx` | **Ada desain** |
-| 13 | Dashboard Guru BK (`GET /bk/dashboard`) | `resources/views/bk/dashboard.blade.php` | `frontend/src/app/guru-bk/dashboard/page.tsx` | **Ada desain** |
-| 14 | Daftar Laporan Guru BK (`GET /bk/laporan`) | `resources/views/bk/reports/index.blade.php` | `frontend/src/app/guru-bk/laporan/page.tsx` | **Ada desain** |
-| 15 | Detail & Aksi Laporan BK (`GET /bk/laporan/{report}`) | `resources/views/bk/reports/show.blade.php` | `frontend/src/app/guru-bk/laporan/[id]/page.tsx` | **Ada desain** |
-| 16 | Unduh Laporan PDF/Excel (`GET /bk/unduh-laporan`) | `resources/views/bk/reports/download.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 17 | Kelola Kategori Perundungan (`GET /bk/kategori`) | `resources/views/bk/categories/index.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 18 | Statistik Guru BK (`GET /bk/statistik`) | `resources/views/bk/statistics/index.blade.php` | `frontend/src/app/guru-bk/statistik/page.tsx` | **Ada desain** |
-| 19 | Profil Guru BK (`GET /bk/profil`) | `resources/views/bk/profile/show.blade.php` | `frontend/src/app/guru-bk/profil/page.tsx` | **Ada desain** |
-| 20 | Setup 2FA Staf (`GET /two-factor-setup`) | `resources/views/auth/two-factor-setup.blade.php` | Terkandung dalam profil | **Tidak ada desain (tiru gaya)** |
-| 21 | Laporan Periodik Otomatis (`GET /laporan-periodik`) | `resources/views/reports/periodic/index.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 22 | Detail Laporan Periodik (`GET /laporan-periodik/{summary}`) | `resources/views/reports/periodic/show.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 23 | Dashboard Master Admin (`GET /master/dashboard`) | `resources/views/master/dashboard.blade.php` | `frontend/src/app/admin/dashboard/page.tsx` | **Ada desain** |
-| 24 | Manajemen Akun Siswa (`GET /master/students`) | `resources/views/master/students/index.blade.php` | `frontend/src/app/admin/pengguna/page.tsx` | **Ada desain** |
-| 25 | Form Tambah/Ubah Siswa (`GET /master/students/create`, `edit`) | `resources/views/master/students/create.blade.php`, `edit.blade.php` | Modal di `admin/pengguna` | **Ada desain** |
-| 26 | Manajemen Akun Guru BK (`GET /master/bk-users`) | `resources/views/master/bk-users/index.blade.php` | `frontend/src/app/admin/pengguna/page.tsx` (filter Guru BK) | **Ada desain** |
-| 27 | Form Tambah/Ubah Guru BK (`GET /master/bk-users/create`, `edit`) | `resources/views/master/bk-users/create.blade.php`, `edit.blade.php` | Modal `Tambah Guru BK` di `admin/pengguna` | **Ada desain** |
-| 28 | Master Data: Kelas (`GET /master/classes`) | `resources/views/master/classes/index.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 29 | Master Data: Tahun Ajaran (`GET /master/academic-years`) | `resources/views/master/academic-years/index.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 30 | Operasi Massal Kelas (`GET /master/class-operations`) | `resources/views/master/class-operations/index.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 31 | Impor Pengguna Excel (`GET /master/import`) | `resources/views/master/import/index.blade.php` | `frontend/src/components/ui/FileUpload.tsx` | **Ada desain (komponen file upload)** |
-| 32 | Pratinjau & Hasil Impor (`POST /master/import/preview`, `success`) | `resources/views/master/import/preview.blade.php`, `success.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 33 | Log Audit Aktivitas (`GET /master/activity-logs`) | `resources/views/master/activity-logs/index.blade.php` | Widget riwayat di `admin/dashboard` | **Tidak ada desain (tiru gaya)** |
-| 34 | Pengaturan Website (`GET /master/settings`) | `resources/views/master/settings/index.blade.php` | Tidak ada halaman khusus | **Tidak ada desain (tiru gaya)** |
-| 35 | Halaman Error 403 / 404 / 500 | `resources/views/errors/403.blade.php` | Tidak ada halaman error khusus | **Tidak ada desain (tiru gaya)** |
-| - | Registrasi Siswa Mandiri (`/register`) | *Tidak ada di backend* | `frontend/src/app/register/page.tsx` | **Desain tanpa backend (abaikan/dilarang oleh aturan keamanan SISPERKA)** |
-| - | Lupa Password Mandiri (`/lupa-password`) | *Tidak ada di backend* | `frontend/src/app/lupa-password/page.tsx` | **Desain tanpa backend (abaikan/dilarang oleh aturan keamanan SISPERKA)** |
-| - | Admin Monitoring Laporan (`/admin/laporan`) | *Tidak ada di backend* | `frontend/src/app/admin/laporan/page.tsx` | **Desain tanpa backend (bertentangan langsung dengan aturan privasi Master)** |
-| - | Konfirmasi & Sukses Buat Laporan Terpisah (`/laporan/konfirmasi`, `/laporan/sukses`) | *Terintegrasi di form `create` & redirect ke `show`* | `frontend/src/app/laporan/konfirmasi`, `sukses` | **Desain terpisah tanpa route terpisah di backend (sesuaikan di view Blade)** |
+| 1 | Beranda Publik (`GET /`) | `resources/views/welcome.blade.php` | `frontend/src/app/page.tsx` | **Selesai 100%** (`4ef8374`) |
+| 2 | Kebijakan Privasi (`GET /kebijakan-privasi`) | `resources/views/privacy.blade.php` | Diadaptasi dari komponen modal/card privasi | **Selesai 100%** (`8cb0649`) |
+| 3 | Login Universal (`GET /login`, `POST /login`) | `resources/views/auth/login.blade.php` | `frontend/src/app/login/page.tsx` | **Selesai 100%** (`72bf5f8`) |
+| 4 | Tantangan 2FA (`GET /two-factor-challenge`, `POST /two-factor-challenge`) | `resources/views/auth/two-factor-challenge.blade.php` | Diadaptasi dari `frontend/src/components/ui/OTPInput.tsx` | **Selesai 100%** (`10a5b22`) |
+| 5 | Ganti Password (`GET /ganti-password`, `PUT /ganti-password`) | `resources/views/auth/change-password.blade.php` | Diadaptasi dari `frontend/src/app/profil/page.tsx` | **Selesai 100%** (`10a5b22`) |
+| 6 | Notifikasi (`GET /notifikasi`) | `resources/views/notifications/index.blade.php` | `frontend/src/app/admin/notifikasi/page.tsx` & `frontend/src/app/guru-bk/notifikasi/page.tsx` | **Selesai 100%** (`35946c5`) |
+| 7 | Dashboard Siswa (`GET /siswa/dashboard`) | `resources/views/siswa/dashboard.blade.php` | `frontend/src/app/dashboard/page.tsx` | **Selesai 100%** (`b0b9e2f`) |
+| 8 | Riwayat Laporan Siswa (`GET /siswa/laporan`) | `resources/views/siswa/reports/index.blade.php` | `frontend/src/app/laporan/page.tsx` | **Selesai 100%** (`e3c3dae`) |
+| 9 | Form Buat Laporan Siswa (`GET /siswa/laporan/buat`, `POST /siswa/laporan`) | `resources/views/siswa/reports/create.blade.php` | `frontend/src/app/laporan/buat/page.tsx` | **Selesai 100%** (`e28b9c4`) |
+| 10 | Detail Laporan Siswa (`GET /siswa/laporan/{report}`) | `resources/views/siswa/reports/show.blade.php` | `frontend/src/app/laporan/[id]/page.tsx` | **Selesai 100%** (`e3c3dae`) |
+| 11 | Bantuan & Kontak Siswa (`GET /siswa/bantuan`) | `resources/views/siswa/bantuan.blade.php` | Diadaptasi konsisten dengan gaya SISPERKA | **Selesai 100%** (`8cb0649`) |
+| 12 | Profil Siswa (`GET /siswa/profil`) | `resources/views/siswa/profile.blade.php` | `frontend/src/app/profil/page.tsx` | **Selesai 100%** (`5fbdbb3`) |
+| 13 | Dashboard Guru BK (`GET /bk/dashboard`) | `resources/views/bk/dashboard.blade.php` | `frontend/src/app/guru-bk/dashboard/page.tsx` | **Selesai 100%** (`ae93efd`) |
+| 14 | Daftar Laporan Guru BK (`GET /bk/laporan`) | `resources/views/bk/reports/index.blade.php` | `frontend/src/app/guru-bk/laporan/page.tsx` | **Selesai 100%** (`47cf7dd`) |
+| 15 | Detail & Aksi Laporan BK (`GET /bk/laporan/{report}`) | `resources/views/bk/reports/show.blade.php` | `frontend/src/app/guru-bk/laporan/[id]/page.tsx` | **Selesai 100%** (`47cf7dd`) |
+| 16 | Unduh Laporan PDF/Excel (`GET /bk/unduh-laporan`) | `resources/views/bk/reports/download.blade.php` | Diadaptasi dari kartu rekap dan filter BK | **Selesai 100%** (`6eca939`) |
+| 17 | Kelola Kategori Perundungan (`GET /bk/kategori`) | `resources/views/bk/categories/index.blade.php` | Diadaptasi konsisten dari tabel data & modal | **Selesai 100%** (`6eca939`) |
+| 18 | Statistik Guru BK (`GET /bk/statistik`) | `resources/views/bk/statistics/index.blade.php` | `frontend/src/app/guru-bk/statistik/page.tsx` | **Selesai 100%** (`ee68e23`) |
+| 19 | Profil Guru BK (`GET /bk/profil`) | `resources/views/bk/profile/show.blade.php` | `frontend/src/app/guru-bk/profil/page.tsx` | **Selesai 100%** (`ee68e23`) |
+| 20 | Setup 2FA Staf (`GET /two-factor-setup`) | `resources/views/auth/two-factor-setup.blade.php` | Diadaptasi konsisten dari profil & OTP setup | **Selesai 100%** (`10a5b22`) |
+| 21 | Laporan Periodik Otomatis (`GET /laporan-periodik`) | `resources/views/reports/periodic/index.blade.php` | Diadaptasi dari kartu laporan rekapitulasi | **Selesai 100%** (`cc4f4c8`) |
+| 22 | Detail Laporan Periodik (`GET /laporan-periodik/{summary}`) | `resources/views/reports/periodic/show.blade.php` | Diadaptasi konsisten dari detail statistik | **Selesai 100%** (`cc4f4c8`) |
+| 23 | Dashboard Master Admin (`GET /master/dashboard`) | `resources/views/master/dashboard.blade.php` | `frontend/src/app/admin/dashboard/page.tsx` | **Selesai 100%** (`ee68e23`) |
+| 24 | Manajemen Akun Siswa (`GET /master/students`) | `resources/views/master/students/index.blade.php` | `frontend/src/app/admin/pengguna/page.tsx` | **Selesai 100%** (`10a05a0`) |
+| 25 | Form Tambah/Ubah Siswa (`GET /master/students/create`, `edit`) | `resources/views/master/students/create.blade.php`, `edit.blade.php` | Modal di `admin/pengguna` | **Selesai 100%** (`10a05a0`) |
+| 26 | Manajemen Akun Guru BK (`GET /master/bk-users`) | `resources/views/master/bk-users/index.blade.php` | `frontend/src/app/admin/pengguna/page.tsx` (filter Guru BK) | **Selesai 100%** (`10a05a0`) |
+| 27 | Form Tambah/Ubah Guru BK (`GET /master/bk-users/create`, `edit`) | `resources/views/master/bk-users/create.blade.php`, `edit.blade.php` | Modal `Tambah Guru BK` di `admin/pengguna` | **Selesai 100%** (`10a05a0`) |
+| 28 | Master Data: Kelas (`GET /master/classes`) | `resources/views/master/classes/index.blade.php` | Diadaptasi konsisten dari tabel data modern | **Selesai 100%** (`3ef9c53`) |
+| 29 | Master Data: Tahun Ajaran (`GET /master/academic-years`) | `resources/views/master/academic-years/index.blade.php` | Diadaptasi konsisten dari tabel data modern | **Selesai 100%** (`3ef9c53`) |
+| 30 | Operasi Massal Kelas (`GET /master/class-operations`) | `resources/views/master/class-operations/index.blade.php` | Diadaptasi konsisten dari kartu operasi multi-langkah | **Selesai 100%** (`3ef9c53`) |
+| 31 | Impor Pengguna Excel (`GET /master/import`) | `resources/views/master/import/index.blade.php` | `frontend/src/components/ui/FileUpload.tsx` | **Selesai 100%** (`5eccd8f`) |
+| 32 | Pratinjau & Hasil Impor (`POST /master/import/preview`, `success`) | `resources/views/master/import/preview.blade.php`, `success.blade.php` | Diadaptasi konsisten dari tabel validasi & hasil | **Selesai 100%** (`5eccd8f`) |
+| 33 | Log Audit Aktivitas (`GET /master/activity-logs`) | `resources/views/master/activity-logs/index.blade.php` | Widget riwayat di `admin/dashboard` | **Selesai 100%** (`e8e7e2c`) |
+| 34 | Pengaturan Website (`GET /master/settings`) | `resources/views/master/settings/index.blade.php` | Diadaptasi konsisten dari form pengaturan modern | **Selesai 100%** (`e8e7e2c`) |
+| 35 | Halaman Error 403 / 404 / 500 | `resources/views/errors/403.blade.php`, `404`, `500` | Diadaptasi konsisten dengan ilustrasi ramah madrasah | **Selesai 100%** (`362a29e`) |
+| - | Template Cetak Rekapitulasi PDF BK | `resources/views/bk/reports/export_pdf.blade.php` | Diadaptasi format cetak resmi madrasah | **Selesai 100%** (`2393c70`) |
+| - | Registrasi Siswa Mandiri (`/register`) | *Tidak ada di backend* | `frontend/src/app/register/page.tsx` | **Diabaikan (Sesuai Aturan Keamanan SISPERKA)** |
+| - | Lupa Password Mandiri (`/lupa-password`) | *Tidak ada di backend* | `frontend/src/app/lupa-password/page.tsx` | **Diabaikan (Siswa Melapor ke Guru BK)** |
+| - | Admin Monitoring Laporan (`/admin/laporan`) | *Tidak ada di backend* | `frontend/src/app/admin/laporan/page.tsx` | **Dilarang (Perlindungan Kerahasiaan Korban)** |
 
 ---
 
@@ -179,7 +179,7 @@ Dokumen ini disusun pada **Tahap 1: Inventarisasi** untuk memetakan seluruh aset
 - **Route / URL:** `route('master.dashboard')`
 - **Variabel Controller:**
   - `$students_count`, `$bk_count`, `$classes_count`, `$active_year`
-  - `$report_stats`: statistik agregat (total, per status, per kategori, per kelas).
+  - `$report_stats`: statistik agregat (`total_reports`, `new_reports`, `active_reports`, `resolved_reports`, `rejected_reports`, `monthly_trend`, `category_distribution`, `status_distribution`, `grade_distribution`).
 - **Aturan Privasi Mutlak:** Master **TIDAK** menerima daftar laporan, isi kronologi, maupun identitas siswa pelapor.
 
 ### 3.12 Manajemen Pengguna Siswa & BK (`master/students`, `master/bk-users`)
@@ -198,42 +198,80 @@ Dokumen ini disusun pada **Tahap 1: Inventarisasi** untuk memetakan seluruh aset
 
 1. **Konflik Arsitektur (Next.js vs Laravel Blade):**
    - *Temuan:* Folder `frontend/` dibuat menggunakan Next.js + React.
-   - *Solusi:* Seluruh markup JSX dan styling Tailwind v4 dikonversi menjadi Blade components (`<x-button>`, `<x-input>`, `<x-card>`, `<x-status-badge>`, `<x-layouts.app>`, dll.) dan Alpine.js untuk reaktivitas ringan (modal, toggle tab, accordion FAQ).
+   - *Solusi:* Seluruh markup JSX dan styling Tailwind v4 dikonversi menjadi Blade components (`<x-button>`, `<x-input>`, `<x-card>`, `<x-badge>`, `<x-table>`, `<x-modal>`, `<x-layouts.app>`, dll.) dan Alpine.js untuk reaktivitas ringan (modal, toggle tab, accordion FAQ).
 2. **Halaman Desain Tanpa Backend (Dilarang Masuk):**
    - `frontend/src/app/admin/laporan`: Master dilarang oleh PRD & security checklist melihat daftar laporan. Halaman ini **TIDAK dibuat** di backend.
    - `frontend/src/app/register`: Registrasi mandiri siswa dilarang karena semua akun dibuat via data resmi madrasah. Halaman ini **diabaikan**.
    - `frontend/src/app/lupa-password`: Lupa password mandiri via email diabaikan; siswa diarahkan ke Guru BK/Wali Kelas.
 3. **Penyatuan Alur Buat Laporan:**
    - Di Next.js terdapat 3 rute browser terpisah (`/laporan/buat`, `/laporan/konfirmasi`, `/laporan/sukses`) menggunakan `sessionStorage`.
-   - Di Laravel, alur disatukan dalam 1 formulir terstruktur (dapat menggunakan progress step interaktif via Alpine.js) yang melakukan POST langsung ke `siswa.reports.store`, lalu redirect ke `siswa.reports.show` dengan pesan sukses flash.
+   - Di Laravel, alur disatukan dalam 1 formulir terstruktur menggunakan Alpine.js 3-step wizard yang melakukan POST langsung ke `siswa.reports.store`, lalu redirect ke `siswa.reports.show` dengan pesan sukses flash.
 4. **Desain Sistem & Aset:**
    - Token tema warna Emerald Green (`#176B4D`), aksen Lime (`#B8E34B`), dan status badge disinkronkan ke dalam `resources/css/app.css`.
    - Gambar `siperka-hero-v3.png` dan `logo-sekolah.png` dipindahkan ke `public/images/`.
 
 ---
 
-## 5. Rencana Eksekusi Bertahap
+## 5. Log Eksekusi & Commit Per Fitur (`feat/frontend-redesign`)
 
-- **Tahap 2:** Fondasi Desain (CSS theme tokens di `resources/css/app.css`, komponen Blade dasar, layout `public` dan `app`, serta penyalinan aset gambar).
-- **Tahap 3:** Migrasi halaman yang ada desainnya:
-  - Step 3.1: Beranda Publik (`welcome.blade.php`) & Kebijakan Privasi (`privacy.blade.php`)
-  - Step 3.2: Login Universal (`auth/login.blade.php`)
-  - Step 3.3: Dashboard Siswa (`siswa/dashboard.blade.php`)
-  - Step 3.4: Form Buat Laporan Siswa (`siswa/reports/create.blade.php`)
-  - Step 3.5: Riwayat & Detail Laporan Siswa (`siswa/reports/index.blade.php`, `show.blade.php`)
-  - Step 3.6: Profil Siswa (`siswa/profile.blade.php`)
-  - Step 3.7: Dashboard Guru BK (`bk/dashboard.blade.php`)
-  - Step 3.8: Daftar & Detail Laporan Guru BK (`bk/reports/index.blade.php`, `show.blade.php`)
-  - Step 3.9: Statistik Guru BK (`bk/statistics/index.blade.php`)
-  - Step 3.10: Profil Guru BK (`bk/profile/show.blade.php`)
-  - Step 3.11: Dashboard Master Admin (`master/dashboard.blade.php`)
-  - Step 3.12: Manajemen Pengguna Siswa & BK (`master/students/*`, `master/bk-users/*`)
-  - Step 3.13: Notifikasi (`notifications/index.blade.php`)
-- **Tahap 4:** Halaman yang belum ada desainnya (tiru gaya):
-  - Step 4.1: Master Data Kelas & Tahun Ajaran
-  - Step 4.2: Operasi Massal Kelas & Impor Excel
-  - Step 4.3: Kelola Kategori & Unduh Laporan Resmi BK
-  - Step 4.4: 2FA Setup & Challenge
-  - Step 4.5: Laporan Periodik Otomatis & Log Audit & Pengaturan Website
-  - Step 4.6: Halaman Error (403, 404, 500)
-- **Tahap 5 & 6:** Pembersihan, verifikasi tes otomatis (`php artisan test`), build (`npm run build`), dan dokumentasi changelog.
+Semua perubahan dilakukan di branch `feat/frontend-redesign` secara granular per fitur/halaman:
+
+1. `4ef8374` - `feat(frontend): fondasi design system dan migrasi beranda publik (welcome.blade.php)`
+2. `72bf5f8` - `feat(frontend): migrasi halaman login universal (auth/login.blade.php)`
+3. `b0b9e2f` - `feat(frontend): migrasi dashboard siswa (siswa/dashboard.blade.php)`
+4. `e28b9c4` - `feat(frontend): migrasi form buat laporan siswa multi-step (siswa/reports/create.blade.php)`
+5. `e3c3dae` - `feat(frontend): migrasi riwayat dan detail laporan siswa (siswa/reports/index & show)`
+6. `5fbdbb3` - `feat(frontend): migrasi profil siswa (siswa/profile.blade.php)`
+7. `ae93efd` - `feat(frontend): migrasi dashboard guru bk (bk/dashboard.blade.php)`
+8. `47cf7dd` - `feat(frontend): migrasi daftar dan detail laporan guru bk (bk/reports/index & show)`
+9. `ee68e23` - `feat(frontend): migrasi statistik bk, profil bk, dan dashboard master`
+10. `35946c5` - `feat(frontend): migrasi halaman notifikasi pengguna (notifications/index.blade.php)`
+11. `10a05a0` - `feat(frontend): migrasi halaman manajemen akun siswa dan guru bk master`
+12. `8cb0649` - `feat(frontend): migrasi halaman kebijakan privasi dan pusat bantuan siswa`
+13. `6eca939` - `feat(frontend): migrasi halaman kelola kategori perundungan dan unduh rekap laporan bk`
+14. `3ef9c53` - `feat(frontend): migrasi halaman master data kelas, tahun ajaran, dan operasi massal kelas`
+15. `5eccd8f` - `feat(frontend): migrasi halaman impor akun massal excel (index, preview, success)`
+16. `e8e7e2c` - `feat(frontend): migrasi halaman log aktivitas dan pengaturan madrasah master`
+17. `10a5b22` - `feat(frontend): migrasi halaman keamanan autentikasi dua faktor (2fa) dan ubah kata sandi`
+18. `cc4f4c8` - `feat(frontend): migrasi halaman laporan periodik otomatis (index, show)`
+19. `362a29e` - `feat(frontend): migrasi halaman kesalahan sistem 403, 404, dan 500`
+20. `2393c70` - `feat(frontend): template cetak rekapitulasi laporan pdf bk`
+21. `d3140f9` - `chore: bersihkan layout lama digantikan komponen x-layouts`
+22. `cfebc87` - `feat(frontend): tambahkan dependensi chart.js dan konfigurasi app.js`
+
+---
+
+## 6. Hasil Verifikasi & Jaminan Kualitas (Tahap 5)
+
+### 6.1 Uji Build Kompilasi Frontend (`npm run build`)
+- **Status:** **SUKSES 100% (Tanpa Galat)**
+- **Aset yang Dihasilkan (Vite v6):**
+  - `public/build/assets/app-*.css`: 172.48 kB (Gzip: 26.12 kB)
+  - `public/build/assets/app-*.js`: 202.16 kB (Gzip: 67.24 kB)
+  - Plus Jakarta Sans & Instrument Sans webfonts termuat mandiri (*self-hosted*).
+
+### 6.2 Uji Rangkaian Test Otomatis (`php artisan test`)
+- **Status:** **PASS 100% (124 tests, 566 assertions, 0 failure, 0 error)**
+- **Lingkup Pengujian:**
+  - `MasterAccountManagementTest`: PASS
+  - `BkReportManagementTest`: PASS
+  - `PublicAndInformationalPagesTest`: PASS
+  - `ReleaseTwoFeaturesTest`: PASS
+  - `ReleaseThreeFeaturesTest`: PASS
+  - `ReportStatisticsAndNotificationsTest`: PASS
+  - `RoleAuthorizationTest`: PASS
+  - `SecurityHardeningAndAuditTest`: PASS
+  - `StudentReportTest`: PASS
+
+### 6.3 Integritas Kontrak Backend (Golden Rule)
+- Verifikasi via `git diff master..HEAD --name-only`:
+  - Perubahan **hanya** berada pada:
+    - `resources/views/`
+    - `resources/css/`
+    - `resources/js/`
+    - `public/images/`
+    - `package.json` & `package-lock.json`
+    - `docs/frontend-migration.md`
+  - **TIDAK ADA SATUPUN file di `app/`, `routes/`, `database/`, atau `config/` yang diubah atau di-commit.**
+  - Kontrak route, controller, middleware, policy, migration, seeder, dan response JSON tetap 100% utuh dan kompatibel.
+
