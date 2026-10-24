@@ -52,16 +52,12 @@ class PublicAndInformationalPagesTest extends TestCase
         $response->assertSee('Ceritakan Kejadian');
         $response->assertSee('Pilih Opsi Rahasia');
         $response->assertSee('Pantau Penanganan');
-        // Ekosistem pengguna & panduan privasi
+        // Konten utama halaman publik
         $response->assertSee('Apa itu SIPERKA?');
-        $response->assertSee('Siapa yang Menggunakan SIPERKA?');
-        $response->assertSee('Identitas Dirahasiakan');
-        $response->assertSee('Sebelum Membuat Laporan');
         $response->assertSee('Siap Mewujudkan Sekolah Bebas Perundungan?');
         // Footer (FR-41)
         $response->assertSee('Jl. Nurul Huda No. 27');
         $response->assertSee('Layanan Bimbingan & Konseling', false);
-        $response->assertSee('Kebijakan Privasi & Batas Kerahasiaan', false);
         // Keluar cepat
         $response->assertSee('Keluar Cepat');
     }

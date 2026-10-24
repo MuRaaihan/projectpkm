@@ -45,8 +45,6 @@
                     <a href="{{ url('/') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Beranda</a>
                     <a href="{{ url('/#tentang') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Tentang</a>
                     <a href="{{ url('/#cara-kerja') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Cara Kerja</a>
-                    <a href="{{ url('/#pengguna') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Fitur Peran</a>
-                    <a href="{{ route('privacy') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Kebijakan Privasi</a>
                 </nav>
 
                 {{-- Action Navigasi & Dark Mode Toggle --}}
@@ -102,8 +100,6 @@
             <a href="{{ url('/') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Beranda</a>
             <a href="{{ url('/#tentang') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Tentang</a>
             <a href="{{ url('/#cara-kerja') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Cara Kerja</a>
-            <a href="{{ url('/#pengguna') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Fitur Peran</a>
-            <a href="{{ route('privacy') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Kebijakan Privasi</a>
             @guest
                 <a href="{{ route('login') }}" class="block w-full text-center font-bold px-4 py-2.5 rounded-xl bg-primary-600 text-white mt-2">Mulai Menggunakan SIPERKA</a>
             @endguest
@@ -158,8 +154,6 @@
                 <a href="{{ url('/') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition">Beranda</a>
                 <a href="{{ url('/#tentang') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition">Tentang</a>
                 <a href="{{ url('/#cara-kerja') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition">Cara Kerja</a>
-                <a href="{{ url('/#pengguna') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition">Fitur Peran</a>
-                <a href="{{ route('privacy') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-semibold text-primary-700 dark:text-[#5AE39D]">Kebijakan Privasi & Batas Kerahasiaan</a>
             </div>
 
             <div class="text-xs text-slate-500 dark:text-slate-400 space-y-1 mb-6 max-w-lg">
