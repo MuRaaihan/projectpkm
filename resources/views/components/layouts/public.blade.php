@@ -43,7 +43,9 @@
                 {{-- Navigasi Tautan Publik Desktop --}}
                 <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
                     <a href="{{ url('/') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Beranda</a>
-                    <a href="{{ url('/#tata-cara') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Tata Cara</a>
+                    <a href="{{ url('/#tentang') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Tentang</a>
+                    <a href="{{ url('/#cara-kerja') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Cara Kerja</a>
+                    <a href="{{ url('/#pengguna') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Fitur Peran</a>
                     <a href="{{ url('/#alur-penanganan') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Alur Penanganan</a>
                     <a href="{{ url('/#faq') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">FAQ</a>
                     <a href="{{ route('privacy') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Kebijakan Privasi</a>
@@ -82,11 +84,33 @@
                         </a>
                     @else
                         <a href="{{ url('/login') }}" class="inline-flex items-center justify-center px-4.5 py-2 min-h-[40px] text-xs sm:text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:bg-primary-800 rounded-xl shadow-xs transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600">
-                            Masuk
+                            Lapor Sekarang
                         </a>
                     @endauth
+
+                    {{-- Hamburger Mobile Button --}}
+                    <button type="button" 
+                            onclick="const m = document.getElementById('public-mobile-menu'); if(m) m.classList.toggle('hidden');"
+                            class="md:hidden p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"
+                            aria-label="Toggle menu">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    </button>
                 </div>
             </div>
+        </div>
+
+        {{-- Mobile Menu Dropdown --}}
+        <div id="public-mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 py-3 px-4 space-y-2 bg-white/95 dark:bg-[#14201A]/95 backdrop-blur">
+            <a href="{{ url('/') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Beranda</a>
+            <a href="{{ url('/#tentang') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Tentang</a>
+            <a href="{{ url('/#cara-kerja') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Cara Kerja</a>
+            <a href="{{ url('/#pengguna') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Fitur Peran</a>
+            <a href="{{ url('/#alur-penanganan') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Alur Penanganan</a>
+            <a href="{{ url('/#faq') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">FAQ</a>
+            <a href="{{ route('privacy') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Kebijakan Privasi</a>
+            @guest
+                <a href="{{ route('login') }}" class="block w-full text-center font-bold px-4 py-2.5 rounded-xl bg-primary-600 text-white mt-2">Mulai Menggunakan SIPERKA</a>
+            @endguest
         </div>
     </header>
 
