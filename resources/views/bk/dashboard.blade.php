@@ -184,7 +184,7 @@
                                     </td>
                                     <td class="px-5 py-4 whitespace-nowrap text-right">
                                         <a href="{{ route('bk.reports.show', $item) }}" 
-                                           class="inline-flex items-center gap-1.5 px-3.5 py-1.5 min-h-[36px] text-xs font-bold text-primary-700 dark:text-[#5AE39D] hover:bg-primary-50 dark:hover:bg-primary-950/50 rounded-xl transition">
+                                           class="inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] text-xs font-bold text-primary-700 dark:text-[#5AE39D] hover:bg-primary-50 dark:hover:bg-primary-950/50 rounded-xl transition">
                                             <span>Buka Laporan</span>
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                                         </a>

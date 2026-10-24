@@ -1,5 +1,5 @@
 <x-layouts.app title="Unduh Rekapitulasi Laporan">
-    <div class="max-w-3xl mx-auto space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-3xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Header Halaman --}}
         <div class="pb-4 border-b border-slate-200 dark:border-slate-800">
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -27,7 +27,7 @@
         </div>
 
         {{-- Form Filter dan Pilihan Format --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-5">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-5">
             <div>
                 <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">Filter Data Laporan yang Akan Diunduh</h2>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Pilih kriteria data laporan yang ingin Anda masukkan ke dalam berkas rekap</p>
@@ -42,7 +42,7 @@
                         <label for="status" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Status Laporan</label>
                         <select id="status" 
                                 name="status" 
-                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[42px] bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[44px] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
                             <option value="">Semua Status</option>
                             <option value="baru">Baru</option>
                             <option value="diverifikasi">Sudah dibaca (Diverifikasi)</option>
@@ -57,7 +57,7 @@
                         <label for="category_id" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Kategori Perundungan</label>
                         <select id="category_id" 
                                 name="category_id" 
-                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[42px] bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[44px] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
                             <option value="">Semua Kategori</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -70,7 +70,7 @@
                         <label for="class_name" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Kelas Siswa</label>
                         <select id="class_name" 
                                 name="class_name" 
-                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[42px] bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[44px] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
                             <option value="">Semua Kelas</option>
                             @foreach($classes as $c)
                                 <option value="{{ $c->name }}">{{ $c->name }}</option>
@@ -85,11 +85,11 @@
                             <input type="date" 
                                    name="date_from" 
                                    placeholder="Mulai" 
-                                   class="w-full px-2.5 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[42px] bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                                   class="w-full px-2.5 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[44px] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
                             <input type="date" 
                                    name="date_to" 
                                    placeholder="Sampai" 
-                                   class="w-full px-2.5 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[42px] bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200">
+                                   class="w-full px-2.5 py-2 text-xs border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[44px] bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200">
                         </div>
                     </div>
                 </div>
@@ -98,14 +98,14 @@
                 <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-end gap-3">
                     <button type="submit" 
                             formaction="{{ route('bk.reports.download.pdf') }}" 
-                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 min-h-[42px] bg-rose-600 hover:bg-rose-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs transition active:scale-[0.98]">
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] bg-rose-600 hover:bg-rose-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs transition active:scale-[0.98]">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
                         <span>Unduh Dokumen PDF (Cetak Resmi)</span>
                     </button>
 
                     <button type="submit" 
                             formaction="{{ route('bk.reports.download.excel') }}" 
-                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 min-h-[42px] bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs transition active:scale-[0.98]">
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 min-h-[44px] bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs transition active:scale-[0.98]">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         <span>Unduh Berkas Excel (.xlsx)</span>
                     </button>

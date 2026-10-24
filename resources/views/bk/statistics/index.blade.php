@@ -33,7 +33,7 @@
                 <div>
                     <label for="year" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Tahun</label>
                     <select id="year" name="year" 
-                        class="px-3.5 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[40px]">
+                        class="px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[44px]">
                         <option value="">Semua Tahun</option>
                         @for($y = date('Y'); $y >= date('Y') - 4; $y--)
                             <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>{{ $y }}</option>
@@ -44,7 +44,7 @@
                 <div>
                     <label for="month" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Bulan</label>
                     <select id="month" name="month" 
-                        class="px-3.5 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[40px]">
+                        class="px-3.5 py-2.5 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 min-h-[44px]">
                         <option value="">Semua Bulan</option>
                         @foreach([1=>'Januari', 2=>'Februari', 3=>'Maret', 4=>'April', 5=>'Mei', 6=>'Juni', 7=>'Juli', 8=>'Agustus', 9=>'September', 10=>'Oktober', 11=>'November', 12=>'Desember'] as $num => $namaBulan)
                             <option value="{{ $num }}" {{ $selectedMonth == $num ? 'selected' : '' }}>{{ $namaBulan }}</option>
@@ -54,13 +54,13 @@
 
                 <div class="flex items-end gap-2 pt-5">
                     <button type="submit" 
-                            class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs sm:text-sm rounded-xl min-h-[40px] transition shadow-xs">
+                            class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs sm:text-sm rounded-xl min-h-[44px] transition shadow-xs">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
                         <span>Filter</span>
                     </button>
                     @if($selectedYear || $selectedMonth)
                         <a href="{{ route('bk.statistics.index') }}" 
-                           class="inline-flex items-center justify-center px-3.5 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs sm:text-sm rounded-xl min-h-[40px] transition">
+                           class="inline-flex items-center justify-center px-4 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold text-xs sm:text-sm rounded-xl min-h-[44px] transition">
                             Reset
                         </a>
                     @endif
@@ -166,6 +166,11 @@
                 return;
             }
 
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#94A3B8' : '#475569';
+            const gridColor = isDark ? 'rgba(51, 65, 85, 0.4)' : 'rgba(226, 232, 240, 0.7)';
+            const doughnutBorder = isDark ? '#16231D' : '#ffffff';
+
             // 1. Tren Chart (Line)
             const trendCtx = document.getElementById('trendChart');
             if (trendCtx) {
@@ -188,10 +193,20 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: { color: textColor }
+                            }
+                        },
                         scales: {
+                            x: {
+                                ticks: { color: textColor },
+                                grid: { color: gridColor }
+                            },
                             y: {
                                 beginAtZero: true,
-                                ticks: { precision: 0 }
+                                ticks: { precision: 0, color: textColor },
+                                grid: { color: gridColor }
                             }
                         }
                     }
@@ -217,7 +232,7 @@
                                 '#94A3B8'
                             ],
                             borderWidth: 2,
-                            borderColor: '#ffffff'
+                            borderColor: doughnutBorder
                         }]
                     },
                     options: {
@@ -226,7 +241,7 @@
                         plugins: {
                             legend: {
                                 position: 'bottom',
-                                labels: { boxWidth: 12, font: { size: 11 } }
+                                labels: { boxWidth: 12, font: { size: 11 }, color: textColor }
                             }
                         }
                     }
@@ -258,9 +273,14 @@
                         maintainAspectRatio: false,
                         plugins: { legend: { display: false } },
                         scales: {
+                            x: {
+                                ticks: { color: textColor },
+                                grid: { color: gridColor }
+                            },
                             y: {
                                 beginAtZero: true,
-                                ticks: { precision: 0 }
+                                ticks: { precision: 0, color: textColor },
+                                grid: { color: gridColor }
                             }
                         }
                     }
@@ -286,9 +306,14 @@
                         maintainAspectRatio: false,
                         plugins: { legend: { display: false } },
                         scales: {
+                            x: {
+                                ticks: { color: textColor },
+                                grid: { color: gridColor }
+                            },
                             y: {
                                 beginAtZero: true,
-                                ticks: { precision: 0 }
+                                ticks: { precision: 0, color: textColor },
+                                grid: { color: gridColor }
                             }
                         }
                     }

@@ -44,7 +44,7 @@
                     $tabUrl = request()->fullUrlWithQuery(['status' => $val ?: null, 'page' => null]);
                 @endphp
                 <a href="{{ $tabUrl }}"
-                   class="shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-150 {{ $isActive ? 'bg-primary-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700' }}">
+                   class="shrink-0 flex items-center gap-2 px-3.5 py-2.5 min-h-[44px] rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-150 {{ $isActive ? 'bg-primary-600 text-white shadow-xs' : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700' }}">
                     @if($isActive)
                         <span class="w-1.5 h-1.5 rounded-full bg-[#B8E34B]"></span>
                     @endif
@@ -68,7 +68,7 @@
                         <div class="relative">
                             <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                             <input type="text" id="q" name="q" value="{{ request('q') }}" placeholder="Ketik kata kunci..."
-                                class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[42px]">
+                                class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[44px]">
                         </div>
                     </div>
 
@@ -76,7 +76,7 @@
                     <div>
                         <label for="category_id" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Kategori</label>
                         <select id="category_id" name="category_id" 
-                            class="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[42px]">
+                            class="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[44px]">
                             <option value="">Semua Kategori</option>
                             @foreach($categories as $cat)
                                 <option value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'selected' : '' }}>
@@ -90,7 +90,7 @@
                     <div>
                         <label for="urgency" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Tingkat Urgensi</label>
                         <select id="urgency" name="urgency" 
-                            class="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[42px]">
+                            class="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[44px]">
                             <option value="">Semua Urgensi</option>
                             <option value="tinggi" {{ request('urgency') === 'tinggi' ? 'selected' : '' }}>Tinggi</option>
                             <option value="sedang" {{ request('urgency') === 'sedang' ? 'selected' : '' }}>Sedang</option>
@@ -102,7 +102,7 @@
                     <div>
                         <label for="class_name" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Rombel / Kelas</label>
                         <select id="class_name" name="class_name" 
-                            class="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[42px]">
+                            class="w-full px-3 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[44px]">
                             <option value="">Semua Kelas</option>
                             @foreach($classes as $c)
                                 <option value="{{ $c->name }}" {{ request('class_name') === $c->name ? 'selected' : '' }}>
@@ -131,12 +131,12 @@
                     </div>
 
                     <div class="flex items-center gap-2">
-                        <button type="submit" class="px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl text-xs transition shadow-xs flex items-center gap-1.5">
+                        <button type="submit" class="px-4 py-2 min-h-[44px] bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl text-xs transition shadow-xs flex items-center gap-1.5">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
                             <span>Terapkan Filter</span>
                         </button>
                         @if(request()->hasAny(['q', 'status', 'urgency', 'sort', 'category_id', 'class_name', 'date_from', 'date_to']))
-                            <a href="{{ route('bk.reports.index') }}" class="px-3 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl text-xs transition">
+                            <a href="{{ route('bk.reports.index') }}" class="px-3 py-2 min-h-[44px] inline-flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold rounded-xl text-xs transition">
                                 Reset
                             </a>
                         @endif
@@ -219,7 +219,7 @@
                                     </td>
                                     <td class="px-5 py-4 whitespace-nowrap text-right">
                                         <a href="{{ route('bk.reports.show', $report) }}" 
-                                           class="inline-flex items-center gap-1.5 px-3.5 py-1.5 min-h-[36px] text-xs font-bold text-primary-700 dark:text-[#5AE39D] hover:bg-primary-50 dark:hover:bg-primary-950/50 rounded-xl transition">
+                                           class="inline-flex items-center gap-1.5 px-3.5 py-2 min-h-[44px] text-xs font-bold text-primary-700 dark:text-[#5AE39D] hover:bg-primary-50 dark:hover:bg-primary-950/50 rounded-xl transition">
                                             <span>Buka Laporan</span>
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                                         </a>

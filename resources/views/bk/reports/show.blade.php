@@ -377,7 +377,7 @@
                                 class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600">
                         </div>
 
-                        <button type="submit" class="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[42px] bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold rounded-xl shadow-xs transition card-hover">
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[44px] bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold rounded-xl shadow-xs transition card-hover">
                             <span>Perbarui Status Laporan</span>
                         </button>
                     </form>
@@ -395,7 +395,7 @@
 
                         <div>
                             <select id="urgency_select" name="urgency" 
-                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[42px]">
+                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 transition min-h-[44px]">
                                 <option value="rendah" {{ old('urgency', $report->urgency) === 'rendah' ? 'selected' : '' }}>Rendah (Perselisihan ringan)</option>
                                 <option value="sedang" {{ old('urgency', $report->urgency) === 'sedang' ? 'selected' : '' }}>Sedang (Ejekan berulang / sosial)</option>
                                 <option value="tinggi" {{ old('urgency', $report->urgency) === 'tinggi' ? 'selected' : '' }}>Tinggi (Kekerasan fisik / pemalakan)</option>
@@ -412,7 +412,7 @@
                                     {{ $report->urgency }}
                                 </span>
                             </span>
-                            <button type="submit" class="px-3.5 py-1.5 min-h-[36px] bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold rounded-xl shadow-xs transition">
+                            <button type="submit" class="px-4 py-2 min-h-[44px] inline-flex items-center justify-center bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold rounded-xl shadow-xs transition">
                                 Simpan Urgensi
                             </button>
                         </div>
