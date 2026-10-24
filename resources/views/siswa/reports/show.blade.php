@@ -126,8 +126,9 @@
                                             </div>
                                         </div>
                                         <a href="{{ route('siswa.reports.attachment', [$report, $att]) }}" target="_blank" 
-                                           class="p-2 rounded-lg text-primary-600 dark:text-[#5AE39D] hover:bg-primary-50 dark:hover:bg-primary-950/50 transition shrink-0" 
-                                           title="Buka lampiran">
+                                           class="p-2.5 min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-xl text-primary-600 dark:text-[#5AE39D] hover:bg-primary-50 dark:hover:bg-primary-950/50 transition shrink-0" 
+                                           title="Buka lampiran"
+                                           aria-label="Buka berkas {{ $att->original_name }}">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                                         </a>
                                     </div>
@@ -205,7 +206,7 @@
                                     @enderror
                                 </div>
                                 <div class="flex justify-end">
-                                    <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 min-h-[40px] bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold rounded-xl shadow-xs transition card-hover">
+                                    <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 min-h-[44px] bg-primary-600 hover:bg-primary-700 text-white text-xs font-bold rounded-xl shadow-xs transition card-hover">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                                         <span>Kirim Informasi Susulan</span>
                                     </button>

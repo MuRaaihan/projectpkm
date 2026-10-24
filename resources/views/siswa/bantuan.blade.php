@@ -1,5 +1,5 @@
 <x-layouts.app title="Bantuan & Kontak Darurat">
-    <div class="max-w-4xl mx-auto space-y-8 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-4xl w-full mx-auto space-y-8 animate-fade-in">
         {{-- Header Bantuan --}}
         <div class="pb-6 border-b border-slate-200 dark:border-slate-800 space-y-2">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800 text-xs font-semibold">
@@ -33,15 +33,15 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-                <div class="p-4 rounded-xl bg-white/90 dark:bg-slate-800/90 border border-amber-200/60 dark:border-amber-800/50 space-y-1">
+                <div class="p-4 rounded-xl bg-white/90 dark:bg-[#16231D]/90 border border-amber-200/60 dark:border-amber-800/50 space-y-1">
                     <span class="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider block">1. Menjauh & Cari Keramaian</span>
                     <p class="text-xs text-amber-900 dark:text-slate-300 leading-relaxed">Segera tinggalkan tempat sepi dan pergilah ke area ramai, seperti ruang guru, perpustakaan, atau pos piket.</p>
                 </div>
-                <div class="p-4 rounded-xl bg-white/90 dark:bg-slate-800/90 border border-amber-200/60 dark:border-amber-800/50 space-y-1">
+                <div class="p-4 rounded-xl bg-white/90 dark:bg-[#16231D]/90 border border-amber-200/60 dark:border-amber-800/50 space-y-1">
                     <span class="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider block">2. Dekati Guru Terdekat</span>
                     <p class="text-xs text-amber-900 dark:text-slate-300 leading-relaxed">Langsung beri tahu guru piket, wali kelas, atau satpam madrasah bahwa kamu membutuhkan perlindungan saat itu juga.</p>
                 </div>
-                <div class="p-4 rounded-xl bg-white/90 dark:bg-slate-800/90 border border-amber-200/60 dark:border-amber-800/50 space-y-1">
+                <div class="p-4 rounded-xl bg-white/90 dark:bg-[#16231D]/90 border border-amber-200/60 dark:border-amber-800/50 space-y-1">
                     <span class="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider block">3. Datangi Ruang BK</span>
                     <p class="text-xs text-amber-900 dark:text-slate-300 leading-relaxed">Ruang Bimbingan & Konseling adalah zona aman. Kamu berhak berlindung di sana kapan pun kamu merasa cemas.</p>
                 </div>
@@ -49,7 +49,7 @@
         </div>
 
         {{-- KONTAK RESMI BK MADRASAH --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-6">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-6">
             <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 @foreach($nationalHotlines as $hotline)
-                    <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4">
+                    <div class="p-5 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col justify-between space-y-4">
                         <div class="space-y-2">
                             <span class="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-800 px-2.5 py-1 rounded-md inline-block">
                                 {{ $hotline['provider'] }}
@@ -122,10 +122,10 @@
 
         {{-- KEMBALI KE DASHBOARD --}}
         <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-            <a href="{{ route('siswa.dashboard') }}" class="min-h-[42px] inline-flex items-center justify-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition">
+            <a href="{{ route('siswa.dashboard') }}" class="min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
                 &larr; Kembali ke Dashboard Saya
             </a>
-            <a href="{{ route('siswa.reports.create') }}" class="min-h-[42px] inline-flex items-center justify-center gap-2 px-4 py-2 text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs transition">
+            <a href="{{ route('siswa.reports.create') }}" class="min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs transition">
                 Buat Laporan Sekarang
             </a>
         </div>

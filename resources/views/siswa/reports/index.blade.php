@@ -55,7 +55,7 @@
                     :class="activeTab === '{{ $key }}' 
                         ? 'bg-primary-600 text-white shadow-xs' 
                         : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700/80'"
-                    class="shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-150"
+                    class="shrink-0 flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-150"
                 >
                     <span x-show="activeTab === '{{ $key }}'" class="w-1.5 h-1.5 rounded-full bg-[#B8E34B]"></span>
                     <span>{{ $label }}</span>
@@ -136,7 +136,7 @@
                         </x-badge>
 
                         <a href="{{ route('siswa.reports.show', $report) }}" 
-                           class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-300 group-hover:bg-primary-600 group-hover:text-white flex items-center justify-center transition-all duration-150"
+                           class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-300 group-hover:bg-primary-600 group-hover:text-white inline-flex items-center justify-center transition-all duration-150"
                            aria-label="Buka detail laporan">
                             <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                         </a>
