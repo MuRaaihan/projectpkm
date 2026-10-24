@@ -118,16 +118,18 @@
 
     {{-- Footer Resmi & Profesional Madrasah (FR-41) --}}
     @if(!$hideFooter)
-    <footer class="bg-white dark:bg-[#0B110E] border-t border-slate-200/90 dark:border-slate-800/90 text-slate-600 dark:text-slate-400 text-sm transition-colors mt-auto">
+    <footer class="bg-white dark:bg-[#080D0A] border-t border-slate-200/90 dark:border-[#1A2820] text-slate-600 dark:text-slate-400 text-sm transition-colors mt-auto">
         {{-- Konten Utama Footer --}}
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
-                {{-- Kolom 1: Profil Madrasah & Identitas Sistem (5 cols) --}}
-                <div class="lg:col-span-5 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+                {{-- Kolom 1: Profil Madrasah & Identitas Sistem (lg:col-span-4) --}}
+                <div class="lg:col-span-4 space-y-4">
                     <div class="flex items-center gap-3.5">
-                        <img src="{{ asset('images/logo-sekolah.png') }}" 
-                             alt="Logo MTs Soebono Mantofani" 
-                             class="w-11 h-11 object-contain rounded-xl drop-shadow-xs" />
+                        <div class="w-12 h-12 rounded-2xl bg-white dark:bg-[#121B16] border border-slate-200/80 dark:border-slate-800 p-1.5 flex items-center justify-center shadow-2xs shrink-0">
+                            <img src="{{ asset('images/logo-sekolah.png') }}" 
+                                 alt="Logo MTs Soebono Mantofani" 
+                                 class="w-full h-full object-contain" />
+                        </div>
                         <div>
                             <span class="block font-black text-xl text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
                                 SIPERKA
@@ -138,27 +140,27 @@
                         </div>
                     </div>
 
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md">
-                        Sistem Informasi Pelaporan Kasus Perundungan resmi madrasah. Ruang aman, rahasia, dan terpercaya bagi peserta didik untuk bercerita tanpa rasa takut demi terciptanya lingkungan belajar yang ramah dan bermartabat.
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-sm">
+                        Sistem Informasi Pelaporan Kasus Perundungan resmi madrasah. Ruang aman, tenang, dan rahasia bagi peserta didik untuk bercerita tanpa rasa takut demi terwujudnya madrasah ramah anak.
                     </p>
 
-                    <div class="pt-2 flex flex-wrap gap-2.5">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80 shadow-2xs">
+                    <div class="pt-2 flex flex-col gap-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80 shadow-2xs w-fit">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                             <span>Permendikbudristek No. 46 Tahun 2023</span>
-                        </span>
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-                            <svg class="w-3.5 h-3.5 text-primary-600 dark:text-[#5AE39D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                            <span>Kerahasiaan Terjamin</span>
-                        </span>
+                        </div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-[#121B16] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 w-fit">
+                            <svg class="w-3.5 h-3.5 text-primary-600 dark:text-[#5AE39D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            <span>Enkripsi Database & Perlindungan Pelapor</span>
+                        </div>
                     </div>
                 </div>
 
-                {{-- Kolom 2: Navigasi Layanan (3 cols) --}}
-                <div class="lg:col-span-3 space-y-4">
+                {{-- Kolom 2: Navigasi Layanan (lg:col-span-2) --}}
+                <div class="lg:col-span-2 space-y-4">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
                         <span class="w-1.5 h-3.5 bg-primary-600 dark:bg-[#5AE39D] rounded-full"></span>
-                        Navigasi Layanan
+                        Navigasi
                     </h3>
                     <ul class="space-y-2.5 text-xs sm:text-sm">
                         <li>
@@ -182,44 +184,95 @@
                         <li>
                             <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
                                 <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Portal Masuk Siswa & BK</span>
+                                <span>Portal Masuk Siswa</span>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                {{-- Kolom 3: Layanan Bimbingan & Konseling (4 cols) --}}
-                <div class="lg:col-span-4 space-y-4">
+                {{-- Kolom 3: Kebijakan & Perlindungan (lg:col-span-2) --}}
+                <div class="lg:col-span-2 space-y-4">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
                         <span class="w-1.5 h-3.5 bg-primary-600 dark:bg-[#5AE39D] rounded-full"></span>
-                        Layanan Bimbingan & Konseling
+                        Perlindungan
                     </h3>
-                    <div class="space-y-3 text-xs sm:text-sm">
+                    <ul class="space-y-2.5 text-xs sm:text-sm">
+                        <li>
+                            <a href="{{ url('/kebijakan-privasi') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
+                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
+                                <span>Kebijakan Privasi</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/kebijakan-privasi#kerahasiaan') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
+                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
+                                <span>Batas Kerahasiaan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/kebijakan-privasi#hak-siswa') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
+                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
+                                <span>Hak Peserta Didik</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/kebijakan-privasi#alur-keamanan') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
+                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
+                                <span>Independensi BK</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                {{-- Kolom 4: Layanan Bimbingan & Konseling (lg:col-span-4) --}}
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                            <span class="w-1.5 h-3.5 bg-primary-600 dark:bg-[#5AE39D] rounded-full"></span>
+                            Layanan Bimbingan & Konseling
+                        </h3>
+                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            BK Aktif
+                        </span>
+                    </div>
+
+                    {{-- Kotak Kontak Resmi BK --}}
+                    <div class="bg-slate-50/80 dark:bg-[#121B16] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 space-y-3.5 text-xs sm:text-sm shadow-2xs">
                         <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-primary-600 dark:text-[#5AE39D] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700 mt-0.5">
+                            <div class="w-8 h-8 rounded-xl bg-white dark:bg-[#192720] text-primary-600 dark:text-[#5AE39D] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700/80 shadow-2xs mt-0.5">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                             </div>
-                            <span class="text-slate-600 dark:text-slate-300 leading-relaxed">
-                                {{ \App\Models\Setting::get('school_address', 'Jl. Nurul Huda No. 27, RT 01/RW 02, Jombang, Ciputat, Tangerang Selatan') }}
-                            </span>
+                            <div class="space-y-0.5">
+                                <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Alamat Madrasah</span>
+                                <span class="text-slate-700 dark:text-slate-300 leading-snug font-medium block">
+                                    {{ \App\Models\Setting::get('school_address', 'Jl. Nurul Huda No. 27, RT 01/RW 02, Jombang, Ciputat, Tangerang Selatan') }}
+                                </span>
+                            </div>
                         </div>
 
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#8C6708] dark:text-[#FAD46B] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-3 pt-1 border-t border-slate-200/70 dark:border-slate-800/80">
+                            <div class="w-8 h-8 rounded-xl bg-white dark:bg-[#192720] text-[#8C6708] dark:text-[#FAD46B] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700/80 shadow-2xs">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                             </div>
-                            <span class="text-slate-600 dark:text-slate-300 font-medium">
-                                {{ \App\Models\Setting::get('counseling_hours', 'Senin - Jumat: 07.30 - 15.00 WIB') }}
-                            </span>
+                            <div class="space-y-0.5">
+                                <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Jam Layanan Konseling</span>
+                                <span class="text-slate-700 dark:text-slate-300 font-semibold block text-xs">
+                                    {{ \App\Models\Setting::get('counseling_hours', 'Senin - Jumat: 07.30 - 15.00 WIB') }}
+                                </span>
+                            </div>
                         </div>
 
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-primary-600 dark:text-[#5AE39D] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center gap-3 pt-1 border-t border-slate-200/70 dark:border-slate-800/80">
+                            <div class="w-8 h-8 rounded-xl bg-white dark:bg-[#192720] text-primary-600 dark:text-[#5AE39D] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700/80 shadow-2xs">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                             </div>
-                            <a href="mailto:{{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}" class="text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium">
-                                {{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}
-                            </a>
+                            <div class="space-y-0.5">
+                                <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Surel Resmi BK</span>
+                                <a href="mailto:{{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium block text-xs underline decoration-slate-300 dark:decoration-slate-700 underline-offset-2">
+                                    {{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -227,14 +280,28 @@
         </div>
 
         {{-- Baris Hak Cipta & Kredensial Bawah --}}
-        <div class="border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#080E0B]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
-                <p>
-                    &copy; {{ date('Y') }} <span class="font-bold text-slate-800 dark:text-slate-200">SIPERKA</span> &bull; {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}. Seluruh hak cipta dilindungi.
-                </p>
-                <div class="flex items-center gap-2">
-                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 shadow-xs"></span>
-                    <span class="font-medium text-slate-600 dark:text-slate-300">Madrasah Ramah Anak & Bebas Perundungan</span>
+        <div class="border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#050907]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+                <div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+                    <p>
+                        &copy; {{ date('Y') }} <span class="font-bold text-slate-800 dark:text-slate-200">SIPERKA</span> &bull; {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}. Seluruh hak cipta dilindungi.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 shadow-xs"></span>
+                        <span class="font-medium text-slate-600 dark:text-slate-300">Madrasah Ramah Anak</span>
+                    </div>
+
+                    <span class="text-slate-300 dark:text-slate-700">|</span>
+
+                    <button type="button" 
+                            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" 
+                            class="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium focus:outline-none">
+                        <span>Ke Atas</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                    </button>
                 </div>
             </div>
         </div>
