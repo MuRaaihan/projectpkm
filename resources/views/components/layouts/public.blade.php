@@ -1,3 +1,7 @@
+@props([
+    'title' => null,
+    'hideFooter' => false,
+])
 <!DOCTYPE html>
 <html lang="id" class="h-full bg-[#F8FAF9] dark:bg-[#0E1713]">
 <head>
@@ -107,6 +111,7 @@
     </main>
 
     {{-- Footer Informasi Sekolah (FR-41) --}}
+    @if(!$hideFooter)
     <footer class="bg-white dark:bg-[#14201A] border-t border-slate-200/90 dark:border-[#22342A] mt-auto text-sm text-slate-500 dark:text-slate-400 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -173,5 +178,6 @@
             </div>
         </div>
     </footer>
+    @endif
 </body>
 </html>

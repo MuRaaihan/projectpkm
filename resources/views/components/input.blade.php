@@ -17,7 +17,7 @@
     $isPassword = ($type === 'password');
 @endphp
 
-<div class="flex flex-col gap-1.5 w-full" @if($isPassword) x-data="{ showPassword: false }" @endif>
+<div class="flex flex-col gap-1.5 w-full">
     @if ($label)
         <label for="{{ $id }}" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 flex items-center justify-between">
             <span>
@@ -31,11 +31,7 @@
 
     <div class="relative">
         <input 
-            @if($isPassword)
-                :type="showPassword ? 'text' : 'password'"
-            @else
-                type="{{ $type }}"
-            @endif
+            type="{{ $type }}"
             name="{{ $name }}"
             id="{{ $id }}"
             value="{{ old($name, $value) }}"
@@ -59,15 +55,25 @@
         @if ($isPassword)
             <button 
                 type="button" 
-                @click="showPassword = !showPassword"
+                onclick="(function(btn){
+                    const input = document.getElementById('{{ $id }}');
+                    if (!input) return;
+                    const isPass = (input.type === 'password');
+                    input.type = isPass ? 'text' : 'password';
+                    btn.setAttribute('aria-label', isPass ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+                    const openIcon = btn.querySelector('.eye-open');
+                    const closedIcon = btn.querySelector('.eye-closed');
+                    if (openIcon) openIcon.classList.toggle('hidden', isPass);
+                    if (closedIcon) closedIcon.classList.toggle('hidden', !isPass);
+                })(this)"
                 class="absolute right-1 top-1/2 -translate-y-1/2 p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D]"
-                :aria-label="showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
+                aria-label="Tampilkan kata sandi"
             >
-                <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="eye-open w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                 </svg>
-                <svg x-show="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
+                <svg class="eye-closed w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/>
                 </svg>
             </button>
