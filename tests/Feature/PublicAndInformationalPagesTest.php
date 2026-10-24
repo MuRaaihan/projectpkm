@@ -58,8 +58,6 @@ class PublicAndInformationalPagesTest extends TestCase
         // Footer (FR-41)
         $response->assertSee('Jl. Nurul Huda No. 27');
         $response->assertSee('Layanan Bimbingan & Konseling', false);
-        // Keluar cepat
-        $response->assertSee('Keluar Cepat');
     }
 
     public function test_privacy_policy_page_renders_successfully(): void

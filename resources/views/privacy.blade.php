@@ -92,17 +92,6 @@
                     <li>File bukti dienkripsi dan disimpan di folder privat yang tidak dapat diakses bebas lewat internet.</li>
                 </ul>
             </div>
-
-            {{-- Poin 6: Fasilitas Tombol Keluar Cepat --}}
-            <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-                <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
-                    <span class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-sm font-mono font-bold flex items-center justify-center shrink-0">6</span>
-                    Fasilitas Tombol "Keluar Cepat"
-                </h2>
-                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    Untuk melindungi privasimu saat sedang membuka sistem di lab komputer madrasah atau saat ada orang lain mendekat, tombol <strong>"Keluar Cepat"</strong> di pojok kanan atas selalu tersedia di seluruh halaman. Menekan tombol ini akan seketika menutup sesi dan mengalihkan halaman ke Google.
-                </p>
-            </div>
         </div>
 
         {{-- Hubungi BK --}}
