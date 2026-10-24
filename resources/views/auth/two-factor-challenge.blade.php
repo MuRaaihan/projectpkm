@@ -1,5 +1,5 @@
 <x-layouts.public title="Verifikasi Dua Faktor (2FA) - SISPERKA">
-    <div class="min-h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8 animate-fade-in">
+    <div class="min-h-[80vh] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             {{-- Logo dan Judul --}}
             <div class="text-center space-y-2">
@@ -17,7 +17,7 @@
             </div>
 
             {{-- Kartu Formulir --}}
-            <div class="mt-8 bg-white dark:bg-slate-800 py-8 px-5 shadow-xs border border-slate-200 dark:border-slate-800 rounded-2xl sm:px-10"
+            <div class="mt-8 bg-white dark:bg-[#16231D] py-8 px-5 shadow-xs border border-slate-200 dark:border-slate-800 rounded-2xl sm:px-10"
                  x-data="{ useRecovery: false }">
                 
                 {{-- Flash Message Error --}}

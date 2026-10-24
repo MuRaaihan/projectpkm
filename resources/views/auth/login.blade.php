@@ -33,7 +33,7 @@
                     </p>
                 </div>
 
-                <form method="POST" action="{{ route('login') }}" class="flex flex-col gap-4.5 space-y-4" novalidate>
+                <form method="POST" action="{{ route('login') }}" class="space-y-4" novalidate>
                     @csrf
 
                     {{-- ID Pengguna --}}

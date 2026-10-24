@@ -1,8 +1,8 @@
 <x-layouts.app title="Ganti Kata Sandi">
-    <div class="max-w-xl mx-auto py-6 sm:py-10 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Kartu Ganti Kata Sandi --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
-            <div class="flex items-center gap-3.5 pb-4 border-b border-slate-100 dark:border-slate-850">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs space-y-6">
+            <div class="flex items-center gap-3.5 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 flex items-center justify-center font-bold shrink-0">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
@@ -69,9 +69,9 @@
                     />
                 </div>
 
-                <div class="pt-4 flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-850">
+                <div class="pt-4 flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800">
                     @if (! $isMandatory)
-                        <a href="{{ url()->previous() }}" class="min-h-[42px] inline-flex items-center text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-slate-300 px-2 transition">
+                        <a href="{{ url()->previous() }}" class="min-h-[44px] inline-flex items-center text-xs sm:text-sm font-semibold text-slate-500 hover:text-slate-900 dark:hover:text-slate-300 px-2 transition">
                             Batal
                         </a>
                     @else

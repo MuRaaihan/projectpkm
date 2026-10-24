@@ -1,5 +1,5 @@
 <x-layouts.app title="Pengaturan Autentikasi Dua Faktor (2FA)">
-    <div class="max-w-4xl mx-auto space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-4xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Header Halaman --}}
         <div>
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -36,8 +36,8 @@
 
         @if (!$isEnabled)
             {{-- KONDISI 1: 2FA BELUM DIAKTIFKAN (FORM AKTIVASI) --}}
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
-                <div class="border-b border-slate-100 dark:border-slate-850 pb-4">
+            <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
+                <div class="border-b border-slate-100 dark:border-slate-800 pb-4">
                     <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                         <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -68,7 +68,7 @@
                                 </code>
                                 <button type="button" 
                                         onclick="navigator.clipboard.writeText('{{ $secret }}'); alert('Kunci rahasia berhasil disalin ke clipboard!');" 
-                                        class="px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-xs font-semibold text-slate-800 dark:text-slate-200 transition shrink-0 min-h-[32px]">
+                                        class="px-3.5 py-2 bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition shrink-0 min-h-[44px]">
                                     Salin Kunci
                                 </button>
                             </div>
@@ -84,7 +84,7 @@
                 </div>
 
                 {{-- Langkah 2: Konfirmasi Kode --}}
-                <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-850">
+                <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                     <div class="flex items-center gap-2 font-bold text-xs sm:text-sm text-slate-900 dark:text-slate-100">
                         <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs shrink-0">2</span>
                         <span>Verifikasi & Aktifkan</span>
@@ -105,14 +105,14 @@
                                    name="code" 
                                    required 
                                    placeholder="Contoh: 123456" 
-                                   class="w-full text-center tracking-widest text-xl font-mono px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 min-h-[42px]" />
+                                   class="w-full text-center tracking-widest text-xl font-mono px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 min-h-[44px]" />
                             @error('code')
                                 <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <button type="submit" 
-                                class="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs transition min-h-[42px]">
+                                class="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs transition min-h-[44px]">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                             <span>Konfirmasi & Aktifkan 2FA</span>
                         </button>
@@ -122,8 +122,8 @@
         @else
             {{-- KONDISI 2: 2FA SUDAH AKTIF --}}
             {{-- Kartu Status & Kode Pemulihan --}}
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
-                <div class="border-b border-slate-100 dark:border-slate-850 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xs">
+                <div class="border-b border-slate-100 dark:border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div>
                         <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                             <svg class="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -143,7 +143,7 @@
                 @if(count($recoveryCodes) > 0)
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700">
                         @foreach($recoveryCodes as $code)
-                            <div class="p-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-center font-mono text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 select-all">
+                            <div class="p-2.5 bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-lg text-center font-mono text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 select-all">
                                 {{ $code }}
                             </div>
                         @endforeach
@@ -152,7 +152,7 @@
                     <div class="flex items-center gap-3">
                         <button type="button" 
                                 onclick="navigator.clipboard.writeText('{{ implode("\n", $recoveryCodes) }}'); alert('Semua kode pemulihan telah disalin ke clipboard!');" 
-                                class="inline-flex items-center gap-1.5 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition min-h-[40px]">
+                                class="inline-flex items-center gap-1.5 px-4 py-2 bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-200 transition min-h-[44px]">
                             <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                             <span>Salin Semua Kode</span>
                         </button>
@@ -164,7 +164,7 @@
                 @endif
 
                 {{-- Buat Ulang Kode Pemulihan --}}
-                <div class="pt-4 border-t border-slate-100 dark:border-slate-850 space-y-3">
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
                     <h3 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">Buat Ulang Kode Pemulihan</h3>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Jika kamu merasa kode sebelumnya telah diketahui pihak lain atau hampir habis, kamu dapat membuat 8 kode baru.</p>
                     
@@ -177,10 +177,10 @@
                                    name="password" 
                                    required 
                                    placeholder="Masukkan kata sandi akunmu..." 
-                                   class="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 min-h-[42px]" />
+                                   class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500 min-h-[44px]" />
                         </div>
                         <button type="submit" 
-                                class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold rounded-xl transition min-h-[42px] shrink-0">
+                                class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold rounded-xl transition min-h-[44px] shrink-0">
                             <span>Buat Ulang Kode</span>
                         </button>
                     </form>
@@ -210,10 +210,10 @@
                                name="password" 
                                required 
                                placeholder="Konfirmasi kata sandimu..." 
-                               class="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-rose-300 dark:border-rose-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-rose-500 min-h-[42px]" />
+                               class="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-xl border border-rose-300 dark:border-rose-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-rose-500 min-h-[44px]" />
                     </div>
                     <button type="submit" 
-                            class="inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold rounded-xl transition min-h-[42px] shrink-0">
+                            class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold rounded-xl transition min-h-[44px] shrink-0">
                         <span>Nonaktifkan 2FA</span>
                     </button>
                 </form>
