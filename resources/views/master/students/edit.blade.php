@@ -1,23 +1,23 @@
 <x-layouts.app title="Ubah Data Siswa">
-    <div class="max-w-2xl mx-auto space-y-6">
+    <div class="max-w-2xl mx-auto space-y-6 animate-fade-in">
         {{-- Breadcrumb & Judul --}}
         <div>
-            <div class="flex items-center gap-2 mb-1">
-                <a href="{{ route('master.dashboard') }}" class="text-xs text-slate-500 hover:text-slate-800">Master</a>
-                <span class="text-xs text-slate-300">/</span>
-                <a href="{{ route('master.students.index') }}" class="text-xs text-slate-500 hover:text-slate-800">Akun Siswa</a>
-                <span class="text-xs text-slate-300">/</span>
-                <span class="text-xs font-semibold text-purple-700">Ubah Data</span>
+            <div class="flex items-center gap-2 mb-1.5 text-xs">
+                <a href="{{ route('master.dashboard') }}" class="text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 transition">Master</a>
+                <span class="text-slate-300 dark:text-slate-600">/</span>
+                <a href="{{ route('master.students.index') }}" class="text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 transition">Akun Siswa</a>
+                <span class="text-slate-300 dark:text-slate-600">/</span>
+                <span class="font-semibold text-emerald-600 dark:text-emerald-400">Ubah Data</span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
                 Ubah Data Siswa
             </h1>
-            <p class="text-xs sm:text-sm text-slate-500">
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                 Perbarui informasi akun peserta didik.
             </p>
         </div>
 
-        <x-card>
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs">
             <form action="{{ route('master.students.update', $student) }}" method="POST" class="space-y-5">
                 @csrf
                 @method('PUT')
@@ -44,11 +44,11 @@
                 {{-- Kelas & Jenis Kelamin --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {{-- Kelas --}}
-                    <div>
-                        <label for="class_id" class="block text-xs font-semibold text-slate-700 mb-1.5">
-                            Kelas Siswa <span class="text-rose-500">*</span>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="class_id" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+                            Kelas Siswa <span class="text-rose-500 font-semibold ml-0.5">*</span>
                         </label>
-                        <select name="class_id" id="class_id" required class="w-full text-xs rounded-lg border border-slate-300 py-2 pl-3 pr-8 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 @error('class_id') border-rose-400 @enderror">
+                        <select name="class_id" id="class_id" required class="w-full min-h-[42px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 px-3.5 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-slate-900 dark:text-slate-100 @error('class_id') border-rose-500 bg-rose-50/30 @enderror">
                             <option value="">Pilih Kelas</option>
                             @foreach ($classes as $c)
                                 <option value="{{ $c->id }}" {{ old('class_id', $student->class_id) == $c->id ? 'selected' : '' }}>
@@ -57,44 +57,44 @@
                             @endforeach
                         </select>
                         @error('class_id')
-                            <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            <p class="text-xs text-rose-500 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
                     </div>
 
                     {{-- Jenis Kelamin --}}
-                    <div>
-                        <label for="gender" class="block text-xs font-semibold text-slate-700 mb-1.5">
-                            Jenis Kelamin <span class="text-rose-500">*</span>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="gender" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+                            Jenis Kelamin <span class="text-rose-500 font-semibold ml-0.5">*</span>
                         </label>
-                        <select name="gender" id="gender" required class="w-full text-xs rounded-lg border border-slate-300 py-2 pl-3 pr-8 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 @error('gender') border-rose-400 @enderror">
+                        <select name="gender" id="gender" required class="w-full min-h-[42px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 px-3.5 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-slate-900 dark:text-slate-100 @error('gender') border-rose-500 bg-rose-50/30 @enderror">
                             <option value="">Pilih Jenis Kelamin</option>
                             <option value="L" {{ old('gender', $student->gender) === 'L' ? 'selected' : '' }}>Laki-laki (L)</option>
                             <option value="P" {{ old('gender', $student->gender) === 'P' ? 'selected' : '' }}>Perempuan (P)</option>
                         </select>
                         @error('gender')
-                            <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            <p class="text-xs text-rose-500 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-1">
-                    <p class="font-medium text-slate-700">Informasi Tambahan Akun:</p>
-                    <ul class="list-disc list-inside space-y-0.5 text-slate-500">
-                        <li>Status akun saat ini: <strong class="{{ $student->is_active ? 'text-emerald-700' : 'text-amber-700' }}">{{ $student->is_active ? 'Aktif' : 'Nonaktif' }}</strong></li>
-                        <li>Login terakhir: {{ $student->last_login_at?->format('d/m/Y H:i') ?? 'Belum pernah login' }}</li>
-                        <li>Perlu ganti kata sandi: {{ $student->must_change_password ? 'Ya (wajib saat login)' : 'Tidak' }}</li>
+                <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-1.5">
+                    <p class="font-bold text-slate-900 dark:text-slate-200">Informasi Tambahan Akun:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Status akun saat ini: <strong class="{{ $student->is_active ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400' }}">{{ $student->is_active ? 'Aktif' : 'Nonaktif' }}</strong></li>
+                        <li>Sesi masuk terakhir: {{ $student->last_login_at?->format('d/m/Y H:i') ?? 'Belum pernah masuk' }}</li>
+                        <li>Perlu ganti kata sandi: {{ $student->must_change_password ? 'Ya (wajib saat masuk)' : 'Tidak' }}</li>
                     </ul>
                 </div>
 
-                <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-                    <a href="{{ route('master.students.index', ['class_id' => $student->class_id]) }}" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg transition">
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
+                    <a href="{{ route('master.students.index', ['class_id' => $student->class_id]) }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition">
                         Batal
                     </a>
-                    <x-button type="submit" variant="primary">
+                    <x-button type="submit" variant="primary" size="md">
                         Perbarui Data Siswa
                     </x-button>
                 </div>
             </form>
-        </x-card>
+        </div>
     </div>
 </x-layouts.app>

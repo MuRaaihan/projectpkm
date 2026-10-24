@@ -1,23 +1,23 @@
 <x-layouts.app title="Ubah Data Guru BK">
-    <div class="max-w-2xl mx-auto space-y-6">
+    <div class="max-w-2xl mx-auto space-y-6 animate-fade-in">
         {{-- Breadcrumb & Judul --}}
         <div>
-            <div class="flex items-center gap-2 mb-1">
-                <a href="{{ route('master.dashboard') }}" class="text-xs text-slate-500 hover:text-slate-800">Master</a>
-                <span class="text-xs text-slate-300">/</span>
-                <a href="{{ route('master.bk-users.index') }}" class="text-xs text-slate-500 hover:text-slate-800">Akun Guru BK</a>
-                <span class="text-xs text-slate-300">/</span>
-                <span class="text-xs font-semibold text-purple-700">Ubah Data</span>
+            <div class="flex items-center gap-2 mb-1.5 text-xs">
+                <a href="{{ route('master.dashboard') }}" class="text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 transition">Master</a>
+                <span class="text-slate-300 dark:text-slate-600">/</span>
+                <a href="{{ route('master.bk-users.index') }}" class="text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 transition">Akun Guru BK</a>
+                <span class="text-slate-300 dark:text-slate-600">/</span>
+                <span class="font-semibold text-emerald-600 dark:text-emerald-400">Ubah Data</span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
                 Ubah Data Guru BK
             </h1>
-            <p class="text-xs sm:text-sm text-slate-500">
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                 Perbarui informasi akun konselor madrasah penanggung jawab.
             </p>
         </div>
 
-        <x-card>
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs">
             <form action="{{ route('master.bk-users.update', $bkUser) }}" method="POST" class="space-y-5">
                 @csrf
                 @method('PUT')
@@ -50,24 +50,24 @@
                     value="{{ old('phone', $bkUser->phone) }}" 
                 />
 
-                <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 text-xs text-slate-600 space-y-1">
-                    <p class="font-medium text-slate-700">Informasi Tambahan Akun:</p>
-                    <ul class="list-disc list-inside space-y-0.5 text-slate-500">
-                        <li>Status akun saat ini: <strong class="{{ $bkUser->is_active ? 'text-emerald-700' : 'text-amber-700' }}">{{ $bkUser->is_active ? 'Aktif' : 'Nonaktif' }}</strong></li>
-                        <li>Login terakhir: {{ $bkUser->last_login_at?->format('d/m/Y H:i') ?? 'Belum pernah login' }}</li>
-                        <li>Perlu ganti kata sandi: {{ $bkUser->must_change_password ? 'Ya (wajib saat login)' : 'Tidak' }}</li>
+                <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-1.5">
+                    <p class="font-bold text-slate-900 dark:text-slate-200">Informasi Tambahan Akun:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>Status akun saat ini: <strong class="{{ $bkUser->is_active ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400' }}">{{ $bkUser->is_active ? 'Aktif' : 'Nonaktif' }}</strong></li>
+                        <li>Sesi masuk terakhir: {{ $bkUser->last_login_at?->format('d/m/Y H:i') ?? 'Belum pernah masuk' }}</li>
+                        <li>Perlu ganti kata sandi: {{ $bkUser->must_change_password ? 'Ya (wajib saat masuk)' : 'Tidak' }}</li>
                     </ul>
                 </div>
 
-                <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-                    <a href="{{ route('master.bk-users.index') }}" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg transition">
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
+                    <a href="{{ route('master.bk-users.index') }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition">
                         Batal
                     </a>
-                    <x-button type="submit" variant="primary">
+                    <x-button type="submit" variant="primary" size="md">
                         Perbarui Data Guru BK
                     </x-button>
                 </div>
             </form>
-        </x-card>
+        </div>
     </div>
 </x-layouts.app>

@@ -1,23 +1,23 @@
 <x-layouts.app title="Tambah Siswa">
-    <div class="max-w-2xl mx-auto space-y-6">
+    <div class="max-w-2xl mx-auto space-y-6 animate-fade-in">
         {{-- Breadcrumb & Judul --}}
         <div>
-            <div class="flex items-center gap-2 mb-1">
-                <a href="{{ route('master.dashboard') }}" class="text-xs text-slate-500 hover:text-slate-800">Master</a>
-                <span class="text-xs text-slate-300">/</span>
-                <a href="{{ route('master.students.index') }}" class="text-xs text-slate-500 hover:text-slate-800">Akun Siswa</a>
-                <span class="text-xs text-slate-300">/</span>
-                <span class="text-xs font-semibold text-purple-700">Tambah Akun</span>
+            <div class="flex items-center gap-2 mb-1.5 text-xs">
+                <a href="{{ route('master.dashboard') }}" class="text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 transition">Master</a>
+                <span class="text-slate-300 dark:text-slate-600">/</span>
+                <a href="{{ route('master.students.index') }}" class="text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 transition">Akun Siswa</a>
+                <span class="text-slate-300 dark:text-slate-600">/</span>
+                <span class="font-semibold text-emerald-600 dark:text-emerald-400">Tambah Akun</span>
             </div>
-            <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
                 Tambah Akun Siswa
             </h1>
-            <p class="text-xs sm:text-sm text-slate-500">
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
                 Daftarkan akun peserta didik baru untuk akses pelaporan perundungan.
             </p>
         </div>
 
-        <x-card>
+        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs">
             <form action="{{ route('master.students.store') }}" method="POST" class="space-y-5">
                 @csrf
 
@@ -43,11 +43,11 @@
                 {{-- Kelas & Jenis Kelamin --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {{-- Kelas --}}
-                    <div>
-                        <label for="class_id" class="block text-xs font-semibold text-slate-700 mb-1.5">
-                            Kelas Siswa <span class="text-rose-500">*</span>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="class_id" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+                            Kelas Siswa <span class="text-rose-500 font-semibold ml-0.5">*</span>
                         </label>
-                        <select name="class_id" id="class_id" required class="w-full text-xs rounded-lg border border-slate-300 py-2 pl-3 pr-8 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 @error('class_id') border-rose-400 @enderror">
+                        <select name="class_id" id="class_id" required class="w-full min-h-[42px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 px-3.5 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-slate-900 dark:text-slate-100 @error('class_id') border-rose-500 bg-rose-50/30 @enderror">
                             <option value="">Pilih Kelas</option>
                             @foreach ($classes as $c)
                                 <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
@@ -56,52 +56,52 @@
                             @endforeach
                         </select>
                         @error('class_id')
-                            <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            <p class="text-xs text-rose-500 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
                     </div>
 
                     {{-- Jenis Kelamin --}}
-                    <div>
-                        <label for="gender" class="block text-xs font-semibold text-slate-700 mb-1.5">
-                            Jenis Kelamin <span class="text-rose-500">*</span>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="gender" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+                            Jenis Kelamin <span class="text-rose-500 font-semibold ml-0.5">*</span>
                         </label>
-                        <select name="gender" id="gender" required class="w-full text-xs rounded-lg border border-slate-300 py-2 pl-3 pr-8 bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 @error('gender') border-rose-400 @enderror">
+                        <select name="gender" id="gender" required class="w-full min-h-[42px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 px-3.5 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-slate-900 dark:text-slate-100 @error('gender') border-rose-500 bg-rose-50/30 @enderror">
                             <option value="">Pilih Jenis Kelamin</option>
                             <option value="L" {{ old('gender') === 'L' ? 'selected' : '' }}>Laki-laki (L)</option>
                             <option value="P" {{ old('gender') === 'P' ? 'selected' : '' }}>Perempuan (P)</option>
                         </select>
                         @error('gender')
-                            <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
+                            <p class="text-xs text-rose-500 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
                 {{-- Kata Sandi Awal --}}
-                <div class="space-y-1">
+                <div class="space-y-2">
                     <x-input 
                         name="password" 
                         type="password" 
-                        label="Kata Sandi Awal (Opsional)" 
+                        label="Kata Sandi Awal" 
                         placeholder="Kosongkan jika ingin dibuatkan otomatis" 
                         hint="Minimal 8 karakter. Jika dikosongkan, sistem akan mengacak kata sandi aman otomatis."
                     />
-                    <div class="p-3 bg-amber-50 rounded-lg border border-amber-200 text-xs text-amber-800 flex items-start gap-2 mt-2">
-                        <svg class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="p-3.5 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-300 flex items-start gap-2.5 leading-relaxed">
+                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
-                        <span>Siswa wajib langsung mengganti kata sandi ini saat login pertama kali.</span>
+                        <span>Siswa wajib langsung mengganti kata sandi ini saat masuk pertama kali.</span>
                     </div>
                 </div>
 
-                <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
-                    <a href="{{ route('master.students.index') }}" class="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg transition">
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
+                    <a href="{{ route('master.students.index') }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition">
                         Batal
                     </a>
-                    <x-button type="submit" variant="primary">
+                    <x-button type="submit" variant="primary" size="md">
                         Simpan Akun Siswa
                     </x-button>
                 </div>
             </form>
-        </x-card>
+        </div>
     </div>
 </x-layouts.app>
