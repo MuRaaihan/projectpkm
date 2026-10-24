@@ -1,175 +1,362 @@
 <x-layouts.app title="Dashboard Master Admin">
-    <div class="space-y-6">
-        {{-- Sambutan Header --}}
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-slate-200">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 flex flex-col gap-6 max-w-6xl w-full mx-auto lg:px-8 lg:py-8 animate-fade-in">
+        {{-- ── Welcome Header ───────────────────────────────── --}}
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/80 dark:border-slate-800">
             <div>
-                <div class="flex items-center gap-2 mb-1">
-                    <x-badge variant="purple">Master Administrator</x-badge>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950/70 text-purple-800 dark:text-purple-300 text-xs font-bold">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        Master Administrator
+                    </span>
                     @if ($active_year)
-                        <span class="text-xs font-mono font-semibold text-slate-500">
+                        <span class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-lg">
                             T.A. {{ $active_year->name }}
                         </span>
                     @endif
                 </div>
-                <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 tracking-tight">
                     Selamat datang, {{ auth()->user()->name }}
                 </h1>
-                <p class="text-xs sm:text-sm text-slate-500">
-                    Panel administrasi pengelolaan akun madrasah dan data master SISPERKA MTs Soebono Mantofani.
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    Panel administrasi sistem, tata kelola akun pengguna, dan audit keamanan operasional SIPERKA.
                 </p>
             </div>
         </div>
 
-        {{-- Pemberitahuan Hak Akses Master --}}
-        <div class="p-4 rounded-xl bg-purple-50/60 border border-purple-200/80 text-xs text-purple-900 leading-relaxed flex items-start gap-3">
-            <svg class="w-5 h-5 text-purple-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        {{-- ── Pemberitahuan Batas Privasi Akun Master (Golden Rule) ── --}}
+        <div class="p-4 sm:p-5 rounded-2xl bg-primary-50/80 dark:bg-[#0E2018] border border-primary-200 dark:border-primary-900 text-xs sm:text-sm text-primary-900 dark:text-primary-200 leading-relaxed flex items-start gap-3.5 shadow-2xs">
+            <svg class="w-5 h-5 text-primary-700 dark:text-[#5AE39D] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
             </svg>
             <div>
-                <strong class="font-semibold block mb-0.5">Kebijakan Privasi & Batas Kerahasiaan Akun Master:</strong>
-                Sesuai aturan keamanan SISPERKA, akun Master mengelola akun pengguna, kelas, dan audit sistem, serta <strong>TIDAK MEMILIKI HAK AKSES</strong> untuk melihat isi laporan perundungan maupun identitas pelapor. Kerahasiaan pelapor dilindungi sepenuhnya oleh sistem.
+                <strong class="font-bold block mb-0.5 text-primary-950 dark:text-white">Kebijakan Privasi &amp; Batas Akses Akun Master:</strong>
+                Sesuai arsitektur keamanan SIPERKA, akun Master berfokus pada manajemen akun, kelas, dan log audit, serta <strong>TIDAK MEMILIKI AKSES</strong> ke isi laporan maupun identitas pelapor individual demi melindungi hak privasi anak.
             </div>
         </div>
 
-        {{-- Kartu Ringkasan Metrik --}}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <x-card class="p-4!">
-                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Total Siswa Terdaftar</span>
-                <span class="text-2xl font-bold text-purple-700 mt-1 block">{{ $students_count }}</span>
-                <span class="text-xs text-slate-400 mt-1 block">Peserta didik MTs</span>
-            </x-card>
+        {{-- ── Matriks Pengguna & Layanan (KPI Cards) ───────── --}}
+        <section aria-labelledby="users-kpi-heading" class="animate-slide-up">
+            <div class="flex items-center justify-between mb-3.5">
+                <h2 id="users-kpi-heading" class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Matriks Pengguna &amp; Data Pokok
+                </h2>
+                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                    {{ $students_count + $bk_count }} Akun Terdaftar
+                </span>
+            </div>
 
-            <x-card class="p-4!">
-                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Konselor Guru BK</span>
-                <span class="text-2xl font-bold text-emerald-600 mt-1 block">{{ $bk_count }}</span>
-                <span class="text-xs text-slate-400 mt-1 block">Penanggung jawab laporan</span>
-            </x-card>
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {{-- Total Siswa --}}
+                <div class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs flex flex-col justify-between card-hover">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Total Siswa</span>
+                        <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 font-mono block">{{ $students_count }}</span>
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block">Peserta didik terdaftar</span>
+                    </div>
+                </div>
 
-            <x-card class="p-4!">
-                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Rombongan Belajar</span>
-                <span class="text-2xl font-bold text-slate-900 mt-1 block">{{ $classes_count }}</span>
-                <span class="text-xs text-slate-400 mt-1 block">Kelas aktif madrasah</span>
-            </x-card>
+                {{-- Guru BK --}}
+                <div class="bg-primary-50/60 dark:bg-[#153222] rounded-2xl border border-primary-200/80 dark:border-primary-900/60 p-5 shadow-xs flex flex-col justify-between card-hover">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-primary-800 dark:text-[#5AE39D]">Guru BK</span>
+                        <div class="w-9 h-9 rounded-xl bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-[#5AE39D] flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-2xl sm:text-3xl font-black text-primary-950 dark:text-[#5AE39D] font-mono block">{{ $bk_count }}</span>
+                        <span class="text-[11px] text-primary-800/80 dark:text-primary-300/80 mt-0.5 block">Konselor penanggung jawab</span>
+                    </div>
+                </div>
 
-            <x-card class="p-4!">
-                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Tahun Ajaran Aktif</span>
-                <span class="text-base font-bold text-slate-800 mt-2 block">{{ $active_year?->name ?? 'Belum Diatur' }}</span>
-                <span class="text-xs text-slate-400 block">{{ $active_year ? 'Periode Aktif' : 'Pilih tahun aktif' }}</span>
-            </x-card>
-        </div>
+                {{-- Rombongan Belajar --}}
+                <div class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs flex flex-col justify-between card-hover">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Rombel / Kelas</span>
+                        <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100 font-mono block">{{ $classes_count }}</span>
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block">Kelas aktif madrasah</span>
+                    </div>
+                </div>
 
-        {{-- Menu Modul Master --}}
-        <div>
-            <h2 class="text-sm font-bold text-slate-900 mb-3">Menu Administrasi & Pengelolaan</h2>
+                {{-- Tahun Ajaran Aktif --}}
+                <div class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs flex flex-col justify-between card-hover">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Tahun Ajaran</span>
+                        <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-lg sm:text-xl font-black text-slate-900 dark:text-slate-100 block truncate">{{ $active_year?->name ?? 'Belum Diatur' }}</span>
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block">{{ $active_year ? 'Periode aktif' : 'Atur tahun ajaran' }}</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{-- ── Statistik Laporan Agregat (FR-15: Numerik Saja) ── --}}
+        @if(isset($report_stats))
+            <section aria-labelledby="aggregate-stats-heading" class="space-y-4 pt-1">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 id="aggregate-stats-heading" class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                            Statistik Agregat Laporan Perundungan
+                        </h2>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                            Data numerik kumulatif (tanpa isi laporan atau nama siswa).
+                        </p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-primary-50 dark:bg-primary-950/60 text-primary-800 dark:text-[#5AE39D] border border-primary-200 dark:border-primary-900">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#B8E34B]"></span>
+                        Agregat Terlindungi
+                    </span>
+                </div>
+
+                {{-- Angka Ringkasan --}}
+                <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-4 shadow-xs">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block">Total Laporan</span>
+                        <span class="text-2xl font-black text-slate-900 dark:text-slate-100 mt-1 block font-mono">{{ $report_stats['total_reports'] }}</span>
+                        <span class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 block">Akumulasi laporan</span>
+                    </div>
+
+                    <div class="bg-emerald-50/60 dark:bg-[#153222] rounded-2xl border border-emerald-200/80 dark:border-emerald-800/80 p-4 shadow-xs">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 dark:text-[#5AE39D] block">Kasus Selesai</span>
+                        <span class="text-2xl font-black text-emerald-950 dark:text-[#5AE39D] mt-1 block font-mono">{{ $report_stats['resolved_reports'] }}</span>
+                        <span class="text-[11px] text-emerald-800/80 dark:text-emerald-200/80 mt-0.5 block">Tuntas ditangani Guru BK</span>
+                    </div>
+
+                    <div class="bg-amber-50/60 dark:bg-[#261A05] rounded-2xl border border-amber-200/80 dark:border-amber-800/80 p-4 shadow-xs">
+                        <span class="text-xs font-bold uppercase tracking-wider text-amber-800 dark:text-[#FAD46B] block">Dalam Proses</span>
+                        <span class="text-2xl font-black text-amber-950 dark:text-[#FAD46B] mt-1 block font-mono">{{ $report_stats['active_reports'] }}</span>
+                        <span class="text-[11px] text-amber-800/80 dark:text-amber-200/80 mt-0.5 block">Dalam mediasi / konseling</span>
+                    </div>
+
+                    <div class="bg-rose-50/60 dark:bg-[#251012] rounded-2xl border border-rose-200/80 dark:border-rose-900/60 p-4 shadow-xs">
+                        <span class="text-xs font-bold uppercase tracking-wider text-rose-800 dark:text-rose-300 block">Laporan Baru</span>
+                        <span class="text-2xl font-black text-rose-950 dark:text-rose-200 mt-1 block font-mono">{{ $report_stats['new_reports'] }}</span>
+                        <span class="text-[11px] text-rose-800/80 dark:text-rose-300/80 mt-0.5 block">Menunggu verifikasi BK</span>
+                    </div>
+                </div>
+
+                {{-- Dua Grafik Ringkas Master --}}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs">
+                        <div class="pb-3 border-b border-slate-100 dark:border-slate-800 mb-3">
+                            <h3 class="text-sm font-black text-slate-900 dark:text-slate-100">Tren Laporan Bulanan</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Fluktuasi jumlah laporan 6 bulan terakhir</p>
+                        </div>
+                        <div class="relative h-56 w-full">
+                            <canvas id="masterTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-xs">
+                        <div class="pb-3 border-b border-slate-100 dark:border-slate-800 mb-3">
+                            <h3 class="text-sm font-black text-slate-900 dark:text-slate-100">Sebaran Kategori Kasus</h3>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400">Persentase jenis perundungan</p>
+                        </div>
+                        <div class="relative h-56 w-full flex items-center justify-center">
+                            <canvas id="masterCategoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+
+        {{-- ── Menu Modul Master (Quick Access Hub) ─────────── --}}
+        <section aria-labelledby="modules-heading" class="space-y-3.5 pt-1">
+            <h2 id="modules-heading" class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Menu Administrasi &amp; Pengelolaan
+            </h2>
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {{-- Kelola Akun Siswa --}}
-                <a href="{{ route('master.students.index') }}" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 hover:shadow-xs transition group">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2.5 rounded-lg bg-purple-50 text-purple-700 group-hover:bg-purple-100 transition">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
+                <a href="{{ route('master.students.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-primary-100/80 dark:bg-primary-950/70 text-primary-700 dark:text-[#5AE39D] group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-slate-800 group-hover:text-purple-700 transition">Akun Siswa</h3>
-                            <p class="text-xs text-slate-500">Kelola akun, reset sandi, dan arsip siswa.</p>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Akun Siswa</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kelola akun, reset kata sandi, dan arsip.</p>
                         </div>
                     </div>
                 </a>
 
                 {{-- Kelola Guru BK --}}
-                <a href="{{ route('master.bk-users.index') }}" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 hover:shadow-xs transition group">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2.5 rounded-lg bg-emerald-50 text-emerald-700 group-hover:bg-emerald-100 transition">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                            </svg>
+                <a href="{{ route('master.bk-users.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-emerald-100/80 dark:bg-emerald-950/70 text-emerald-700 dark:text-[#5AE39D] group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-slate-800 group-hover:text-emerald-700 transition">Akun Guru BK</h3>
-                            <p class="text-xs text-slate-500">Kelola konselor penanggung jawab laporan.</p>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Akun Guru BK</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Petugas konseling madrasah & 2FA.</p>
                         </div>
                     </div>
                 </a>
 
-                {{-- Impor Massal Excel --}}
-                <a href="{{ route('master.import.index') }}" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 hover:shadow-xs transition group">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2.5 rounded-lg bg-sky-50 text-sky-700 group-hover:bg-sky-100 transition">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                            </svg>
+                {{-- Impor Pengguna Excel --}}
+                <a href="{{ route('master.import.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-sky-100/80 dark:bg-sky-950/70 text-sky-700 dark:text-sky-300 group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-slate-800 group-hover:text-sky-700 transition">Impor Excel Massal</h3>
-                            <p class="text-xs text-slate-500">Tambah ~400 siswa sekaligus via file .xlsx.</p>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Impor Excel</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Unggah data massal siswa & guru BK.</p>
+                        </div>
+                    </div>
+                </a>
+
+                {{-- Rombongan Belajar --}}
+                <a href="{{ route('master.classes.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-amber-100/80 dark:bg-amber-950/70 text-amber-800 dark:text-[#FAD46B] group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Data Kelas</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kelola kelas per tahun ajaran.</p>
+                        </div>
+                    </div>
+                </a>
+
+                {{-- Tahun Ajaran --}}
+                <a href="{{ route('master.academic-years.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-purple-100/80 dark:bg-purple-950/70 text-purple-700 dark:text-purple-300 group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Tahun Ajaran</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kelola periode aktif madrasah.</p>
                         </div>
                     </div>
                 </a>
 
                 {{-- Operasi Massal Kelas --}}
-                <a href="{{ route('master.class-operations.index') }}" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 hover:shadow-xs transition group">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2.5 rounded-lg bg-amber-50 text-amber-700 group-hover:bg-amber-100 transition">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-                            </svg>
+                <a href="{{ route('master.class-operations.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-indigo-100/80 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-slate-800 group-hover:text-amber-700 transition">Operasi Massal Kelas</h3>
-                            <p class="text-xs text-slate-500">Kenaikan kelas tahunan & arsip alumni.</p>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Operasi Kelas</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kenaikan kelas & arsip lulusan.</p>
                         </div>
                     </div>
                 </a>
 
-                {{-- Data Kelas --}}
-                <a href="{{ route('master.classes.index') }}" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 hover:shadow-xs transition group">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2.5 rounded-lg bg-indigo-50 text-indigo-700 group-hover:bg-indigo-100 transition">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                            </svg>
+                {{-- Log Aktivitas Keamanan --}}
+                <a href="{{ route('master.activity-logs.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-rose-100/80 dark:bg-rose-950/70 text-rose-700 dark:text-rose-300 group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-slate-800 group-hover:text-indigo-700 transition">Data Rombel Kelas</h3>
-                            <p class="text-xs text-slate-500">Kelola daftar kelas dan jenjang tingkat.</p>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Audit &amp; Log</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Catatan aktivitas & jejak keamanan.</p>
                         </div>
                     </div>
                 </a>
 
-                {{-- Data Tahun Ajaran --}}
-                <a href="{{ route('master.academic-years.index') }}" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 hover:shadow-xs transition group">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2.5 rounded-lg bg-rose-50 text-rose-700 group-hover:bg-rose-100 transition">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                            </svg>
+                {{-- Pengaturan Website --}}
+                <a href="{{ route('master.settings.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-teal-100/80 dark:bg-teal-950/70 text-teal-700 dark:text-teal-300 group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-sm font-bold text-slate-800 group-hover:text-rose-700 transition">Tahun Ajaran</h3>
-                            <p class="text-xs text-slate-500">Atur periode aktif dan riwayat tahun ajaran.</p>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Pengaturan Web</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kontak darurat & teks beranda.</p>
                         </div>
                     </div>
                 </a>
 
-                {{-- Log Aktivitas & Audit --}}
-                <a href="{{ route('master.activity-logs.index') }}" class="p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-300 hover:shadow-xs transition group sm:col-span-2 lg:col-span-3">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="p-2.5 rounded-lg bg-slate-100 text-slate-700 group-hover:bg-slate-200 transition">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="text-sm font-bold text-slate-800 group-hover:text-purple-700 transition">Log Aktivitas & Audit Keamanan</h3>
-                                <p class="text-xs text-slate-500">Pantau seluruh catatan login, perubahan akun, dan audit keamanan sistem (read-only).</p>
-                            </div>
+                {{-- Laporan Periodik Otomatis --}}
+                <a href="{{ route('periodic-reports.index') }}" class="p-5 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-surface-card dark:bg-[#16231D] hover:border-primary-500 dark:hover:border-primary-500 hover:shadow-xs transition card-hover group min-h-[44px]">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-11 h-11 rounded-xl bg-orange-100/80 dark:bg-orange-950/70 text-orange-700 dark:text-orange-300 group-hover:scale-105 transition-transform flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         </div>
-                        <span class="text-xs font-semibold text-purple-700 hidden sm:inline">&rarr; Buka Log</span>
+                        <div>
+                            <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">Laporan Periodik</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Rekap otomatis bulanan & semester.</p>
+                        </div>
                     </div>
                 </a>
             </div>
-        </div>
+        </section>
     </div>
+
+    @if(isset($report_stats))
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                if (typeof Chart === 'undefined') return;
+
+                // 1. Master Trend Line Chart
+                const trendCtx = document.getElementById('masterTrendChart');
+                if (trendCtx) {
+                    new Chart(trendCtx, {
+                        type: 'line',
+                        data: {
+                            labels: {!! json_encode(array_column($report_stats['monthly_trend'], 'label')) !!},
+                            datasets: [{
+                                label: 'Kasus',
+                                data: {!! json_encode(array_column($report_stats['monthly_trend'], 'count')) !!},
+                                borderColor: '#176B4D',
+                                backgroundColor: 'rgba(23, 107, 77, 0.1)',
+                                borderWidth: 2.5,
+                                fill: true,
+                                tension: 0.3,
+                                pointBackgroundColor: '#176B4D',
+                                pointRadius: 3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                        }
+                    });
+                }
+
+                // 2. Master Category Doughnut Chart
+                const catCtx = document.getElementById('masterCategoryChart');
+                if (catCtx) {
+                    new Chart(catCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: {!! json_encode(array_column($report_stats['category_distribution'], 'label')) !!},
+                            datasets: [{
+                                data: {!! json_encode(array_column($report_stats['category_distribution'], 'count')) !!},
+                                backgroundColor: ['#176B4D', '#B8E34B', '#F59E0B', '#0284C7', '#8B5CF6', '#EC4899', '#94A3B8'],
+                                borderWidth: 2,
+                                borderColor: '#ffffff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                            }
+                        }
+                    });
+                }
+            });
+        </script>
+    @endif
 </x-layouts.app>
