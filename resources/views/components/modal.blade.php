@@ -35,7 +35,7 @@
         x-transition:leave="ease-in duration-150"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
-        class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs transition-opacity" 
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity" 
         @click="open = false"
     ></div>
 
@@ -49,32 +49,32 @@
             x-transition:leave="ease-in duration-150"
             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all w-full {{ $widths[$maxWidth] ?? $widths['md'] }} border border-slate-200"
+            class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all w-full {{ $widths[$maxWidth] ?? $widths['md'] }} border border-[#CBD5E1]"
         >
             <div class="px-6 pt-6 pb-4">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                    <h3 class="text-base font-bold text-slate-900 tracking-tight" id="{{ $id }}-title">
+                <div class="flex items-center justify-between pb-3 border-b border-[#E2E8F0]">
+                    <h3 class="text-lg font-bold text-[#0F172A] tracking-tight" id="{{ $id }}-title">
                         {{ $title }}
                     </h3>
                     <button 
                         type="button" 
                         @click="open = false"
-                        class="text-slate-400 hover:text-slate-600 p-1 rounded-lg transition focus:outline-none focus:ring-2 focus:ring-slate-400"
+                        class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center text-[#64748B] hover:text-[#0F172A] hover:bg-[#F1F5F9] rounded-xl transition focus:outline-none focus:ring-2 focus:ring-[#0F766E]"
                     >
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                        <span class="sr-only">Tutup</span>
+                        <span class="sr-only">Tutup dialog</span>
                     </button>
                 </div>
 
-                <div class="mt-4 text-sm text-slate-600 leading-relaxed">
+                <div class="mt-4 text-sm sm:text-base text-[#475569] leading-relaxed">
                     {{ $slot }}
                 </div>
             </div>
 
             @if (isset($footer))
-                <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-100 flex items-center justify-end gap-2.5">
+                <div class="bg-[#F8FAFC] px-6 py-4 border-t border-[#E2E8F0] flex items-center justify-end gap-3">
                     {{ $footer }}
                 </div>
             @endif

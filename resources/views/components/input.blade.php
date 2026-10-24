@@ -14,15 +14,16 @@
     $id = $id ?? $name;
     $helperText = $helper ?? $hint;
     $hasError = $errors->has($name);
+    $isPassword = ($type === 'password');
 @endphp
 
-<div class="flex flex-col gap-1.5 w-full">
+<div class="flex flex-col gap-2 w-full" @if($isPassword) x-data="{ showPassword: false }" @endif>
     @if ($label)
-        <label for="{{ $id }}" class="text-xs font-semibold text-slate-700 flex items-center justify-between">
+        <label for="{{ $id }}" class="text-[15px] font-semibold text-[#0F172A] flex items-center justify-between">
             <span>
                 {{ $label }}
                 @if ($required)
-                    <span class="text-rose-500 font-bold ml-0.5">*</span>
+                    <span class="text-[#B91C1C] font-bold ml-1" title="Kolom ini wajib diisi">(wajib)</span>
                 @endif
             </span>
         </label>
@@ -30,31 +31,60 @@
 
     <div class="relative">
         <input 
-            type="{{ $type }}"
+            @if($isPassword)
+                :type="showPassword ? 'text' : 'password'"
+            @else
+                type="{{ $type }}"
+            @endif
             name="{{ $name }}"
             id="{{ $id }}"
             value="{{ old($name, $value) }}"
             placeholder="{{ $placeholder }}"
             {{ $required ? 'required' : '' }}
+            @if ($hasError)
+                aria-invalid="true"
+                aria-describedby="{{ $id }}-error"
+            @elseif ($helperText)
+                aria-describedby="{{ $id }}-helper"
+            @endif
             {{ $attributes->merge([
-                'class' => 'w-full rounded-lg border text-sm px-3.5 py-2 transition focus:outline-none focus:ring-2 ' . 
+                'class' => 'w-full rounded-xl border text-base px-4 py-2.5 min-h-[44px] transition focus:outline-none focus:ring-2 ' . 
                     ($hasError 
-                        ? 'border-rose-300 bg-rose-50/30 text-rose-900 focus:border-rose-500 focus:ring-rose-200' 
-                        : 'border-slate-300 bg-white text-slate-800 focus:border-emerald-500 focus:ring-emerald-100 placeholder:text-slate-400')
+                        ? 'border-[#B91C1C] bg-rose-50/40 text-[#0F172A] focus:border-[#B91C1C] focus:ring-rose-200' 
+                        : 'border-[#64748B] bg-white text-[#0F172A] focus:border-[#0F766E] focus:ring-[#0F766E]/20 placeholder:text-[#64748B]') .
+                    ($isPassword ? ' pr-12' : '')
             ]) }}
         />
+
+        @if ($isPassword)
+            <button 
+                type="button" 
+                @click="showPassword = !showPassword"
+                class="absolute right-2 top-1/2 -translate-y-1/2 p-2 min-h-[40px] min-w-[40px] text-[#475569] hover:text-[#0F172A] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0F766E]"
+                :aria-label="showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'"
+            >
+                <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+                <svg x-show="showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/>
+                </svg>
+            </button>
+        @endif
     </div>
 
     @if ($helperText && !$hasError)
-        <p class="text-[11px] text-slate-500 leading-normal">{{ $helperText }}</p>
+        <p id="{{ $id }}-helper" class="text-sm text-[#475569] leading-relaxed">{{ $helperText }}</p>
     @endif
 
     @error($name)
-        <p class="text-xs text-rose-600 font-medium flex items-center gap-1 mt-0.5" role="alert">
-            <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <p id="{{ $id }}-error" class="text-sm text-[#B91C1C] font-medium flex items-center gap-1.5 mt-0.5" role="alert">
+            <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
             </svg>
             <span>{{ $message }}</span>
         </p>
     @enderror
 </div>
+

@@ -11,15 +11,20 @@
     $id = $id ?? $name;
     $helperText = $helper ?? $hint;
     $hasError = $errors->has($name);
+    $helpId = $helperText ? $id . '-help' : null;
+    $errorId = $hasError ? $id . '-error' : null;
+    $describedBy = trim(($errorId ?? '') . ' ' . ($helpId ?? '')) ?: null;
 @endphp
 
 <div class="flex flex-col gap-1.5 w-full">
     @if ($label)
-        <label for="{{ $id }}" class="text-xs font-semibold text-slate-700 flex items-center justify-between">
+        <label for="{{ $id }}" class="text-[15px] font-semibold text-[#0F172A] flex items-center justify-between">
             <span>
                 {{ $label }}
                 @if ($required)
-                    <span class="text-rose-500 font-bold ml-0.5">*</span>
+                    <span class="text-[#B91C1C] font-semibold ml-1" title="Wajib diisi">*</span>
+                @else
+                    <span class="text-xs font-normal text-[#64748B] ml-1">(opsional)</span>
                 @endif
             </span>
         </label>
@@ -29,23 +34,25 @@
         name="{{ $name }}"
         id="{{ $id }}"
         {{ $required ? 'required' : '' }}
+        @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif
+        @if ($hasError) aria-invalid="true" @endif
         {{ $attributes->merge([
-            'class' => 'w-full rounded-lg border text-sm px-3.5 py-2 transition focus:outline-none focus:ring-2 bg-white ' . 
+            'class' => 'w-full min-h-[44px] rounded-xl border text-base px-3.5 py-2.5 transition focus:outline-none focus:ring-2 bg-white ' . 
                 ($hasError 
-                    ? 'border-rose-300 bg-rose-50/30 text-rose-900 focus:border-rose-500 focus:ring-rose-200' 
-                    : 'border-slate-300 text-slate-800 focus:border-emerald-500 focus:ring-emerald-100')
+                    ? 'border-[#B91C1C] bg-[#FEF2F2] text-[#0F172A] focus:border-[#B91C1C] focus:ring-[#FEE2E2]' 
+                    : 'border-[#CBD5E1] text-[#0F172A] focus:border-[#0F766E] focus:ring-[#CCFBF1]')
         ]) }}
     >
         {{ $slot }}
     </select>
 
     @if ($helperText && !$hasError)
-        <p class="text-[11px] text-slate-500 leading-normal">{{ $helperText }}</p>
+        <p id="{{ $helpId }}" class="text-sm text-[#475569] leading-relaxed">{{ $helperText }}</p>
     @endif
 
     @error($name)
-        <p class="text-xs text-rose-600 font-medium flex items-center gap-1 mt-0.5" role="alert">
-            <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <p id="{{ $errorId }}" class="text-sm text-[#B91C1C] font-medium flex items-center gap-1.5 mt-0.5" role="alert">
+            <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
             </svg>
             <span>{{ $message }}</span>
