@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full bg-[#F8FAF9]">
+<html lang="id" class="h-full bg-[#F8FAF9] dark:bg-[#0E1713]">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,8 +88,8 @@
                 <div class="flex items-center gap-2 sm:gap-3">
                     {{-- Toggle Theme --}}
                     <button type="button" 
-                            onclick="const isDark = document.documentElement.classList.toggle('dark'); localStorage.setItem('ui-theme', isDark ? 'dark' : 'light');"
-                            class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                            onclick="try { const isDark = document.documentElement.classList.toggle('dark'); localStorage.setItem('ui-theme', isDark ? 'dark' : 'light'); } catch(_) {}"
+                            class="p-2.5 min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                             aria-label="Alihkan tema gelap/terang"
                             title="Ganti Tema">
                         <svg class="w-4 h-4 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -233,7 +233,7 @@
                             <img src="{{ asset('images/logo-sekolah.png') }}" alt="Logo" class="w-8 h-8 object-contain" />
                             <span class="font-bold text-sm text-slate-900 dark:text-slate-100">SISPERKA Menu</span>
                         </div>
-                        <button type="button" @click="sidebarOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700">
+                        <button type="button" @click="sidebarOpen = false" class="p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Tutup menu navigasi">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                         </button>
                     </div>

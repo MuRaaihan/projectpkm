@@ -110,6 +110,16 @@
   --status-completed-text: #176B4D;
   --status-rejected-bg: #FDF0F0;
   --status-rejected-text: #B91C1C;
+
+  color-scheme: light;
+}
+
+@media print {
+  html, body, .dark {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    color-scheme: light !important;
+  }
 }
 
 html {

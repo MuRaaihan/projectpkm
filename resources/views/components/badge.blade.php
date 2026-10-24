@@ -12,6 +12,8 @@
         'danger' => 'bg-red-500 dark:bg-red-400',
         'info' => 'bg-sky-500',
         'primary' => 'bg-primary-600 dark:bg-[#5AE39D]',
+        'teal' => 'bg-emerald-600 dark:bg-[#5AE39D]',
+        'neutral' => 'bg-slate-500 dark:bg-slate-400',
 
         // Status Laporan Resmi SISPERKA
         'baru' => 'bg-slate-500 dark:bg-slate-300',
@@ -31,6 +33,8 @@
         'danger' => 'bg-red-50 text-red-800 border-red-200 dark:bg-red-950/40 dark:text-red-300 dark:border-red-800',
         'info' => 'bg-sky-50 text-sky-800 border-sky-200 dark:bg-sky-950/40 dark:text-sky-300 dark:border-sky-800',
         'primary' => 'bg-primary-50 text-primary-800 border-primary-200 dark:bg-primary-950/40 dark:text-primary-300 dark:border-primary-800',
+        'teal' => 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800',
+        'neutral' => 'bg-slate-100 text-slate-700 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
 
         // Status Laporan Resmi
         'baru' => 'bg-status-received-bg text-status-received-text border-slate-300/80 dark:border-slate-700',
