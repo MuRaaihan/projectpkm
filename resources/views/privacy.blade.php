@@ -17,7 +17,7 @@
         {{-- Konten Utama Kebijakan --}}
         <div class="space-y-6 text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
             {{-- Poin 1: Komitmen Utama --}}
-            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
                 <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
                     <span class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-sm font-mono font-bold flex items-center justify-center shrink-0">1</span>
                     Komitmen Perlindungan Peserta Didik
@@ -28,7 +28,7 @@
             </div>
 
             {{-- Poin 2: Kerahasiaan Identitas --}}
-            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
                 <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
                     <span class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-sm font-mono font-bold flex items-center justify-center shrink-0">2</span>
                     Opsi "Sembunyikan Nama" (Pelapor Rahasia)
@@ -44,7 +44,7 @@
             </div>
 
             {{-- Poin 3: Batas Kerahasiaan --}}
-            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
                 <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
                     <span class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-sm font-mono font-bold flex items-center justify-center shrink-0">3</span>
                     Kapan Kerahasiaan Perlu Dibuka? (Batas Kerahasiaan)
@@ -62,7 +62,7 @@
             </div>
 
             {{-- Poin 4: Batasan Akses Master Administrator --}}
-            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
                 <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
                     <span class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-sm font-mono font-bold flex items-center justify-center shrink-0">4</span>
                     Batasan Akses Master Administrator (Admin Sekolah)
@@ -78,7 +78,7 @@
             </div>
 
             {{-- Poin 5: Enkripsi & Notifikasi Internal --}}
-            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
                 <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
                     <span class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-sm font-mono font-bold flex items-center justify-center shrink-0">5</span>
                     Keamanan Penyimpanan & Komunikasi Internal
@@ -94,7 +94,7 @@
             </div>
 
             {{-- Poin 6: Fasilitas Tombol Keluar Cepat --}}
-            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+            <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
                 <h2 class="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
                     <span class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-sm font-mono font-bold flex items-center justify-center shrink-0">6</span>
                     Fasilitas Tombol "Keluar Cepat"
@@ -106,12 +106,15 @@
         </div>
 
         {{-- Hubungi BK --}}
-        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
                 <p class="text-sm font-bold text-slate-900 dark:text-slate-100">Punya pertanyaan seputar keamanan dan privasi?</p>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Guru Bimbingan & Konseling MTs Soebono Mantofani siap menjawab keraguanmu di ruang BK madrasah.</p>
             </div>
-            <a href="{{ route('home') }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition active:scale-[0.98]">
+            <a href="{{ route('home') }}" class="min-h-[44px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition active:scale-[0.98]">
+                &larr; Kembali ke Beranda
+            </a>
+        </div>
                 &larr; Kembali ke Beranda
             </a>
         </div>

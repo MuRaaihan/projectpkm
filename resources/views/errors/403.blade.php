@@ -18,12 +18,12 @@
             </div>
 
             <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
-                <a href="{{ url('/') }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xs transition active:scale-[0.98]">
+                <a href="{{ url('/') }}" class="min-h-[44px] inline-flex items-center justify-center px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-[#16231D] hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xs transition active:scale-[0.98]">
                     Kembali ke Beranda
                 </a>
 
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="min-h-[42px] inline-flex items-center justify-center px-5 py-2 text-xs sm:text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs transition active:scale-[0.98]">
+                    <a href="{{ url('/dashboard') }}" class="min-h-[44px] inline-flex items-center justify-center px-5 py-2.5 text-xs sm:text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs transition active:scale-[0.98]">
                         Buka Dashboard Saya
                     </a>
                 @endauth
