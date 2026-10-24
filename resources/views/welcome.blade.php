@@ -776,80 +776,7 @@
         </section>
 
         {{-- ===================================================
-            5. ALUR PENANGANAN LAPORAN (Alur & Perkiraan Waktu)
-            =================================================== --}}
-        <section id="alur-penanganan" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-            <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
-                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-primary-700 dark:text-[#5AE39D]">Alur Responsif</span>
-                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">
-                    Alur Penanganan Laporan & Perkiraan Waktu
-                </h2>
-                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-                    Setiap laporan yang masuk ditangani secara terstruktur dan terukur oleh tim BK madrasah.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {{-- Alur 1 --}}
-                <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-3 card-hover">
-                    <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
-                        <span class="text-xs font-bold text-primary-800 dark:text-primary-300 uppercase tracking-wider">Tahap 1</span>
-                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-primary-50 dark:bg-primary-950 text-primary-800 dark:text-primary-300 border border-primary-200 dark:border-primary-800">
-                            Maks. 1×24 Jam
-                        </span>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">Verifikasi Awal</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Guru BK menerima notifikasi di sistem, membaca kronologi, dan memvalidasi keabsahan informasi laporan.
-                    </p>
-                </div>
-
-                {{-- Alur 2 --}}
-                <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-3 card-hover">
-                    <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
-                        <span class="text-xs font-bold text-primary-800 dark:text-primary-300 uppercase tracking-wider">Tahap 2</span>
-                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
-                            1 – 2 Hari Kerja
-                        </span>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">Klarifikasi Tertutup</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Guru BK mengundang pelapor secara personal dan tenang ke ruang konseling untuk mendengarkan cerita lebih dalam.
-                    </p>
-                </div>
-
-                {{-- Alur 3 --}}
-                <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-3 card-hover">
-                    <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
-                        <span class="text-xs font-bold text-primary-800 dark:text-primary-300 uppercase tracking-wider">Tahap 3</span>
-                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-                            Sesuai Kebutuhan
-                        </span>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">Tindakan Solutif & Pemulihan</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Pendampingan psikologis korban, mediasi damai bila memungkinkan, dan pembinaan edukatif bagi pihak terkait.
-                    </p>
-                </div>
-
-                {{-- Alur 4 --}}
-                <div class="p-6 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200/90 dark:border-slate-800 shadow-xs space-y-3 card-hover">
-                    <div class="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
-                        <span class="text-xs font-bold text-primary-800 dark:text-primary-300 uppercase tracking-wider">Tahap 4</span>
-                        <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                            Berkala
-                        </span>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">Pemantauan Lanjutan</h3>
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                        Guru BK memantau kondisi siswa pasca-penanganan untuk memastikan rasa aman telah pulih seutuhnya di madrasah.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        {{-- ===================================================
-            6. PRIVASI & SEBELUM MEMBUAT LAPORAN (Sesuai frontend)
+            5. PRIVASI & SEBELUM MEMBUAT LAPORAN (Sesuai frontend)
             =================================================== --}}
         <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
             {{-- Privacy Card --}}
@@ -905,72 +832,7 @@
         </section>
 
         {{-- ===================================================
-            7. FAQ (Pertanyaan yang Sering Diajukan)
-            =================================================== --}}
-        <section id="faq" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 scroll-mt-24">
-            <div class="text-center space-y-2">
-                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-primary-700 dark:text-[#5AE39D]">Tanya Jawab</span>
-                <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100">
-                    Pertanyaan yang Sering Diajukan (FAQ)
-                </h2>
-                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300">
-                    Ketahui jawaban atas pertanyaan yang sering diajukan sebelum kamu melapor.
-                </p>
-            </div>
-
-            <div class="space-y-3.5">
-                <details class="group bg-white dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-2xs open:border-primary-600 transition card-hover">
-                    <summary class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100 cursor-pointer list-none min-h-[44px]">
-                        <span>Apakah orang yang merundung akan tahu bahwa aku yang melapor?</span>
-                        <span class="transition group-open:rotate-180 text-slate-400 ml-4 shrink-0">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                        </span>
-                    </summary>
-                    <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
-                        Tidak. Guru BK tidak akan pernah memberitahukan siapa pelapornya kepada pihak terlapor. Kamu juga dapat memilih opsi <strong>"Sembunyikan Nama"</strong> saat mengisi form agar namamu tertutup sebagai "Pelapor Rahasia" di daftar umum penanganan.
-                    </p>
-                </details>
-
-                <details class="group bg-white dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-2xs open:border-primary-600 transition card-hover">
-                    <summary class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100 cursor-pointer list-none min-h-[44px]">
-                        <span>Bagaimana kalau aku bukan korban, tapi hanya melihat temanku dirundung?</span>
-                        <span class="transition group-open:rotate-180 text-slate-400 ml-4 shrink-0">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                        </span>
-                    </summary>
-                    <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
-                        Kamu sangat dianjurkan melapor sebagai <strong>Saksi</strong>. Membela teman yang membutuhkan pertolongan adalah perbuatan mulia yang sangat dihargai dan dilindungi oleh madrasah.
-                    </p>
-                </details>
-
-                <details class="group bg-white dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-2xs open:border-primary-600 transition card-hover">
-                    <summary class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100 cursor-pointer list-none min-h-[44px]">
-                        <span>Apakah aku akan dimarahi oleh guru atau orang tua bila melapor?</span>
-                        <span class="transition group-open:rotate-180 text-slate-400 ml-4 shrink-0">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                        </span>
-                    </summary>
-                    <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
-                        Sama sekali tidak. Guru BK hadir untuk mendampingi, mengayomi, dan mencarikan solusi terbaik bagimu. Menyampaikan perundungan adalah hak setiap anak dan madrasah berkomitmen penuh melindungimu.
-                    </p>
-                </details>
-
-                <details class="group bg-white dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 shadow-2xs open:border-primary-600 transition card-hover">
-                    <summary class="flex items-center justify-between font-bold text-sm sm:text-base text-slate-900 dark:text-slate-100 cursor-pointer list-none min-h-[44px]">
-                        <span>Bagaimana jika akun NIS atau kata sandi saya bermasalah?</span>
-                        <span class="transition group-open:rotate-180 text-slate-400 ml-4 shrink-0">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
-                        </span>
-                    </summary>
-                    <p class="mt-3 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-3">
-                        Kamu dapat langsung mendatangi Ruang BK atau meminta bantuan wali kelas untuk melakukan reset kata sandi akunmu melalui staf Master Administrator madrasah.
-                    </p>
-                </details>
-            </div>
-        </section>
-
-        {{-- ===================================================
-            8. FINAL CALL TO ACTION (Sesuai Desain frontend)
+            6. FINAL CALL TO ACTION (Sesuai Desain frontend)
             =================================================== --}}
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="py-16 sm:py-20 bg-primary-600 dark:bg-[#123F28] relative text-white rounded-3xl p-8 sm:p-12 text-center shadow-lg border border-primary-700">
