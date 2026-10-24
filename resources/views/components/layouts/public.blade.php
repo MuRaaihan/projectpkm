@@ -116,49 +116,127 @@
         {{ $slot }}
     </main>
 
-    {{-- Footer Publik (Sesuai Desain frontend/src/app/page.tsx) --}}
+    {{-- Footer Resmi & Profesional Madrasah (FR-41) --}}
     @if(!$hideFooter)
-    <footer class="bg-white dark:bg-[#0B110E] py-12 border-t border-slate-200/90 dark:border-slate-800 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-            <div class="mb-4">
-                <img src="{{ asset('images/logo-sekolah.png') }}" 
-                     alt="Logo MTs Soebono Mantofani" 
-                     class="w-12 h-12 object-contain rounded-xl drop-shadow-xs" />
+    <footer class="bg-white dark:bg-[#0B110E] border-t border-slate-200/90 dark:border-slate-800/90 text-slate-600 dark:text-slate-400 text-sm transition-colors mt-auto">
+        {{-- Konten Utama Footer --}}
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12">
+                {{-- Kolom 1: Profil Madrasah & Identitas Sistem (5 cols) --}}
+                <div class="lg:col-span-5 space-y-4">
+                    <div class="flex items-center gap-3.5">
+                        <img src="{{ asset('images/logo-sekolah.png') }}" 
+                             alt="Logo MTs Soebono Mantofani" 
+                             class="w-11 h-11 object-contain rounded-xl drop-shadow-xs" />
+                        <div>
+                            <span class="block font-black text-xl text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
+                                SIPERKA
+                            </span>
+                            <span class="block text-xs font-semibold text-primary-700 dark:text-[#5AE39D]">
+                                {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-md">
+                        Sistem Informasi Pelaporan Kasus Perundungan resmi madrasah. Ruang aman, rahasia, dan terpercaya bagi peserta didik untuk bercerita tanpa rasa takut demi terciptanya lingkungan belajar yang ramah dan bermartabat.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap gap-2.5">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80 shadow-2xs">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Permendikbudristek No. 46 Tahun 2023</span>
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                            <svg class="w-3.5 h-3.5 text-primary-600 dark:text-[#5AE39D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            <span>Kerahasiaan Terjamin</span>
+                        </span>
+                    </div>
+                </div>
+
+                {{-- Kolom 2: Navigasi Layanan (3 cols) --}}
+                <div class="lg:col-span-3 space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                        <span class="w-1.5 h-3.5 bg-primary-600 dark:bg-[#5AE39D] rounded-full"></span>
+                        Navigasi Layanan
+                    </h3>
+                    <ul class="space-y-2.5 text-xs sm:text-sm">
+                        <li>
+                            <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
+                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
+                                <span>Beranda Utama</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/#tentang') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
+                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
+                                <span>Tentang SIPERKA</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/#cara-kerja') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
+                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
+                                <span>Tata Cara Pelaporan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
+                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
+                                <span>Portal Masuk Siswa & BK</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                {{-- Kolom 3: Layanan Bimbingan & Konseling (4 cols) --}}
+                <div class="lg:col-span-4 space-y-4">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                        <span class="w-1.5 h-3.5 bg-primary-600 dark:bg-[#5AE39D] rounded-full"></span>
+                        Layanan Bimbingan & Konseling
+                    </h3>
+                    <div class="space-y-3 text-xs sm:text-sm">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-primary-600 dark:text-[#5AE39D] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <span class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                {{ \App\Models\Setting::get('school_address', 'Jl. Nurul Huda No. 27, RT 01/RW 02, Jombang, Ciputat, Tangerang Selatan') }}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#8C6708] dark:text-[#FAD46B] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <span class="text-slate-600 dark:text-slate-300 font-medium">
+                                {{ \App\Models\Setting::get('counseling_hours', 'Senin - Jumat: 07.30 - 15.00 WIB') }}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-primary-600 dark:text-[#5AE39D] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </div>
+                            <a href="mailto:{{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}" class="text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium">
+                                {{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <h4 class="text-lg font-extrabold text-slate-900 dark:text-white mb-1 tracking-tight">
-                SIPERKA
-            </h4>
-
-            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">
-                Sistem Informasi Pelaporan Kasus Perundungan &bull; {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}
-            </p>
-
-            <div class="w-12 h-px bg-slate-200 dark:bg-slate-800 mb-6"></div>
-
-            <p class="text-sm font-medium text-slate-600 dark:text-slate-300 max-w-md mb-6 leading-relaxed">
-                Bersama mewujudkan lingkungan sekolah yang aman, inklusif, dan saling menghargai.
-            </p>
-
-            <div class="flex flex-wrap items-center justify-center gap-5 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 mb-6">
-                <a href="{{ url('/') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition">Beranda</a>
-                <a href="{{ url('/#tentang') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition">Tentang</a>
-                <a href="{{ url('/#cara-kerja') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition">Cara Kerja</a>
-            </div>
-
-            <div class="text-xs text-slate-500 dark:text-slate-400 space-y-1 mb-6 max-w-lg">
+        {{-- Baris Hak Cipta & Kredensial Bawah --}}
+        <div class="border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#080E0B]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
                 <p>
-                    <span class="font-semibold text-slate-700 dark:text-slate-300">Layanan Bimbingan & Konseling:</span>
-                    {{ \App\Models\Setting::get('school_address', 'Jl. Nurul Huda No. 27, RT 01/RW 02, Jombang, Ciputat, Tangerang Selatan') }}
+                    &copy; {{ date('Y') }} <span class="font-bold text-slate-800 dark:text-slate-200">SIPERKA</span> &bull; {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}. Seluruh hak cipta dilindungi.
                 </p>
-                <p>
-                    {{ \App\Models\Setting::get('counseling_hours', 'Senin - Jumat: 07.30 - 15.00 WIB') }} &bull; {{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}
-                </p>
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 shadow-xs"></span>
+                    <span class="font-medium text-slate-600 dark:text-slate-300">Madrasah Ramah Anak & Bebas Perundungan</span>
+                </div>
             </div>
-
-            <p class="text-xs text-slate-400 dark:text-slate-600">
-                &copy; {{ date('Y') }} SIPERKA &bull; MTs Soebono Mantofani. All rights reserved.
-            </p>
         </div>
     </footer>
     @endif
