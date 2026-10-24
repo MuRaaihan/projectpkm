@@ -1,6 +1,6 @@
 <x-layouts.app title="Impor Akun Berhasil">
-    <div class="max-w-2xl mx-auto space-y-6 animate-fade-in">
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 text-center space-y-6 shadow-xs">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-2xl w-full mx-auto space-y-6 animate-fade-in">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-8 text-center space-y-6 shadow-xs">
             {{-- Icon Sukses --}}
             <div class="w-16 h-16 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 rounded-full flex items-center justify-center mx-auto shadow-xs">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">

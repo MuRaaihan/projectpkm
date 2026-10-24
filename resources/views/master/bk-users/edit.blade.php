@@ -1,5 +1,5 @@
 <x-layouts.app title="Ubah Data Guru BK">
-    <div class="max-w-2xl mx-auto space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-2xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Breadcrumb & Judul --}}
         <div>
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -17,7 +17,7 @@
             </p>
         </div>
 
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs">
             <form action="{{ route('master.bk-users.update', $bkUser) }}" method="POST" class="space-y-5">
                 @csrf
                 @method('PUT')
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
-                    <a href="{{ route('master.bk-users.index') }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition">
+                    <a href="{{ route('master.bk-users.index') }}" class="min-h-[44px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition">
                         Batal
                     </a>
                     <x-button type="submit" variant="primary" size="md">

@@ -1,5 +1,5 @@
 <x-layouts.app title="Pratinjau Impor Akun">
-    <div class="space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-6xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Breadcrumb & Judul --}}
         <div>
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -19,7 +19,7 @@
 
         {{-- Ringkasan Statistik Verifikasi --}}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs">
+            <div class="p-5 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs">
                 <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Baris Terbaca</span>
                 <p class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">{{ $total }}</p>
             </div>
@@ -44,7 +44,7 @@
                         <p class="text-xs text-rose-800 dark:text-rose-300 mt-0.5">Baris di bawah ini tidak akan disimpan ke database. Anda dapat mengunduh daftar kesalahan ini untuk diperbaiki.</p>
                     </div>
 
-                    <a href="{{ route('master.import.download-failed', ['token' => $token]) }}" class="min-h-[40px] inline-flex items-center justify-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-rose-700 dark:text-rose-300 bg-white dark:bg-slate-800 border border-rose-300 dark:border-rose-700 hover:bg-rose-50 rounded-xl shadow-xs transition shrink-0">
+                    <a href="{{ route('master.import.download-failed', ['token' => $token]) }}" class="min-h-[44px] inline-flex items-center justify-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-rose-700 dark:text-rose-300 bg-white dark:bg-slate-800 border border-rose-300 dark:border-rose-700 hover:bg-rose-50 rounded-xl shadow-xs transition shrink-0">
                         <svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
@@ -52,7 +52,7 @@
                     </a>
                 </div>
 
-                <div class="max-h-64 overflow-y-auto rounded-xl border border-rose-200 dark:border-rose-900/60 bg-white dark:bg-slate-800">
+                <div class="max-h-64 overflow-y-auto rounded-xl border border-rose-200 dark:border-rose-900/60 bg-white dark:bg-[#16231D]">
                     <table class="w-full text-left text-xs sm:text-sm">
                         <thead class="bg-rose-100/70 dark:bg-rose-950/50 text-rose-950 dark:text-rose-200 font-semibold border-b border-rose-200 dark:border-rose-900/60">
                             <tr>
@@ -86,8 +86,8 @@
         @endif
 
         {{-- Tabel Pratinjau Data Valid --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
-            <div class="p-4 sm:p-5 bg-slate-50/70 dark:bg-slate-850 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
+            <div class="p-4 sm:p-5 bg-slate-50/70 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
                     <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">Pratinjau Data Valid yang Siap Disimpan</h3>
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Menampilkan hingga 50 baris pertama data yang memenuhi syarat validasi.</p>
@@ -149,7 +149,7 @@
 
         {{-- Tindakan Aksi --}}
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-            <a href="{{ route('master.import.index') }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition shadow-xs w-full sm:w-auto">
+            <a href="{{ route('master.import.index') }}" class="min-h-[44px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition shadow-xs w-full sm:w-auto">
                 Batal & Unggah Ulang
             </a>
 
@@ -157,7 +157,7 @@
                 <form action="{{ route('master.import.confirm') }}" method="POST" class="w-full sm:w-auto">
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}" />
-                    <x-button type="submit" variant="primary" class="w-full sm:w-auto min-h-[42px] px-5 py-2 text-xs sm:text-sm font-semibold" onclick="return confirm('Simpan {{ count($valid) }} akun ke dalam database sekarang?');">
+                    <x-button type="submit" variant="primary" class="w-full sm:w-auto min-h-[44px] px-5 py-2 text-xs sm:text-sm font-semibold" onclick="return confirm('Simpan {{ count($valid) }} akun ke dalam database sekarang?');">
                         Konfirmasi & Simpan {{ count($valid) }} Akun ke Database
                     </x-button>
                 </form>

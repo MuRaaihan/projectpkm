@@ -162,7 +162,7 @@
                 </div>
 
                 @if($categories->hasPages())
-                    <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-850">
+                    <div class="px-5 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40">
                         {{ $categories->links() }}
                     </div>
                 @endif

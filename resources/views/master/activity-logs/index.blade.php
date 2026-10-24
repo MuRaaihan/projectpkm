@@ -1,5 +1,5 @@
 <x-layouts.app title="Log Aktivitas & Audit Keamanan">
-    <div class="space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-6xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Header --}}
         <div>
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -26,11 +26,11 @@
         </div>
 
         {{-- Filter & Pencarian --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 sm:p-5 shadow-xs">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xs">
             <form method="GET" action="{{ route('master.activity-logs.index') }}" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="flex flex-wrap items-center gap-3">
                     {{-- Filter Jenis Aksi --}}
-                    <select name="action" onchange="this.form.submit()" class="min-h-[40px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2 pl-3 pr-8 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <select name="action" onchange="this.form.submit()" class="min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2 pl-3 pr-8 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
                         <option value="">Semua Jenis Aktivitas</option>
                         @foreach ($actionTypes as $key => $label)
                             <option value="{{ $key }}" {{ ($action ?? '') === $key ? 'selected' : '' }}>
@@ -41,15 +41,15 @@
 
                     {{-- Search Input --}}
                     <div class="relative w-full sm:w-72">
-                        <input type="text" name="q" value="{{ $search }}" placeholder="Cari deskripsi, pelaku, IP..." class="w-full min-h-[40px] pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400" />
-                        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <input type="text" name="q" value="{{ $search }}" placeholder="Cari deskripsi, pelaku, IP..." class="w-full min-h-[44px] pl-9 pr-4 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 placeholder-slate-400" />
+                        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
                 </div>
 
                 @if ($search || ($action ?? ''))
-                    <a href="{{ route('master.activity-logs.index') }}" class="text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 hover:underline font-semibold self-end sm:self-auto">
+                    <a href="{{ route('master.activity-logs.index') }}" class="min-h-[44px] inline-flex items-center text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 hover:underline font-semibold self-end sm:self-auto">
                         Reset Filter
                     </a>
                 @endif
@@ -57,7 +57,7 @@
         </div>
 
         {{-- Tabel Log Aktivitas --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
             <x-table :headers="['Waktu (WIB)', 'Pelaku / Pengguna', 'Aktivitas', 'Deskripsi / Rincian', 'Alamat IP']">
                 @forelse ($logs as $log)
                     <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition">

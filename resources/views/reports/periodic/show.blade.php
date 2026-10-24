@@ -1,5 +1,5 @@
 <x-layouts.app title="Rincian Laporan Periodik: {{ $summary->period_label }}">
-    <div class="max-w-5xl mx-auto space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-5xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Breadcrumb & Judul --}}
         <div>
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -26,7 +26,7 @@
 
         {{-- Kartu Metrik Utama --}}
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div class="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs">
+            <div class="p-4 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs">
                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Laporan</span>
                 <span class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 mt-1 block">{{ $summary->total_reports }}</span>
                 <span class="text-xs text-slate-400 mt-0.5 block">Laporan masuk</span>
@@ -54,8 +54,8 @@
         </div>
 
         {{-- Rincian Tingkat Urgensi --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
-            <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 pb-3 border-b border-slate-100 dark:border-slate-850">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-4">
+            <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 pb-3 border-b border-slate-100 dark:border-slate-800">
                 Sebaran Tingkat Urgensi Kasus
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -88,8 +88,8 @@
         {{-- Dua Kolom: Sebaran Kategori & Sebaran Kelas --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {{-- Kategori Kasus --}}
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-3">
-                <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 pb-3 border-b border-slate-100 dark:border-slate-850">
+            <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-3">
+                <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 pb-3 border-b border-slate-100 dark:border-slate-800">
                     Sebaran Berdasarkan Kategori
                 </h2>
                 @php
@@ -112,8 +112,8 @@
             </div>
 
             {{-- Kelas Siswa --}}
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-3">
-                <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 pb-3 border-b border-slate-100 dark:border-slate-850">
+            <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-3">
+                <h2 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 pb-3 border-b border-slate-100 dark:border-slate-800">
                     Sebaran Berdasarkan Kelas Siswa
                 </h2>
                 @php
@@ -138,7 +138,7 @@
 
         {{-- Navigasi Kembali --}}
         <div class="pt-2">
-            <a href="{{ route('periodic-reports.index') }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition shadow-xs">
+            <a href="{{ route('periodic-reports.index') }}" class="min-h-[44px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition shadow-xs">
                 &larr; Kembali ke Daftar Laporan Periodik
             </a>
         </div>

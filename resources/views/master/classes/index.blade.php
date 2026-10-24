@@ -1,5 +1,5 @@
 <x-layouts.app title="Master Data: Kelas">
-    <div class="space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-6xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Header & Aksi --}}
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
             <div>
@@ -18,7 +18,7 @@
 
             <button type="button" 
                     @click="$dispatch('open-modal', 'modal-tambah-kelas')"
-                    class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 rounded-xl shadow-sm transition active:scale-[0.98] shrink-0">
+                    class="min-h-[44px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-600 dark:hover:bg-emerald-500 rounded-xl shadow-sm transition active:scale-[0.98] shrink-0">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
@@ -27,11 +27,11 @@
         </div>
 
         {{-- Filter Tahun Ajaran --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 rounded-2xl p-4 sm:p-5 shadow-xs">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xs">
             <form method="GET" action="{{ route('master.classes.index') }}" class="flex flex-wrap items-center justify-between gap-3">
                 <div class="flex flex-wrap items-center gap-2.5">
                     <label for="filter-year" class="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 whitespace-nowrap">Filter Tahun Ajaran:</label>
-                    <select name="academic_year_id" id="filter-year" onchange="this.form.submit()" class="min-h-[40px] rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm py-2 px-3 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-emerald-500">
+                    <select name="academic_year_id" id="filter-year" onchange="this.form.submit()" class="min-h-[44px] rounded-xl border border-slate-200 dark:border-slate-700 text-xs sm:text-sm py-2 px-3 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-emerald-500">
                         <option value="">Semua Tahun Ajaran</option>
                         @foreach ($academicYears as $year)
                             <option value="{{ $year->id }}" {{ $selectedYearId == $year->id ? 'selected' : '' }}>
@@ -42,7 +42,7 @@
                 </div>
 
                 @if ($selectedYearId)
-                    <a href="{{ route('master.classes.index') }}" class="text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 hover:underline font-semibold">
+                    <a href="{{ route('master.classes.index') }}" class="min-h-[44px] inline-flex items-center text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 hover:underline font-semibold">
                         Reset Filter
                     </a>
                 @endif
@@ -50,7 +50,7 @@
         </div>
 
         {{-- Tabel Daftar Kelas --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
             <x-table :headers="['Tingkat', 'Nama Kelas', 'Tahun Ajaran', 'Jumlah Siswa Aktif', 'Aksi']">
                 @forelse ($classes as $class)
                     <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition">
@@ -78,7 +78,7 @@
                                 {{-- Tombol Edit --}}
                                 <button type="button" 
                                         @click="$dispatch('open-modal', 'modal-edit-kelas-{{ $class->id }}')"
-                                        class="p-2 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-slate-700 rounded-lg transition"
+                                        class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-slate-700 rounded-lg transition"
                                         title="Ubah Kelas">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -91,7 +91,7 @@
                                     <form method="POST" action="{{ route('master.classes.destroy', $class) }}" onsubmit="return confirm('Hapus kelas {{ $class->name }}?');" class="inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition" title="Hapus">
+                                        <button type="submit" class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition" title="Hapus">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>

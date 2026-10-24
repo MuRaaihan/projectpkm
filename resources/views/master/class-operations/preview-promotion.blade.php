@@ -1,5 +1,5 @@
 <x-layouts.app title="Konfirmasi Kenaikan Kelas">
-    <div class="max-w-4xl mx-auto space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-4xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Breadcrumb & Judul --}}
         <div>
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -19,7 +19,7 @@
 
         {{-- Ringkasan Perpindahan --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 shadow-xs">
+            <div class="p-5 rounded-2xl bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 shadow-xs">
                 <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Kelas Asal (Sumber)</span>
                 <div class="mt-2">
                     <p class="text-xl font-bold text-slate-900 dark:text-slate-100">Kelas {{ $fromClass->name }}</p>
@@ -47,7 +47,7 @@
         </div>
 
         {{-- Tabel Siswa --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
             <x-table :headers="['No', 'NIS Siswa', 'Nama Lengkap Siswa', 'Jenis Kelamin']">
                 @foreach ($students as $index => $s)
                     <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/50 transition">
@@ -76,11 +76,11 @@
             <input type="hidden" name="from_class_id" value="{{ $fromClass->id }}" />
             <input type="hidden" name="to_class_id" value="{{ $toClass->id }}" />
 
-            <a href="{{ route('master.class-operations.index') }}" class="min-h-[42px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition shadow-xs w-full sm:w-auto">
+            <a href="{{ route('master.class-operations.index') }}" class="min-h-[44px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl transition shadow-xs w-full sm:w-auto">
                 Kembali & Batal
             </a>
 
-            <x-button type="submit" variant="primary" class="w-full sm:w-auto min-h-[42px] px-5 py-2 text-xs sm:text-sm font-semibold" onclick="return confirm('Pindahkan {{ $students->count() }} siswa ke Kelas {{ $toClass->name }} sekarang?');">
+            <x-button type="submit" variant="primary" class="w-full sm:w-auto min-h-[44px] px-5 py-2 text-xs sm:text-sm font-semibold" onclick="return confirm('Pindahkan {{ $students->count() }} siswa ke Kelas {{ $toClass->name }} sekarang?');">
                 Konfirmasi & Pindahkan {{ $students->count() }} Siswa Sekarang
             </x-button>
         </form>

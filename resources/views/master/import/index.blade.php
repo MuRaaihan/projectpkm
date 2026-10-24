@@ -1,5 +1,5 @@
 <x-layouts.app title="Impor Akun dari Excel">
-    <div class="max-w-4xl mx-auto space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-4xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Breadcrumb & Judul --}}
         <div>
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -16,8 +16,8 @@
         </div>
 
         {{-- Langkah 1: Unduh Format Template --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
-            <div class="flex items-center gap-3.5 pb-4 border-b border-slate-100 dark:border-slate-850">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+            <div class="flex items-center gap-3.5 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div class="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 font-bold text-xs flex items-center justify-center shrink-0">
                     1
                 </div>
@@ -33,7 +33,7 @@
                         <p class="text-sm font-bold text-slate-900 dark:text-slate-100">Template Akun Siswa</p>
                         <p class="text-xs text-emerald-700 dark:text-emerald-400 mt-0.5">Kolom: NIS, Nama Siswa, Kelas, L/P</p>
                     </div>
-                    <a href="{{ route('master.import.template.siswa') }}" class="min-h-[40px] inline-flex items-center justify-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-emerald-700 dark:text-emerald-300 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-slate-700 rounded-xl shadow-xs transition shrink-0 active:scale-[0.98]">
+                    <a href="{{ route('master.import.template.siswa') }}" class="min-h-[44px] inline-flex items-center justify-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-emerald-700 dark:text-emerald-300 bg-white dark:bg-slate-800 border border-emerald-200 dark:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-slate-700 rounded-xl shadow-xs transition shrink-0 active:scale-[0.98]">
                         <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
@@ -46,7 +46,7 @@
                         <p class="text-sm font-bold text-slate-900 dark:text-slate-100">Template Guru BK</p>
                         <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kolom: NIP/User, Nama, Nomor HP</p>
                     </div>
-                    <a href="{{ route('master.import.template.bk') }}" class="min-h-[40px] inline-flex items-center justify-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl shadow-xs transition shrink-0 active:scale-[0.98]">
+                    <a href="{{ route('master.import.template.bk') }}" class="min-h-[44px] inline-flex items-center justify-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl shadow-xs transition shrink-0 active:scale-[0.98]">
                         <svg class="w-4 h-4 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                         </svg>
@@ -57,8 +57,8 @@
         </div>
 
         {{-- Langkah 2: Unggah File Excel --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
-            <div class="flex items-center gap-3.5 pb-4 border-b border-slate-100 dark:border-slate-850">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs">
+            <div class="flex items-center gap-3.5 pb-4 border-b border-slate-100 dark:border-slate-800">
                 <div class="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 font-bold text-xs flex items-center justify-center shrink-0">
                     2
                 </div>
@@ -77,7 +77,7 @@
                         Pilih Tipe Data yang Diimpor <span class="text-rose-500 font-semibold ml-0.5">*</span>
                     </label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                        <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition has-checked:border-emerald-500 has-checked:bg-emerald-50/50 dark:has-checked:bg-emerald-950/30 min-h-[42px]">
+                        <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition has-checked:border-emerald-500 has-checked:bg-emerald-50/50 dark:has-checked:bg-emerald-950/30 min-h-[44px]">
                             <input type="radio" name="type" value="siswa" checked class="text-emerald-600 focus:ring-emerald-500 w-4 h-4" />
                             <div>
                                 <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 block">Akun Siswa</span>
@@ -85,7 +85,7 @@
                             </div>
                         </label>
 
-                        <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition has-checked:border-emerald-500 has-checked:bg-emerald-50/50 dark:has-checked:bg-emerald-950/30 min-h-[42px]">
+                        <label class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700/50 transition has-checked:border-emerald-500 has-checked:bg-emerald-50/50 dark:has-checked:bg-emerald-950/30 min-h-[44px]">
                             <input type="radio" name="type" value="bk" class="text-emerald-600 focus:ring-emerald-500 w-4 h-4" />
                             <div>
                                 <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 block">Akun Guru BK</span>
@@ -109,7 +109,7 @@
                         id="excel_file" 
                         accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
                         required 
-                        class="block w-full min-h-[42px] text-xs sm:text-sm text-slate-600 dark:text-slate-300 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 dark:file:bg-emerald-950/50 file:text-emerald-700 dark:file:text-emerald-400 hover:file:bg-emerald-100 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer bg-white dark:bg-slate-800"
+                        class="block w-full min-h-[44px] text-xs sm:text-sm text-slate-600 dark:text-slate-300 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 dark:file:bg-emerald-950/50 file:text-emerald-700 dark:file:text-emerald-400 hover:file:bg-emerald-100 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer bg-white dark:bg-slate-800"
                     />
                     <p class="text-xs text-slate-400">Maksimal ukuran file 2 MB. Hanya format <code>.xlsx</code> resmi yang diizinkan.</p>
                     @error('file')

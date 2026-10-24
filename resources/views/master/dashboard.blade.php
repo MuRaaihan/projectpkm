@@ -306,6 +306,11 @@
             document.addEventListener('DOMContentLoaded', function () {
                 if (typeof Chart === 'undefined') return;
 
+                const isDark = document.documentElement.classList.contains('dark');
+                const textColor = isDark ? '#94A3B8' : '#64748B';
+                const gridColor = isDark ? 'rgba(148, 163, 184, 0.1)' : 'rgba(226, 232, 240, 0.6)';
+                const doughnutBorder = isDark ? '#16231D' : '#ffffff';
+
                 // 1. Master Trend Line Chart
                 const trendCtx = document.getElementById('masterTrendChart');
                 if (trendCtx) {
@@ -317,7 +322,7 @@
                                 label: 'Kasus',
                                 data: {!! json_encode(array_column($report_stats['monthly_trend'], 'count')) !!},
                                 borderColor: '#176B4D',
-                                backgroundColor: 'rgba(23, 107, 77, 0.1)',
+                                backgroundColor: isDark ? 'rgba(90, 227, 157, 0.12)' : 'rgba(23, 107, 77, 0.1)',
                                 borderWidth: 2.5,
                                 fill: true,
                                 tension: 0.3,
@@ -328,7 +333,22 @@
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
-                            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+                            plugins: {
+                                legend: {
+                                    labels: { color: textColor, font: { family: 'Plus Jakarta Sans, sans-serif' } }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    ticks: { color: textColor, font: { family: 'Plus Jakarta Sans, sans-serif' } },
+                                    grid: { color: gridColor }
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: { precision: 0, color: textColor, font: { family: 'Plus Jakarta Sans, sans-serif' } },
+                                    grid: { color: gridColor }
+                                }
+                            }
                         }
                     });
                 }
@@ -344,14 +364,21 @@
                                 data: {!! json_encode(array_column($report_stats['category_distribution'], 'count')) !!},
                                 backgroundColor: ['#176B4D', '#B8E34B', '#F59E0B', '#0284C7', '#8B5CF6', '#EC4899', '#94A3B8'],
                                 borderWidth: 2,
-                                borderColor: '#ffffff'
+                                borderColor: doughnutBorder
                             }]
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             plugins: {
-                                legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10 } } }
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        boxWidth: 10,
+                                        color: textColor,
+                                        font: { size: 10, family: 'Plus Jakarta Sans, sans-serif' }
+                                    }
+                                }
                             }
                         }
                     });

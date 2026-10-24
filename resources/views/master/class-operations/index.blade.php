@@ -1,5 +1,5 @@
 <x-layouts.app title="Operasi Massal Kelas">
-    <div class="space-y-6 animate-fade-in">
+    <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-6xl w-full mx-auto space-y-6 animate-fade-in">
         {{-- Header --}}
         <div class="pb-4 border-b border-slate-200 dark:border-slate-800">
             <div class="flex items-center gap-2 mb-1.5 text-xs">
@@ -17,7 +17,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {{-- Bagian 1: Kenaikan / Perpindahan Kelas Massal (FR-13) --}}
-            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+            <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
                 <div>
                     <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
                         <div class="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 rounded-xl flex items-center justify-center shrink-0">
@@ -39,7 +39,7 @@
                             <label for="from_class_id" class="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
                                 Kelas Asal (Sumber) <span class="text-rose-500 font-semibold ml-0.5">*</span>
                             </label>
-                            <select name="from_class_id" id="from_class_id" required class="w-full min-h-[42px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 @error('from_class_id') border-rose-400 @enderror">
+                            <select name="from_class_id" id="from_class_id" required class="w-full min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 @error('from_class_id') border-rose-400 @enderror">
                                 <option value="">-- Pilih Kelas Asal --</option>
                                 @foreach ($classes as $c)
                                     <option value="{{ $c->id }}" {{ old('from_class_id') == $c->id ? 'selected' : '' }}>
@@ -57,7 +57,7 @@
                             <label for="to_class_id" class="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
                                 Kelas Tujuan (Sasaran Baru) <span class="text-rose-500 font-semibold ml-0.5">*</span>
                             </label>
-                            <select name="to_class_id" id="to_class_id" required class="w-full min-h-[42px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 @error('to_class_id') border-rose-400 @enderror">
+                            <select name="to_class_id" id="to_class_id" required class="w-full min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 @error('to_class_id') border-rose-400 @enderror">
                                 <option value="">-- Pilih Kelas Tujuan --</option>
                                 @foreach ($classes as $c)
                                     <option value="{{ $c->id }}" {{ old('to_class_id') == $c->id ? 'selected' : '' }}>
@@ -75,7 +75,7 @@
                         </div>
 
                         <div class="pt-2">
-                            <x-button type="submit" variant="primary" class="w-full justify-center min-h-[42px]">
+                            <x-button type="submit" variant="primary" class="w-full justify-center min-h-[44px]">
                                 Pratinjau Daftar Siswa yang Dipindahkan
                             </x-button>
                         </div>
@@ -84,7 +84,7 @@
             </div>
 
             {{-- Bagian 2: Pengarsipan Siswa Massal per Kelas (FR-12) --}}
-            <div class="bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-900/60 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+            <div class="bg-white dark:bg-[#16231D] border border-rose-200 dark:border-rose-900/60 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
                 <div>
                     <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
                         <div class="w-10 h-10 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 rounded-xl flex items-center justify-center shrink-0">
@@ -106,7 +106,7 @@
                             <label for="archive_class_id" class="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
                                 Pilih Rombel Kelas yang Akan Diarsipkan <span class="text-rose-500 font-semibold ml-0.5">*</span>
                             </label>
-                            <select name="class_id" id="archive_class_id" required class="w-full min-h-[42px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500 @error('class_id') border-rose-400 @enderror">
+                            <select name="class_id" id="archive_class_id" required class="w-full min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500 @error('class_id') border-rose-400 @enderror">
                                 <option value="">-- Pilih Kelas Alumni --</option>
                                 @foreach ($classes as $c)
                                     <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
@@ -136,7 +136,7 @@
                         </div>
 
                         <div class="pt-2">
-                            <x-button type="submit" variant="danger" class="w-full justify-center min-h-[42px]" onclick="return confirm('Apakah Anda yakin ingin mengarsipkan seluruh akun siswa di kelas ini?');">
+                            <x-button type="submit" variant="danger" class="w-full justify-center min-h-[44px]" onclick="return confirm('Apakah Anda yakin ingin mengarsipkan seluruh akun siswa di kelas ini?');">
                                 Arsipkan Seluruh Siswa di Kelas Ini
                             </x-button>
                         </div>
@@ -146,8 +146,8 @@
         </div>
 
         {{-- Ringkasan Jumlah Siswa per Kelas --}}
-        <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
-            <div class="p-4 sm:p-5 bg-slate-50/70 dark:bg-slate-850 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs">
+            <div class="p-4 sm:p-5 bg-slate-50/70 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
                 <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">Daftar Rombel & Jumlah Siswa Aktif</h3>
                 <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">Total Rombel: {{ $classes->count() }}</span>
             </div>
