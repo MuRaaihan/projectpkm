@@ -172,6 +172,22 @@ class MasterAccountManagementTest extends TestCase
     }
 
     /**
+     * Master dapat mereset kata sandi Siswa.
+     */
+    public function test_master_can_reset_student_password(): void
+    {
+        $response = $this->actingAs($this->master)->post(route('master.students.reset-password', $this->siswa));
+
+        $response->assertSessionHas('success');
+        $this->assertTrue($this->siswa->fresh()->must_change_password);
+
+        $this->assertDatabaseHas('activity_logs', [
+            'user_id' => $this->master->id,
+            'action' => 'password_reset',
+        ]);
+    }
+
+    /**
      * Master dapat membuat akun Siswa baru.
      */
     public function test_master_can_create_student(): void
@@ -240,5 +256,19 @@ class MasterAccountManagementTest extends TestCase
 
         $this->actingAs($this->siswa)->get(route('master.students.index'))->assertStatus(403);
         $this->actingAs($this->siswa)->get(route('master.bk-users.index'))->assertStatus(403);
+    }
+
+    /**
+     * Master dapat membuka dan memfilter halaman log aktivitas sistem.
+     */
+    public function test_master_can_view_and_filter_activity_logs(): void
+    {
+        $response = $this->actingAs($this->master)->get(route('master.activity-logs.index'));
+        $response->assertStatus(200);
+        $response->assertSee('Log Aktivitas & Audit Keamanan', false);
+
+        // Filter aksi
+        $filterResponse = $this->actingAs($this->master)->get(route('master.activity-logs.index', ['action' => 'login_success']));
+        $filterResponse->assertStatus(200);
     }
 }

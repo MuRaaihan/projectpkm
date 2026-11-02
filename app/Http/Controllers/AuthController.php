@@ -128,6 +128,23 @@ class AuthController extends Controller
         // 7. Bersihkan pembatasan rate limiter
         RateLimiter::clear($throttleKey);
 
+        // 7b. Periksa apakah akun staf (Master / Guru BK) telah mengaktifkan 2FA (FR-08)
+        if ($user->hasTwoFactorEnabled() && in_array($user->role, ['master', 'bk'])) {
+            $request->session()->put('auth.2fa.user_id', $user->id);
+            $request->session()->put('auth.2fa.remember', $request->boolean('remember'));
+
+            ActivityLog::record(
+                action: '2fa_challenged',
+                description: 'Tantangan autentikasi 2FA diajukan untuk akun '.$user->login_id,
+                subjectType: 'user',
+                subjectId: (string) $user->id,
+                userId: $user->id,
+                ipAddress: $request->ip()
+            );
+
+            return redirect()->route('two-factor.challenge');
+        }
+
         // 8. Login dan regenerasi sesi
         Auth::login($user, $request->boolean('remember'));
         $request->session()->regenerate();
@@ -181,7 +198,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'Kamu telah berhasil keluar.');
+        return redirect('/');
     }
 
     /**

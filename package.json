@@ -18,6 +18,8 @@
         "@laravel/multiplex": "^0.4.1"
     },
     "dependencies": {
-        "chart.js": "^4.5.1"
+        "alpinejs": "^3.17.5",
+        "chart.js": "^4.5.1",
+        "sweetalert2": "^11.26.25"
     }
 }

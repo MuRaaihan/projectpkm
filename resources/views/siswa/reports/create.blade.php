@@ -2,27 +2,114 @@
     <div 
         x-data="{
             step: {{ $errors->any() ? ($errors->has('attachments.*') || $errors->has('attachments') ? 1 : 0) : 0 }},
-            reporter_role: '{{ old('reporter_role', 'korban') }}',
-            category_id: '{{ old('category_id', '') }}',
-            incident_date: '{{ old('incident_date', date('Y-m-d')) }}',
-            location: '{{ addslashes(old('location', '')) }}',
-            accused_name: '{{ addslashes(old('accused_name', '')) }}',
-            description: '{{ addslashes(str_replace(["\r", "\n"], [' ', '\n'], old('description', ''))) }}',
+            reporter_role: {{ json_encode(old('reporter_role', 'korban')) }},
+            category_id: {{ json_encode((string) old('category_id', '')) }},
+            categoriesMap: {{ json_encode($categories->pluck('name', 'id')) }},
+            incident_date: {{ json_encode(old('incident_date', date('Y-m-d'))) }},
+            location: {{ json_encode(old('location', '')) }},
+            accused_name: {{ json_encode(old('accused_name', '')) }},
+            description: {{ json_encode(old('description', '')) }},
             privacy: '{{ old('is_hidden_identity', '1') == '1' ? 'hidden' : 'shown' }}',
-            fileNames: [],
+            filePreviews: [],
+            stepErrors: [],
+            isStep0Valid() {
+                const cat = (this.category_id || '').toString().trim();
+                const date = (this.incident_date || '').toString().trim();
+                const loc = (this.location || '').toString().trim();
+                const desc = (this.description || '').toString().trim();
+                return Boolean(cat && date && loc && desc.length >= 10);
+            },
+            validateStep0() {
+                this.stepErrors = [];
+                const cat = (this.category_id || '').toString().trim();
+                const date = (this.incident_date || '').toString().trim();
+                const loc = (this.location || '').toString().trim();
+                const desc = (this.description || '').toString().trim();
+
+                if (!cat) {
+                    this.stepErrors.push('Pilih jenis / kategori kejadian terlebih dahulu.');
+                }
+                if (!date) {
+                    this.stepErrors.push('Isi tanggal perkiraan kejadian.');
+                }
+                if (!loc) {
+                    this.stepErrors.push('Isi tempat / lokasi kejadian (contoh: Kantin, Kelas, Lapangan).');
+                }
+                if (!desc) {
+                    this.stepErrors.push('Ceritakan kronologi kejadian yang kamu alami atau ketahui.');
+                } else if (desc.length < 10) {
+                    this.stepErrors.push('Cerita kronologi kejadian minimal 10 karakter (saat ini ' + desc.length + ' karakter).');
+                }
+
+                if (this.stepErrors.length > 0) {
+                    const banner = document.getElementById('step0ErrorBanner');
+                    if (banner) {
+                        banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return false;
+                }
+                return true;
+            },
+            nextToStep1() {
+                if (!this.validateStep0()) {
+                    return;
+                }
+                this.stepErrors = [];
+                this.step = 1;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+            goToStep(targetStep) {
+                if (targetStep === 0) {
+                    this.step = 0;
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                if (targetStep >= 1 && !this.validateStep0()) {
+                    return;
+                }
+                this.stepErrors = [];
+                this.step = targetStep;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
             handleFiles(e) {
-                this.fileNames = Array.from(e.target.files).map(f => f.name);
+                const files = Array.from(e.target.files).slice(0, 3);
+                this.filePreviews = files.map(file => {
+                    const isImg = file.type.startsWith('image/');
+                    const sizeStr = file.size >= 1048576 
+                        ? (file.size / 1048576).toFixed(1) + ' MB'
+                        : (file.size / 1024).toFixed(0) + ' KB';
+                    return {
+                        name: file.name,
+                        size: sizeStr,
+                        isImage: isImg,
+                        url: isImg ? URL.createObjectURL(file) : null
+                    };
+                });
+            },
+            resetFiles() {
+                const input = document.getElementById('attachments');
+                if (input) input.value = '';
+                this.filePreviews = [];
             },
             getCategoryLabel() {
+                if (this.category_id && this.categoriesMap && this.categoriesMap[this.category_id]) {
+                    return this.categoriesMap[this.category_id];
+                }
                 const sel = document.getElementById('category_id');
-                if (!sel || !sel.selectedIndex || sel.selectedIndex === 0) return '-';
-                return sel.options[sel.selectedIndex].text.trim();
+                if (sel && sel.selectedIndex > 0 && sel.options[sel.selectedIndex]) {
+                    return sel.options[sel.selectedIndex].text.trim();
+                }
+                return '-';
             },
             getFormattedDate() {
                 if (!this.incident_date) return '-';
                 try {
-                    const d = new Date(this.incident_date + 'T00:00:00');
-                    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                    const parts = this.incident_date.split('-');
+                    if (parts.length === 3) {
+                        const d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+                        return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                    }
+                    return this.incident_date;
                 } catch(e) {
                     return this.incident_date;
                 }
@@ -57,7 +144,7 @@
                 {{-- Step 1 --}}
                 <div class="flex items-center flex-1">
                     <div class="flex flex-col items-center gap-1.5 flex-1">
-                        <button type="button" @click="step = 0" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
+                        <button type="button" @click="goToStep(0)" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
                             :class="step > 0 ? 'bg-primary-600 text-white' : (step === 0 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-primary-950/80' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400')">
                             <template x-if="step > 0">
                                 <svg class="w-4 h-4 text-[#B8E34B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
@@ -76,7 +163,7 @@
                 {{-- Step 2 --}}
                 <div class="flex items-center flex-1">
                     <div class="flex flex-col items-center gap-1.5 flex-1">
-                        <button type="button" @click="if (step > 1 || (category_id && incident_date && location && description.length >= 20)) step = 1" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
+                        <button type="button" @click="goToStep(1)" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
                             :class="step > 1 ? 'bg-primary-600 text-white' : (step === 1 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-primary-950/80' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400')">
                             <template x-if="step > 1">
                                 <svg class="w-4 h-4 text-[#B8E34B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
@@ -95,7 +182,7 @@
                 {{-- Step 3 --}}
                 <div class="flex items-center">
                     <div class="flex flex-col items-center gap-1.5">
-                        <button type="button" @click="if (category_id && incident_date && location && description.length >= 20) step = 2" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
+                        <button type="button" @click="goToStep(2)" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
                             :class="step === 2 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-primary-950/80' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'">
                             <span>3</span>
                         </button>
@@ -130,6 +217,19 @@
                  STEP 0: DETAIL KEJADIAN
             ══════════════════════════════════════════════════════ --}}
             <div x-show="step === 0" class="flex flex-col gap-5 animate-slide-up">
+                {{-- Banner Error Step 0 jika validasi gagal --}}
+                <div id="step0ErrorBanner" x-show="stepErrors.length > 0" class="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 flex items-start gap-3" style="display: none;">
+                    <svg class="w-5 h-5 text-rose-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <div class="text-xs sm:text-sm text-rose-900 dark:text-rose-200">
+                        <p class="font-bold">Mohon lengkapi bagian berikut sebelum melanjutkan ke Bukti &amp; Privasi:</p>
+                        <ul class="list-disc list-inside mt-1.5 space-y-1">
+                            <template x-for="(err, idx) in stepErrors" :key="idx">
+                                <li x-text="err"></li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-7 shadow-xs space-y-6">
                     <div class="border-b border-slate-100 dark:border-slate-800/80 pb-4">
                         <h2 class="text-base sm:text-lg font-black text-slate-900 dark:text-slate-100">
@@ -237,16 +337,20 @@
                             <label for="description" class="block text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">
                                 Kronologi Kejadian <span class="text-rose-500">*</span>
                             </label>
-                            <span class="text-[11px] font-mono text-slate-500 dark:text-slate-400" x-text="description.length + '/2000 karakter'"></span>
+                            <span class="text-[11px] font-mono text-slate-500 dark:text-slate-400" x-text="((description || '').length) + '/2000 karakter'"></span>
                         </div>
-                        <textarea name="description" id="description" x-model="description" rows="5" required
+                        <textarea name="description" id="description" x-model="description" rows="5"
                             placeholder="Ceritakan kejadian yang kamu alami atau saksikan dengan tenang..."
                             class="w-full text-xs sm:text-sm rounded-xl border border-slate-300 dark:border-slate-700 py-3 px-3.5 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-600 transition leading-relaxed"></textarea>
                         <div class="flex items-center justify-between mt-1 text-[11px] text-slate-500 dark:text-slate-400">
-                            <span>Minimal 20 karakter agar Guru BK mendapat gambaran yang utuh.</span>
-                            <span x-show="description.length > 0 && description.length < 20" class="text-amber-600 dark:text-amber-400 font-semibold">
-                                Kurang <span x-text="20 - description.length"></span> karakter lagi
+                            <span>Minimal 10 karakter agar Guru BK mendapat gambaran yang utuh.</span>
+                            <span x-show="(description || '').length > 0 && (description || '').length < 10" class="text-amber-600 dark:text-amber-400 font-semibold" style="display: none;">
+                                Kurang <span x-text="10 - (description || '').length"></span> karakter lagi
                             </span>
+                        </div>
+                        <div class="mt-3 p-3 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50 flex items-start gap-2.5 text-xs text-emerald-900 dark:text-emerald-300">
+                            <svg class="w-4 h-4 text-emerald-600 dark:text-[#5AE39D] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            <span><strong>Info Bukti Foto:</strong> Pada langkah berikutnya, kamu dapat menambahkan foto bukti / tangkapan layar jika memilikinya (bersifat opsional).</span>
                         </div>
                         @error('description')
                             <p class="text-rose-600 text-xs mt-1">{{ $message }}</p>
@@ -260,7 +364,7 @@
                         Batal
                     </a>
                     <button type="button" 
-                        @click="if (!category_id || !incident_date || !location.trim() || description.trim().length < 20) { alert('Mohon lengkapi jenis kejadian, tanggal, lokasi, dan kronologi (minimal 20 karakter).'); return; } step = 1; window.scrollTo({top: 0, behavior: 'smooth'});"
+                        @click="nextToStep1()"
                         class="min-h-[44px] px-6 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-xs transition card-hover">
                         <span>Lanjut: Bukti & Privasi</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
@@ -284,9 +388,18 @@
 
                     {{-- File Upload Card --}}
                     <div>
-                        <label class="block text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 mb-2">
-                            Unggah Bukti Pendukung <span class="text-slate-400 font-normal">(opsional, maks 3 file)</span>
-                        </label>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">
+                                Foto / Berkas Bukti Pendukung <span class="text-slate-400 font-normal">(opsional, maks 3 file)</span>
+                            </label>
+                            <button type="button" 
+                                    x-show="filePreviews.length > 0" 
+                                    @click="resetFiles()" 
+                                    class="text-xs text-rose-600 dark:text-rose-400 hover:underline font-semibold"
+                                    style="display: none;">
+                                Hapus / Ganti Foto
+                            </button>
+                        </div>
                         
                         <div class="relative border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 rounded-2xl p-6 text-center transition bg-slate-50/50 dark:bg-slate-900/30">
                             <input type="file" name="attachments[]" id="attachments" multiple accept=".jpg,.jpeg,.png,.pdf"
@@ -295,26 +408,52 @@
                             
                             <div class="flex flex-col items-center justify-center gap-2">
                                 <div class="w-12 h-12 rounded-2xl bg-primary-100/70 dark:bg-primary-950/60 text-primary-600 dark:text-[#5AE39D] flex items-center justify-center">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
                                 </div>
                                 <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">
-                                    Klik atau seret file ke sini untuk mengunggah
+                                    Klik atau seret foto / dokumen ke sini
                                 </p>
                                 <p class="text-[11px] text-slate-500 dark:text-slate-400">
-                                    Format: <strong>JPG, PNG, atau PDF</strong> (Maks. 5 MB per berkas)
+                                    Format: <strong>JPG, JPEG, PNG, atau PDF</strong> (Maks. 5 MB per berkas)
                                 </p>
                             </div>
                         </div>
 
-                        {{-- File List Preview --}}
-                        <div x-show="fileNames.length > 0" class="mt-3 space-y-1.5" style="display: none;">
-                            <p class="text-xs font-bold text-slate-700 dark:text-slate-300">File yang dipilih:</p>
-                            <template x-for="(name, idx) in fileNames" :key="idx">
-                                <div class="flex items-center gap-2 text-xs text-primary-700 dark:text-[#5AE39D] bg-primary-50 dark:bg-primary-950/40 px-3 py-1.5 rounded-lg border border-primary-200 dark:border-primary-900">
-                                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
-                                    <span x-text="name" class="truncate font-medium"></span>
-                                </div>
-                            </template>
+                        {{-- Visual Thumbnail Previews --}}
+                        <div x-show="filePreviews.length > 0" class="mt-4 space-y-2.5" style="display: none;">
+                            <div class="flex items-center justify-between text-xs text-slate-700 dark:text-slate-300">
+                                <span class="font-bold">Pratinjau Foto &amp; Berkas Bukti:</span>
+                                <span class="font-semibold text-primary-700 dark:text-[#5AE39D]" x-text="filePreviews.length + ' dari 3 berkas dipilih'"></span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <template x-for="(f, idx) in filePreviews" :key="idx">
+                                    <div class="relative bg-white dark:bg-slate-900/80 rounded-xl border border-slate-200 dark:border-slate-800 p-2.5 flex flex-col gap-2 shadow-2xs overflow-hidden">
+                                        {{-- Image Thumbnail --}}
+                                        <template x-if="f.isImage">
+                                            <div class="w-full h-32 rounded-lg bg-slate-100 dark:bg-slate-800 overflow-hidden flex items-center justify-center border border-slate-100 dark:border-slate-800">
+                                                <img :src="f.url" :alt="f.name" class="w-full h-full object-cover">
+                                            </div>
+                                        </template>
+                                        {{-- PDF Document Card --}}
+                                        <template x-if="!f.isImage">
+                                            <div class="w-full h-32 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 flex flex-col items-center justify-center gap-1.5 border border-rose-100 dark:border-rose-900/50">
+                                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                                <span class="text-[11px] font-bold uppercase tracking-wider">Dokumen PDF</span>
+                                            </div>
+                                        </template>
+
+                                        {{-- File Name & Size --}}
+                                        <div class="min-w-0">
+                                            <p class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate" x-text="f.name"></p>
+                                            <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5" x-text="f.size"></p>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
                         @error('attachments')
                             <p class="text-rose-600 text-xs mt-1">{{ $message }}</p>
@@ -433,9 +572,24 @@
                             <p class="font-normal text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-relaxed bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800" x-text="description || '-'"></p>
                         </div>
 
-                        <div class="py-2.5 flex items-center justify-between gap-4">
-                            <span class="text-slate-500 dark:text-slate-400 font-medium">Lampiran Bukti</span>
-                            <span class="font-bold text-slate-900 dark:text-slate-100" x-text="fileNames.length > 0 ? (fileNames.length + ' file dipilih') : 'Tidak ada berkas'"></span>
+                        <div class="py-2.5 flex flex-col gap-2">
+                            <div class="flex items-center justify-between gap-4">
+                                <span class="text-slate-500 dark:text-slate-400 font-medium">Lampiran Bukti Foto</span>
+                                <span class="font-bold text-slate-900 dark:text-slate-100" x-text="filePreviews.length > 0 ? (filePreviews.length + ' file dipilih') : 'Tidak ada foto bukti (opsional)'"></span>
+                            </div>
+                            <div x-show="filePreviews.length > 0" class="flex flex-wrap gap-2 mt-1">
+                                <template x-for="(f, idx) in filePreviews" :key="idx">
+                                    <div class="inline-flex items-center gap-2 p-1.5 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 text-xs">
+                                        <template x-if="f.isImage">
+                                            <img :src="f.url" :alt="f.name" class="w-8 h-8 rounded object-cover">
+                                        </template>
+                                        <template x-if="!f.isImage">
+                                            <div class="w-8 h-8 rounded bg-rose-100 dark:bg-rose-950/60 text-rose-600 flex items-center justify-center font-bold text-[10px]">PDF</div>
+                                        </template>
+                                        <span class="max-w-[140px] truncate font-medium text-slate-800 dark:text-slate-200" x-text="f.name"></span>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
 
                         <div class="py-2.5 flex items-center justify-between gap-4">

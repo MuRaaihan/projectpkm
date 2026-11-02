@@ -305,7 +305,7 @@ class StudentUserController extends Controller
             subjectId: (string) $student->id
         );
 
-        return redirect()->route('master.students.index', ['class_id' => $student->class_id])
+        return back()
             ->with('success', "Kata sandi siswa {$student->name} berhasil direset. Kata sandi sementara: {$newPassword}");
     }
 }

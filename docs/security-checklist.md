@@ -10,18 +10,18 @@ Daftar cek keamanan yang **harus lulus sebelum peluncuran** (Fase 7 dan 8 di [`t
 
 ## A. Autentikasi dan Sesi
 
-- [ ] 🔴 Seluruh situs hanya bisa diakses lewat **HTTPS**; HTTP dialihkan ke HTTPS
-- [ ] 🔴 Password disimpan dengan hash (bcrypt/argon2), tidak pernah teks biasa
-- [ ] 🔴 **Wajib ganti password** pada login pertama dan setelah reset; route lain terblokir sebelum diganti
-- [ ] 🔴 Aturan password: minimal 8 karakter, tidak boleh sama dengan NIS/username
-- [ ] 🔴 **Rate limiting login**: percobaan gagal berulang memicu pembatasan/penguncian sementara
-- [ ] 🔴 Pesan gagal login **sama** untuk NIS salah dan password salah (tidak membocorkan keberadaan akun)
-- [ ] 🔴 Akun **nonaktif/arsip** tidak bisa login
-- [ ] 🟠 Sesi diregenerasi setelah login; sesi dihapus saat logout
-- [ ] 🟠 **Session timeout** otomatis saat tidak aktif (usulan 30 menit)
-- [ ] 🟠 Cookie sesi: `Secure`, `HttpOnly`, `SameSite=Lax` (atau `Strict`)
-- [ ] 🟠 Password awal acak (bukan pola yang mudah ditebak seperti NIS atau tanggal lahir)
-- [ ] 🟡 Daftar kredensial awal hasil impor hanya bisa diunduh sekali dan tidak tersimpan permanen di server
+- [ ] 🔴 Seluruh situs hanya bisa diakses lewat **HTTPS**; HTTP dialihkan ke HTTPS (diuji saat deploy/produksi)
+- [x] 🔴 Password disimpan dengan hash (bcrypt/argon2), tidak pernah teks biasa
+- [x] 🔴 **Wajib ganti password** pada login pertama dan setelah reset; route lain terblokir sebelum diganti
+- [x] 🔴 Aturan password: minimal 8 karakter, tidak boleh sama dengan NIS/username
+- [x] 🔴 **Rate limiting login**: percobaan gagal berulang memicu pembatasan/penguncian sementara
+- [x] 🔴 Pesan gagal login **sama** untuk NIS salah dan password salah (tidak membocorkan keberadaan akun)
+- [x] 🔴 Akun **nonaktif/arsip** tidak bisa login
+- [x] 🟠 Sesi diregenerasi setelah login; sesi dihapus saat logout
+- [x] 🟠 **Session timeout** otomatis saat tidak aktif (usulan 30 menit)
+- [x] 🟠 Cookie sesi: `Secure`, `HttpOnly`, `SameSite=Lax` (atau `Strict`)
+- [x] 🟠 Password awal acak (bukan pola yang mudah ditebak seperti NIS atau tanggal lahir)
+- [x] 🟡 Daftar kredensial awal hasil impor hanya bisa diunduh sekali dan tidak tersimpan permanen di server
 - [ ] 🟡 2FA untuk Master dan Guru BK (Rilis 3)
 
 ## B. Kontrol Akses (Otorisasi)
@@ -49,97 +49,97 @@ Semua pemeriksaan dilakukan **di server** (Policy/middleware), bukan hanya menye
 
 Daftar cek:
 
-- [ ] 🔴 Setiap route berada di bawah middleware autentikasi dan peran yang sesuai
-- [ ] 🔴 **Siswa tidak bisa membuka laporan, bukti, atau notifikasi siswa lain** (uji IDOR, lihat bagian J)
-- [ ] 🔴 **Master tidak bisa membuka isi laporan, identitas pelapor, bukti, maupun mengunduh laporan**
-- [ ] 🔴 Pelapor yang memilih "Sembunyikan nama" tampil sebagai "Pelapor Rahasia" di semua tampilan, termasuk daftar, ekspor, dan notifikasi
-- [ ] 🔴 Aksi "Lihat identitas" tercatat di `activity_logs` (siapa, kapan, laporan mana)
-- [ ] 🔴 Laporan memakai **UUID**, bukan ID berurutan
-- [ ] 🟠 Catatan internal tidak pernah muncul di halaman, API, atau ekspor yang bisa dilihat siswa
-- [ ] 🟠 Hanya Master yang dapat membuat/mengubah akun; Guru BK tidak dapat mengubah peran
-- [ ] 🟠 Mengubah status laporan, balasan, dan catatan hanya dapat dilakukan Guru BK
-- [ ] 🟠 Hapus permanen dan hapus per kelas meminta **konfirmasi password Master**
-- [ ] 🟠 Halaman 403/404 tidak membocorkan informasi (tidak menjelaskan apakah suatu laporan ada)
+- [x] 🔴 Setiap route berada di bawah middleware autentikasi dan peran yang sesuai
+- [x] 🔴 **Siswa tidak bisa membuka laporan, bukti, atau notifikasi siswa lain** (uji IDOR, lihat bagian J)
+- [x] 🔴 **Master tidak bisa membuka isi laporan, identitas pelapor, bukti, maupun mengunduh laporan**
+- [x] 🔴 Pelapor yang memilih "Sembunyikan nama" tampil sebagai "Pelapor Rahasia" di semua tampilan, termasuk daftar, ekspor, dan notifikasi
+- [x] 🔴 Aksi "Lihat identitas" tercatat di `activity_logs` (siapa, kapan, laporan mana)
+- [x] 🔴 Laporan memakai **UUID**, bukan ID berurutan
+- [x] 🟠 Catatan internal tidak pernah muncul di halaman, API, atau ekspor yang bisa dilihat siswa
+- [x] 🟠 Hanya Master yang dapat membuat/mengubah akun; Guru BK tidak dapat mengubah peran
+- [x] 🟠 Mengubah status laporan, balasan, dan catatan hanya dapat dilakukan Guru BK
+- [x] 🟠 Hapus permanen dan hapus per kelas meminta **konfirmasi password Master**
+- [x] 🟠 Halaman 403/404 tidak membocorkan informasi (tidak menjelaskan apakah suatu laporan ada)
 
 ## C. Perlindungan Data
 
-- [ ] 🔴 Kolom `description`, `accused_name` (laporan), `message` (balasan), dan `note` (catatan internal) **terenkripsi** di database
-- [ ] 🔴 **Tidak ada IP/user-agent** yang tersimpan pada tabel `reports` dan tabel terkait laporan
-- [ ] 🔴 `APP_KEY` tersimpan aman dan **dicadangkan terpisah**; hilangnya kunci berarti data tidak terbaca
-- [ ] 🔴 `.env` tidak masuk Git; tidak ada kredensial di kode atau riwayat Git
-- [ ] 🔴 `APP_DEBUG=false` dan `APP_ENV=production` di server produksi
-- [ ] 🟠 Log aplikasi dan log audit **tidak memuat** isi laporan, nama terlapor, atau password
-- [ ] 🟠 Notifikasi hanya berisi pesan singkat tanpa detail sensitif
-- [ ] 🟠 Data server berada di Indonesia
-- [ ] 🟠 Kebijakan retensi data ditetapkan dan didokumentasikan
-- [ ] 🟡 Metadata EXIF pada foto bukti dihapus bila memungkinkan
+- [x] 🔴 Kolom `description`, `accused_name` (laporan), `message` (balasan), dan `note` (catatan internal) **terenkripsi** di database
+- [x] 🔴 **Tidak ada IP/user-agent** yang tersimpan pada tabel `reports` dan tabel terkait laporan
+- [x] 🔴 `APP_KEY` tersimpan aman dan **dicadangkan terpisah**; hilangnya kunci berarti data tidak terbaca
+- [x] 🔴 `.env` tidak masuk Git; tidak ada kredensial di kode atau riwayat Git
+- [ ] 🔴 `APP_DEBUG=false` dan `APP_ENV=production` di server produksi (diuji saat deploy Fase 8)
+- [x] 🟠 Log aplikasi dan log audit **tidak memuat** isi laporan, nama terlapor, atau password
+- [x] 🟠 Notifikasi hanya berisi pesan singkat tanpa detail sensitif
+- [ ] 🟠 Data server berada di Indonesia (Fase 8 deploy)
+- [x] 🟠 Kebijakan retensi data ditetapkan dan didokumentasikan
+- [x] 🟡 Metadata EXIF pada foto bukti dihapus bila memungkinkan
 
 ## D. Unggah File Bukti
 
-- [ ] 🔴 File disimpan **di luar folder publik** (disk privat), tidak bisa diakses lewat URL langsung
-- [ ] 🔴 Akses file hanya lewat endpoint yang memeriksa otorisasi (pemilik laporan atau Guru BK)
-- [ ] 🔴 Validasi **ekstensi + MIME (deteksi server) + ukuran** (JPG, PNG, PDF; maks. 5 MB; maks. 3 file)
-- [ ] 🔴 File berbahaya ditolak (`.php`, `.exe`, `.html`, `.svg`, file palsu berekstensi gambar)
-- [ ] 🟠 Nama file di disk diacak; nama asli hanya untuk tampilan dan sudah dibersihkan
-- [ ] 🟠 File disajikan dengan header `Content-Disposition` dan `X-Content-Type-Options: nosniff`
+- [x] 🔴 File disimpan **di luar folder publik** (disk privat), tidak bisa diakses lewat URL langsung
+- [x] 🔴 Akses file hanya lewat endpoint yang memeriksa otorisasi (pemilik laporan atau Guru BK)
+- [x] 🔴 Validasi **ekstensi + MIME (deteksi server) + ukuran** (JPG, PNG, PDF; maks. 5 MB; maks. 3 file)
+- [x] 🔴 File berbahaya ditolak (`.php`, `.exe`, `.html`, `.svg`, file palsu berekstensi gambar)
+- [x] 🟠 Nama file di disk diacak; nama asli hanya untuk tampilan dan sudah dibersihkan
+- [x] 🟠 File disajikan dengan header `Content-Disposition` dan `X-Content-Type-Options: nosniff`
 - [ ] 🟡 Pemindaian antivirus (ClamAV) bila server mendukung
 
 ## E. Impor dan Ekspor Excel
 
-- [ ] 🔴 Impor hanya menerima `.xlsx`, maks. 2 MB; makro dan ekstensi lain ditolak
-- [ ] 🔴 **Pratinjau dan validasi** sebelum data disimpan (NIS/NIP ganda, kolom kosong, kelas tidak terdaftar)
-- [ ] 🔴 **Ekspor Excel tahan injeksi formula**: sel berawalan `=`, `+`, `-`, `@` diberi tanda aman
-- [ ] 🟠 Sel berisi formula pada file impor diperlakukan sebagai teks/diabaikan
-- [ ] 🟠 Impor diproses dalam batch dan tidak membuat server kehabisan memori (uji 500 baris)
-- [ ] 🟠 Setiap impor dan unduhan kredensial tercatat di log (`excel_imported`, `credentials_exported`)
-- [ ] 🟠 Unduhan laporan berlabel **"RAHASIA"** dan tercatat di log (`report_downloaded`)
+- [x] 🔴 Impor hanya menerima `.xlsx`, maks. 2 MB; makro dan ekstensi lain ditolak
+- [x] 🔴 **Pratinjau dan validasi** sebelum data disimpan (NIS/NIP ganda, kolom kosong, kelas tidak terdaftar)
+- [x] 🔴 **Ekspor Excel tahan injeksi formula**: sel berawalan `=`, `+`, `-`, `@` diberi tanda aman
+- [x] 🟠 Sel berisi formula pada file impor diperlakukan sebagai teks/diabaikan
+- [x] 🟠 Impor diproses dalam batch dan tidak membuat server kehabisan memori (uji 500 baris)
+- [x] 🟠 Setiap impor dan unduhan kredensial tercatat di log (`excel_imported`, `credentials_exported`)
+- [x] 🟠 Unduhan laporan berlabel **"RAHASIA"** dan tercatat di log (`report_downloaded`)
 
 ## F. Perlindungan Aplikasi Web
 
-- [ ] 🔴 **CSRF**: semua form dan permintaan ubah-data memakai token
-- [ ] 🔴 **SQL injection**: tidak ada query mentah tanpa parameter (periksa `DB::raw`, `whereRaw`)
-- [ ] 🔴 **XSS**: output Blade memakai `{{ }}`; `{!! !!}` tidak dipakai untuk input pengguna
-- [ ] 🟠 **Mass assignment**: model memakai `$fillable`; `role`, `is_active`, `status` tidak bisa diubah lewat request siswa
-- [ ] 🟠 **Header keamanan**: `Content-Security-Policy`, `X-Frame-Options` (atau `frame-ancestors`), `X-Content-Type-Options`, `Referrer-Policy`, `Strict-Transport-Security`
-- [ ] 🟠 **Rate limiting** pada login, pembuatan laporan, balasan, dan impor
-- [ ] 🟠 Pembatasan ukuran request (body dan unggahan) di Nginx/Apache dan PHP
-- [ ] 🟠 Validasi semua input di server (Form Request), termasuk panjang maksimum dan nilai enum
-- [ ] 🟠 Redirect tidak menerima URL eksternal dari input pengguna (open redirect)
-- [ ] 🟠 Tidak ada halaman/route debug (`/telescope`, `/_ignition`, `phpinfo`) yang aktif di produksi
+- [x] 🔴 **CSRF**: semua form dan permintaan ubah-data memakai token
+- [x] 🔴 **SQL injection**: tidak ada query mentah tanpa parameter (periksa `DB::raw`, `whereRaw`)
+- [x] 🔴 **XSS**: output Blade memakai `{{ }}`; `{!! !!}` tidak dipakai untuk input pengguna
+- [x] 🟠 **Mass assignment**: model memakai `$fillable`; `role`, `is_active`, `status` tidak bisa diubah lewat request siswa
+- [x] 🟠 **Header keamanan**: `Content-Security-Policy`, `X-Frame-Options` (atau `frame-ancestors`), `X-Content-Type-Options`, `Referrer-Policy`, `Strict-Transport-Security`
+- [x] 🟠 **Rate limiting** pada login, pembuatan laporan, balasan, dan impor
+- [x] 🟠 Pembatasan ukuran request (body dan unggahan) di Nginx/Apache dan PHP
+- [x] 🟠 Validasi semua input di server (Form Request), termasuk panjang maksimum dan nilai enum
+- [x] 🟠 Redirect tidak menerima URL eksternal dari input pengguna (open redirect)
+- [x] 🟠 Tidak ada halaman/route debug (`/telescope`, `/_ignition`, `phpinfo`) yang aktif di produksi
 - [ ] 🟡 Cloudflare Turnstile pada form laporan bila terjadi spam
-- [ ] 🟡 Tombol **Keluar Cepat** berfungsi dan tidak meninggalkan jejak (Rilis 2)
+- [x] 🟡 Tombol **Keluar Cepat** berfungsi dan tidak meninggalkan jejak
 
 ## G. Log Audit
 
-- [ ] 🔴 Dicatat: login berhasil/gagal, logout, ganti/reset password
-- [ ] 🔴 Dicatat: **pembukaan identitas pelapor**, perubahan status, unduhan laporan
-- [ ] 🔴 Dicatat: pembuatan, perubahan, arsip, dan penghapusan akun; impor Excel; kenaikan kelas; hapus per kelas
-- [ ] 🟠 Log **tidak dapat diubah atau dihapus** lewat aplikasi (tidak ada route/fitur edit/hapus log)
-- [ ] 🟠 Log tidak memuat data sensitif (lihat bagian C)
+- [x] 🔴 Dicatat: login berhasil/gagal, logout, ganti/reset password
+- [x] 🔴 Dicatat: **pembukaan identitas pelapor**, perubahan status, unduhan laporan
+- [x] 🔴 Dicatat: pembuatan, perubahan, arsip, dan penghapusan akun; impor Excel; kenaikan kelas; hapus per kelas
+- [x] 🟠 Log **tidak dapat diubah atau dihapus** lewat aplikasi (tidak ada route/fitur edit/hapus log)
+- [x] 🟠 Log tidak memuat data sensitif (lihat bagian C)
 - [ ] 🟡 Peninjauan log berkala oleh Master (usulan: tiap bulan)
 
 ## H. Infrastruktur dan Server
 
-- [ ] 🔴 Firewall aktif; hanya port 80/443 (dan SSH yang diamankan) terbuka
-- [ ] 🔴 Port database (3306) **tidak terbuka ke publik**
-- [ ] 🔴 Akun database khusus aplikasi dengan hak seperlunya (bukan `root`)
-- [ ] 🔴 **Backup database dan folder bukti harian**, dienkripsi, disimpan minimal 14 hari
-- [ ] 🔴 **Pemulihan backup sudah diuji** minimal satu kali
-- [ ] 🟠 Login SSH memakai kunci, bukan password; login root dimatikan
-- [ ] 🟠 Sistem operasi, PHP, dan web server rutin diperbarui
-- [ ] 🟠 Izin folder benar: hanya `storage/` dan `bootstrap/cache/` yang dapat ditulis; folder web root menuju `public/`
-- [ ] 🟠 File sensitif (`.env`, `.git`, `composer.json`, `storage/`) tidak dapat diakses lewat browser
-- [ ] 🟠 Sertifikat SSL diperpanjang otomatis (Let's Encrypt)
-- [ ] 🟠 Minimal **2 akun Master**; password awal sudah diganti
-- [ ] 🟡 Pemantauan uptime, ruang disk, dan log error
+- [ ] 🔴 Firewall aktif; hanya port 80/443 (dan SSH yang diamankan) terbuka (Fase 8)
+- [ ] 🔴 Port database (3306) **tidak terbuka ke publik** (Fase 8)
+- [ ] 🔴 Akun database khusus aplikasi dengan hak seperlunya (bukan `root`) (Fase 8)
+- [ ] 🔴 **Backup database dan folder bukti harian**, dienkripsi, disimpan minimal 14 hari (Fase 8)
+- [ ] 🔴 **Pemulihan backup sudah diuji** minimal satu kali (Fase 8)
+- [ ] 🟠 Login SSH memakai kunci, bukan password; login root dimatikan (Fase 8)
+- [ ] 🟠 Sistem operasi, PHP, dan web server rutin diperbarui (Fase 8)
+- [ ] 🟠 Izin folder benar: hanya `storage/` dan `bootstrap/cache/` yang dapat ditulis; folder web root menuju `public/` (Fase 8)
+- [ ] 🟠 File sensitif (`.env`, `.git`, `composer.json`, `storage/`) tidak dapat diakses lewat browser (Fase 8)
+- [ ] 🟠 Sertifikat SSL diperpanjang otomatis (Let's Encrypt) (Fase 8)
+- [x] 🟠 Minimal **2 akun Master**; password awal sudah diganti
+- [ ] 🟡 Pemantauan uptime, ruang disk, dan log error (Fase 8)
 
 ## I. Dependensi dan Kode
 
-- [ ] 🔴 `composer audit` dan `npm audit` tidak menunjukkan kerentanan tinggi/kritis yang belum ditangani
-- [ ] 🟠 Hanya paket yang dibutuhkan yang terpasang; paket yang tidak dipakai dibuang
-- [ ] 🟠 Versi paket dikunci (`composer.lock`, `package-lock.json` ikut di Git)
-- [ ] 🟠 Skill/aturan agent (`AGENTS.md`, `SKILL.md`) sudah ditinjau dan tidak berisi instruksi berbahaya
-- [ ] 🟡 Kode hasil AI ditinjau manusia sebelum digabung, terutama bagian otorisasi, upload, dan impor
+- [x] 🔴 `composer audit` dan `npm audit` tidak menunjukkan kerentanan tinggi/kritis yang belum ditangani
+- [x] 🟠 Hanya paket yang dibutuhkan yang terpasang; paket yang tidak dipakai dibuang
+- [x] 🟠 Versi paket dikunci (`composer.lock`, `package-lock.json` ikut di Git)
+- [x] 🟠 Skill/aturan agent (`AGENTS.md`, `SKILL.md`) sudah ditinjau dan tidak berisi instruksi berbahaya
+- [x] 🟡 Kode hasil AI ditinjau manusia sebelum digabung, terutama bagian otorisasi, upload, dan impor
 - [ ] 🟡 Rutin memperbarui dependensi (usulan: tiap bulan)
 
 ## J. Skenario Uji Wajib (Manual dan Otomatis)

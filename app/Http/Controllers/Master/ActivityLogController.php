@@ -58,11 +58,18 @@ class ActivityLogController extends Controller
             'class_promoted' => 'Kenaikan / Pindah Kelas',
             'excel_imported' => 'Impor Excel',
             'credentials_exported' => 'Ekspor Kredensial',
+            'identity_revealed' => 'Buka Identitas Pelapor Rahasia',
+            'report_created' => 'Laporan Dibuat',
+            'report_status_updated' => 'Status Laporan Diperbarui',
+            'report_note_added' => 'Catatan Penanganan Ditambahkan',
+            'report_message_sent' => 'Balasan Laporan Dikirim',
+            'report_downloaded' => 'Unduh Rekap Laporan',
         ];
 
         return view('master.activity-logs.index', [
             'logs' => $logs,
             'actionTypes' => $actionTypes,
+            'action' => $action,
             'selectedAction' => $action,
             'search' => $search,
         ]);

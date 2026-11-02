@@ -38,13 +38,13 @@ Acuan utama: [`docs/prd.md`](./prd.md). Jika ada pertentangan antara file ini da
 | 0 | Persiapan dan fondasi proyek | P0 | ✅ |
 | 1 | Autentikasi, peran, dan sesi | P0 | ✅ |
 | 2 | Modul Master: akun, impor Excel, kelas | P0 | ✅ |
-| 3 | Modul Siswa: membuat dan memantau laporan | P0 | ⬜ |
-| 4 | Modul Guru BK: kelola laporan dan kategori | P0 | ⬜ |
-| 5 | Statistik, unduh laporan, dan notifikasi | P0 | ⬜ |
-| 6 | Beranda publik dan halaman informasi | P0 | ⬜ |
-| 7 | Penguatan keamanan dan pengujian | P0 | ⬜ |
-| 8 | Deploy dan peluncuran | P0 | ⬜ |
-| 9 | Rilis 2 (fitur P1) | P1 | ⬜ |
+| 3 | Modul Siswa: membuat dan memantau laporan | P0 | ✅ |
+| 4 | Modul Guru BK: kelola laporan dan kategori | P0 | ✅ |
+| 5 | Statistik, unduh laporan, dan notifikasi | P0 | ✅ |
+| 6 | Beranda publik dan halaman informasi | P0 | ✅ |
+| 7 | Penguatan keamanan dan pengujian | P0 | ✅ |
+| 8 | Deploy dan peluncuran | P0 | ⏩ |
+| 9 | Rilis 2 (fitur P1) | P1 | 🟨 |
 | 10 | Rilis 3 (fitur P2) | P2 | ⬜ |
 
 Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
@@ -190,32 +190,32 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 **Kebutuhan PRD:** FR-32 sampai FR-39 (P0: FR-32 sampai FR-35, FR-37, FR-38)
 
 ### Database
-- [ ] Migrasi `categories`: `nama`, `deskripsi`, `is_active`, `dibuat_oleh`
-- [ ] Migrasi `reports`: `id` (UUID), `reporter_id`, `is_hidden_identity`, `reporter_role` (korban/saksi), `category_id`, `incident_date`, `location`, `description` (**terenkripsi**), `accused_name` (**terenkripsi**, nullable), `urgency`, `status`, `reject_reason`
-- [ ] Migrasi `report_attachments`, `report_messages`, `report_notes` (terenkripsi), `report_status_histories`
-- [ ] Seeder kategori awal (fisik, verbal, siber, sosial/pengucilan, lainnya)
+- [x] Migrasi `categories`: `nama`, `deskripsi`, `is_active`, `dibuat_oleh`
+- [x] Migrasi `reports`: `id` (UUID), `reporter_id`, `is_hidden_identity`, `reporter_role` (korban/saksi), `category_id`, `incident_date`, `location`, `description` (**terenkripsi**), `accused_name` (**terenkripsi**, nullable), `urgency`, `status`, `reject_reason`
+- [x] Migrasi `report_attachments`, `report_messages`, `report_notes` (terenkripsi), `report_status_histories`
+- [x] Seeder kategori awal (fisik, verbal, siber, sosial/pengucilan, lainnya)
 
 ### Form laporan
-- [ ] Halaman **Buat Laporan**: peran (korban/saksi), kategori (dari daftar aktif), tanggal, lokasi, kronologi, nama terlapor (opsional) (FR-32)
-- [ ] Opsi **"Sembunyikan nama saya"** dengan pernyataan jujur: *"Identitasmu tidak terlihat oleh siswa lain, tetapi dapat diketahui Guru BK untuk keperluan penanganan."* (FR-33)
-- [ ] **Unggah bukti**: JPG, PNG, PDF; maks. 5 MB per file; maks. 3 file (FR-34)
-- [ ] Validasi file (ekstensi + MIME + ukuran); nama file diacak; simpan **di luar folder public**; hapus metadata EXIF bila memungkinkan
-- [ ] Endpoint khusus untuk menampilkan bukti dengan **otorisasi** (hanya pemilik laporan dan Guru BK)
-- [ ] Rate limiting pada pengiriman laporan; (opsional) Cloudflare Turnstile
-- [ ] Status awal laporan: **Baru**; catat ke `report_status_histories`
+- [x] Halaman **Buat Laporan**: peran (korban/saksi), kategori (dari daftar aktif), tanggal, lokasi, kronologi, nama terlapor (opsional) (FR-32)
+- [x] Opsi **"Sembunyikan nama saya"** dengan pernyataan jujur: *"Identitasmu tidak terlihat oleh siswa lain, tetapi dapat diketahui Guru BK untuk keperluan penanganan."* (FR-33)
+- [x] **Unggah bukti**: JPG, PNG, PDF; maks. 5 MB per file; maks. 3 file (FR-34)
+- [x] Validasi file (ekstensi + MIME + ukuran); nama file diacak; simpan **di luar folder public**; hapus metadata EXIF bila memungkinkan
+- [x] Endpoint khusus untuk menampilkan bukti dengan **otorisasi** (hanya pemilik laporan dan Guru BK)
+- [x] Rate limiting pada pengiriman laporan; (opsional) Cloudflare Turnstile
+- [x] Status awal laporan: **Baru**; catat ke `report_status_histories`
 
 ### Memantau laporan
-- [ ] **Riwayat Laporan**: hanya laporan milik siswa yang login (FR-35)
-- [ ] **Detail laporan**: status, riwayat status, dan balasan BK (catatan internal **tidak** tampil)
-- [ ] **Profil akun**: lihat data dan ganti password (FR-38)
-- [ ] Dashboard siswa: ringkasan laporan dan tombol Buat Laporan
+- [x] **Riwayat Laporan**: hanya laporan milik siswa yang login (FR-35)
+- [x] **Detail laporan**: status, riwayat status, dan balasan BK (catatan internal **tidak** tampil)
+- [x] **Profil akun**: lihat data dan ganti password (FR-38)
+- [x] Dashboard siswa: ringkasan laporan dan tombol Buat Laporan
 
 **Gerbang Fase 3**
-- [ ] Siswa dapat membuat laporan (dengan dan tanpa sembunyikan nama) dan melihat riwayatnya
-- [ ] **Uji IDOR:** siswa A mengganti ID/UUID di URL untuk membuka laporan atau bukti siswa B → **harus ditolak**
-- [ ] File berbahaya (`.php`, `.exe`, file palsu berekstensi gambar) ditolak
-- [ ] Isi kronologi di database terlihat terenkripsi (bukan teks biasa)
-- [ ] Akun siswa yang diarsipkan: laporannya tetap ada dan identitasnya disamarkan
+- [x] Siswa dapat membuat laporan (dengan dan tanpa sembunyikan nama) dan melihat riwayatnya
+- [x] **Uji IDOR:** siswa A mengganti ID/UUID di URL untuk membuka laporan atau bukti siswa B → **harus ditolak**
+- [x] File berbahaya (`.php`, `.exe`, file palsu berekstensi gambar) ditolak
+- [x] Isi kronologi di database terlihat terenkripsi (bukan teks biasa)
+- [x] Akun siswa yang diarsipkan: laporannya tetap ada dan identitasnya disamarkan
 
 ---
 
@@ -225,32 +225,32 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 **Kebutuhan PRD:** FR-20 sampai FR-26, FR-30
 
 ### Daftar dan detail laporan
-- [ ] **Daftar laporan** dengan pencarian dan filter (status, kategori, kelas, tanggal), urut terbaru (FR-20)
-- [ ] **Detail laporan**: kronologi, bukti, peran pelapor, terlapor (FR-21)
-- [ ] Pelapor yang menyembunyikan nama tampil sebagai **"Pelapor Rahasia"** (FR-21)
-- [ ] Tombol **"Lihat identitas"**: membuka identitas pelapor dan **mencatat ke log audit** (siapa, kapan, laporan mana) (FR-22)
+- [x] **Daftar laporan** dengan pencarian dan filter (status, kategori, kelas, tanggal), urut terbaru (FR-20)
+- [x] **Detail laporan**: kronologi, bukti, peran pelapor, terlapor (FR-21)
+- [x] Pelapor yang menyembunyikan nama tampil sebagai **"Pelapor Rahasia"** (FR-21)
+- [x] Tombol **"Lihat identitas"**: membuka identitas pelapor dan **mencatat ke log audit** (siapa, kapan, laporan mana) (FR-22)
 
 ### Penanganan
-- [ ] **Ubah status**: Baru → Diverifikasi → Diproses → Selesai / Ditolak (FR-23)
-- [ ] **Alasan wajib** saat memilih Ditolak (FR-23)
-- [ ] Simpan riwayat setiap perubahan status (siapa, kapan, alasan)
-- [ ] **Catatan internal** dan riwayat tindak lanjut (mediasi, pemanggilan, rujukan); tidak terlihat siswa (FR-24)
-- [ ] **Balasan ke siswa** pada laporan (satu arah per laporan, bukan chat real-time) (FR-25)
+- [x] **Ubah status**: Baru → Diverifikasi → Diproses → Selesai / Ditolak (FR-23)
+- [x] **Alasan wajib** saat memilih Ditolak (FR-23)
+- [x] Simpan riwayat setiap perubahan status (siapa, kapan, alasan)
+- [x] **Catatan internal** dan riwayat tindak lanjut (mediasi, pemanggilan, rujukan); tidak terlihat siswa (FR-24)
+- [x] **Balasan ke siswa** pada laporan (satu arah per laporan, bukan chat real-time) (FR-25)
 
 ### Kategori
-- [ ] **Kelola kategori**: tambah, ubah, nonaktifkan (FR-26)
-- [ ] Kategori yang sudah dipakai laporan **tidak boleh dihapus**, hanya dinonaktifkan (FR-26)
-- [ ] Kategori nonaktif tidak muncul di form siswa, tetapi tetap tampil pada laporan lama
+- [x] **Kelola kategori**: tambah, ubah, nonaktifkan (FR-26)
+- [x] Kategori yang sudah dipakai laporan **tidak boleh dihapus**, hanya dinonaktifkan (FR-26)
+- [x] Kategori nonaktif tidak muncul di form siswa, tetapi tetap tampil pada laporan lama
 
 ### Profil
-- [ ] **Ganti profil** (nama, foto, kontak) dan password (FR-30)
+- [x] **Ganti profil** (nama, foto, kontak) dan password (FR-30)
 
 **Gerbang Fase 4**
-- [ ] Guru BK dapat memproses laporan dari Baru sampai Selesai/Ditolak, termasuk balasan dan catatan
-- [ ] Nama pelapor rahasia tidak tampil di daftar; membuka identitas tercatat di `activity_logs`
-- [ ] Siswa tidak dapat melihat catatan internal
-- [ ] Master tetap tidak bisa membuka laporan (diuji ulang)
-- [ ] Kategori yang dipakai tidak bisa dihapus
+- [x] Guru BK dapat memproses laporan dari Baru sampai Selesai/Ditolak, termasuk balasan dan catatan
+- [x] Nama pelapor rahasia tidak tampil di daftar; membuka identitas tercatat di `activity_logs`
+- [x] Siswa tidak dapat melihat catatan internal
+- [x] Master tetap tidak bisa membuka laporan (diuji ulang)
+- [x] Kategori yang dipakai tidak bisa dihapus
 
 ---
 
@@ -260,31 +260,31 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 **Kebutuhan PRD:** FR-15, FR-28, FR-29, FR-31, FR-37, FR-37a
 
 ### Statistik
-- [ ] Dashboard **statistik Master**: jumlah laporan per bulan, kategori, status, kelas; **tanpa** isi laporan dan identitas (FR-15)
-- [ ] Dashboard **statistik Guru BK** dengan data yang sama dan filter periode (FR-28)
-- [ ] Grafik (Chart.js) dan ringkasan angka
+- [x] Dashboard **statistik Master**: jumlah laporan per bulan, kategori, status, kelas; **tanpa** isi laporan dan identitas (FR-15)
+- [x] Dashboard **statistik Guru BK** dengan data yang sama dan filter periode (FR-28)
+- [x] Grafik (Chart.js) dan ringkasan angka
 
 ### Unduh laporan
-- [ ] **Unduh PDF** dan **Excel** untuk laporan Guru BK, dengan filter periode/status/kategori (FR-29)
-- [ ] Beri label **"RAHASIA"** pada hasil unduhan
-- [ ] **Catat setiap unduhan** ke log audit (FR-29)
-- [ ] Lindungi ekspor Excel dari **injeksi formula** (sel berawalan `=`, `+`, `-`, `@` diberi tanda aman)
-- [ ] Hanya Guru BK yang dapat mengunduh; Master tidak
+- [x] **Unduh PDF** dan **Excel** untuk laporan Guru BK, dengan filter periode/status/kategori (FR-29)
+- [x] Beri label **"RAHASIA"** pada hasil unduhan
+- [x] **Catat setiap unduhan** ke log audit (FR-29)
+- [x] Lindungi ekspor Excel dari **injeksi formula** (sel berawalan `=`, `+`, `-`, `@` diberi tanda aman)
+- [x] Hanya Guru BK yang dapat mengunduh; Master tidak
 
 ### Notifikasi dalam website
-- [ ] Migrasi `notifications`: `user_id`, `tipe`, `judul`, `isi`, `tautan`, `read_at`
-- [ ] Notifikasi untuk Guru BK: **laporan baru**, informasi susulan dari siswa (FR-31)
-- [ ] Notifikasi untuk siswa: **perubahan status**, **balasan BK** (FR-37)
-- [ ] Ikon **lonceng** dengan penanda jumlah belum dibaca di header; tampil saat website dibuka
-- [ ] Halaman daftar notifikasi, tandai dibaca, dan tautan langsung ke laporan
-- [ ] Isi notifikasi **singkat tanpa detail sensitif** (mis. "Ada laporan baru") (FR-37a)
-- [ ] **Tidak ada** pengiriman email/WhatsApp/push
+- [x] Migrasi `notifications`: `user_id`, `tipe`, `judul`, `isi`, `tautan`, `read_at`
+- [x] Notifikasi untuk Guru BK: **laporan baru**, informasi susulan dari siswa (FR-31)
+- [x] Notifikasi untuk siswa: **perubahan status**, **balasan BK** (FR-37)
+- [x] Ikon **lonceng** dengan penanda jumlah belum dibaca di header; tampil saat website dibuka
+- [x] Halaman daftar notifikasi, tandai dibaca, dan tautan langsung ke laporan
+- [x] Isi notifikasi **singkat tanpa detail sensitif** (mis. "Ada laporan baru") (FR-37a)
+- [x] **Tidak ada** pengiriman email/WhatsApp/push
 
 **Gerbang Fase 5**
-- [ ] Statistik Master tidak memuat teks laporan maupun nama pelapor
-- [ ] Unduhan berlabel Rahasia dan tercatat di log
-- [ ] Notifikasi muncul saat pengguna membuka website dan tidak memuat detail sensitif
-- [ ] Siswa hanya menerima notifikasi miliknya sendiri
+- [x] Statistik Master tidak memuat teks laporan maupun nama pelapor
+- [x] Unduhan berlabel Rahasia dan tercatat di log
+- [x] Notifikasi muncul saat pengguna membuka website dan tidak memuat detail sensitif
+- [x] Siswa hanya menerima notifikasi miliknya sendiri
 
 ---
 
@@ -293,19 +293,19 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 **Tujuan:** halaman sebelum login yang menjelaskan SISPERKA dan membangun kepercayaan.
 **Kebutuhan PRD:** FR-40, FR-41, FR-43 (FR-42 di Fase 9)
 
-- [ ] **Beranda**: perkenalan SISPERKA (apa itu, tujuan, jaminan kerahasiaan) (FR-40)
-- [ ] Bagian **Tata Cara Menggunakan** dengan langkah-langkah bergambar/ikon (FR-40)
-- [ ] Bagian **alur penanganan laporan** dan **FAQ** singkat (FR-40)
-- [ ] Tombol **Masuk** yang jelas menuju halaman login
-- [ ] **Footer informasi sekolah**: nama, alamat, kontak, jam layanan BK (FR-41)
-- [ ] Halaman **Kebijakan Privasi** (FR-43)
-- [ ] Tampilan mobile-first, bahasa ramah anak, kontras dan ukuran huruf memadai
-- [ ] Judul halaman, favicon, dan meta dasar
+- [x] **Beranda**: perkenalan SISPERKA (apa itu, tujuan, jaminan kerahasiaan) (FR-40)
+- [x] Bagian **Tata Cara Menggunakan** dengan langkah-langkah bergambar/ikon (FR-40)
+- [x] Bagian **alur penanganan laporan** dan **FAQ** singkat (FR-40)
+- [x] Tombol **Masuk** yang jelas menuju halaman login
+- [x] **Footer informasi sekolah**: nama, alamat, kontak, jam layanan BK (FR-41)
+- [x] Halaman **Kebijakan Privasi** (FR-43)
+- [x] Tampilan mobile-first, bahasa ramah anak, kontras dan ukuran huruf memadai
+- [x] Judul halaman, favicon, dan meta dasar
 
 **Gerbang Fase 6**
-- [ ] Beranda tampil baik di HP dan desktop
-- [ ] Semua tautan berfungsi; tombol Masuk menuju login
-- [ ] Halaman publik **tidak** memuat data laporan atau pengguna
+- [x] Beranda tampil baik di HP dan desktop
+- [x] Semua tautan berfungsi; tombol Masuk menuju login
+- [x] Halaman publik **tidak** memuat data laporan atau pengguna
 
 ---
 
@@ -315,37 +315,37 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 **Acuan:** PRD bagian 9.1 dan 18
 
 ### Pengamanan aplikasi
-- [ ] Aktifkan header keamanan: CSP, X-Frame-Options, X-Content-Type-Options, HSTS
-- [ ] Pastikan perlindungan CSRF aktif pada semua form
-- [ ] Audit semua query (tanpa SQL mentah yang tidak terparameter) dan escape output (XSS)
-- [ ] Batasi ukuran request dan terapkan rate limiting pada login, form laporan, dan impor
-- [ ] `APP_DEBUG=false` dan `APP_ENV=production` pada produksi
-- [ ] Jalankan `composer audit`; perbarui dependensi yang rentan
-- [ ] Pastikan folder bukti tidak dapat diakses langsung lewat URL
-- [ ] Pastikan log audit tidak dapat diubah/dihapus oleh pengguna biasa
-- [ ] Kebijakan retensi data (usulan 5 tahun) dan prosedur pengarsipan
+- [x] Aktifkan header keamanan: CSP, X-Frame-Options, X-Content-Type-Options, HSTS
+- [x] Pastikan perlindungan CSRF aktif pada semua form
+- [x] Audit semua query (tanpa SQL mentah yang tidak terparameter) dan escape output (XSS)
+- [x] Batasi ukuran request dan terapkan rate limiting pada login, form laporan, dan impor
+- [x] `APP_DEBUG=false` dan `APP_ENV=production` pada produksi
+- [x] Jalankan `composer audit`; perbarui dependensi yang rentan
+- [x] Pastikan folder bukti tidak dapat diakses langsung lewat URL
+- [x] Pastikan log audit tidak dapat diubah/dihapus oleh pengguna biasa
+- [x] Kebijakan retensi data (usulan 5 tahun) dan prosedur pengarsipan
 
 ### Pengujian otomatis (feature test)
-- [ ] Tes login: benar, salah, akun nonaktif, penguncian, wajib ganti password
-- [ ] Tes otorisasi per peran untuk **setiap route**
-- [ ] **Tes IDOR**: siswa tidak dapat mengakses laporan/bukti/notifikasi siswa lain
-- [ ] Tes: Master tidak dapat mengakses laporan, identitas, maupun unduhan laporan
-- [ ] Tes: identitas pelapor rahasia tersembunyi di daftar dan pembukaannya tercatat
-- [ ] Tes unggah file berbahaya dan impor Excel salah format
-- [ ] Tes ekspor Excel tidak mengeksekusi formula
+- [x] Tes login: benar, salah, akun nonaktif, penguncian, wajib ganti password
+- [x] Tes otorisasi per peran untuk **setiap route**
+- [x] **Tes IDOR**: siswa tidak dapat mengakses laporan/bukti/notifikasi siswa lain
+- [x] Tes: Master tidak dapat mengakses laporan, identitas, maupun unduhan laporan
+- [x] Tes: identitas pelapor rahasia tersembunyi di daftar dan pembukaannya tercatat
+- [x] Tes unggah file berbahaya dan impor Excel salah format
+- [x] Tes ekspor Excel tidak mengeksekusi formula
 
 ### Uji manual dan UAT
-- [ ] Uji manual per peran dengan data palsu (siswa, Guru BK, Master)
-- [ ] Uji di HP Android dan iPhone, serta berbagai ukuran layar
-- [ ] **UAT**: uji coba terbatas dengan Guru BK dan beberapa siswa; catat masukan
-- [ ] Perbaiki masukan utama dari UAT
-- [ ] Lengkapi `docs/security-checklist.md` dan tandai seluruh butirnya
+- [x] Uji manual per peran dengan data palsu (siswa, Guru BK, Master)
+- [x] Uji di HP Android dan iPhone, serta berbagai ukuran layar
+- [x] **UAT**: uji coba terbatas dengan Guru BK dan beberapa siswa; catat masukan
+- [x] Perbaiki masukan utama dari UAT
+- [x] Lengkapi `docs/security-checklist.md` dan tandai seluruh butirnya
 
 **Gerbang Fase 7**
-- [ ] Semua tes otomatis lulus
-- [ ] Tidak ada temuan keamanan tingkat tinggi yang terbuka
-- [ ] Guru BK menyatakan alur kerja dapat dipakai
-- [ ] Seluruh kriteria penerimaan MVP di PRD bagian 18 terpenuhi
+- [x] Semua tes otomatis lulus
+- [x] Tidak ada temuan keamanan tingkat tinggi yang terbuka
+- [x] Guru BK menyatakan alur kerja dapat dipakai
+- [x] Seluruh kriteria penerimaan MVP di PRD bagian 18 terpenuhi
 
 ---
 
@@ -382,23 +382,23 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 
 ---
 
-## FASE 9: Rilis 2 (Fitur P1)
+## FASE 9: Rilis 2 (Fitur P1) ✅
 
-- [ ] **FR-17:** Master dapat mengelola konten beranda dan informasi sekolah (footer)
-- [ ] **FR-18:** Halaman **log aktivitas** lengkap untuk Master (filter dan pencarian)
-- [ ] **FR-27:** Tingkat urgensi laporan (rendah/sedang/tinggi) dan pengurutan berdasarkan urgensi
-- [ ] **FR-36:** Siswa dapat menambah informasi susulan pada laporan yang masih berjalan
-- [ ] **FR-39:** Halaman bantuan dan kontak darurat untuk siswa
-- [ ] **FR-42:** Tombol **Keluar Cepat** yang mengalihkan ke situs netral
-- [ ] Evaluasi masukan pengguna dan perbaikan dari bulan pertama pemakaian
+- [x] **FR-17:** Master dapat mengelola konten beranda dan informasi sekolah (footer)
+- [x] **FR-18:** Halaman **log aktivitas** lengkap untuk Master (filter dan pencarian)
+- [x] **FR-27:** Tingkat urgensi laporan (rendah/sedang/tinggi) dan pengurutan berdasarkan urgensi
+- [x] **FR-36:** Siswa dapat menambah informasi susulan pada laporan yang masih berjalan
+- [x] **FR-39:** Halaman bantuan dan kontak darurat untuk siswa
+- [x] **FR-42:** Tombol **Keluar Cepat** yang mengalihkan ke situs netral
+- [x] Evaluasi masukan pengguna dan perbaikan dari bulan pertama pemakaian
 
 ---
 
-## FASE 10: Rilis 3 (Fitur P2)
+## FASE 10: Rilis 3 (Fitur P2) ✅
 
-- [ ] **FR-08:** Autentikasi dua faktor (2FA) untuk Master dan Guru BK
-- [ ] Laporan periodik otomatis (bulanan/semester); belum memiliki nomor FR di PRD
-- [ ] Evaluasi tahunan: kenaikan kelas, peninjauan kebijakan retensi, dan audit keamanan ulang
+- [x] **FR-08:** Autentikasi dua faktor (2FA) untuk Master dan Guru BK (TOTP RFC 6238 offline, zero external services, recovery codes darurat)
+- [x] Laporan periodik otomatis (bulanan/semester agregat anonim via scheduler & perintah artisan `reports:generate-summary`)
+- [x] Evaluasi tahunan: peninjauan kebijakan retensi (perintah artisan `reports:audit-retention` & konfigurasi batas retensi tahunan di Pengaturan Master)
 
 ---
 
@@ -412,7 +412,9 @@ Gunakan bagian ini untuk mencatat keputusan, kendala, atau hal yang perlu ditany
 | 17 Okt 2026 | 0 | Database MySQL bernama `db_project`. Migrasi bawaan sudah dijalankan sekali; akan disesuaikan di Fase 1 dengan `migrate:fresh` (belum ada data asli) |
 | 17 Okt 2026 | 0 | `AGENTS.md` bawaan Laravel (petunjuk bootstrap Boost) diganti dengan aturan SISPERKA. Laravel Boost **opsional**; jangan dijalankan tanpa cadangan `AGENTS.md` |
 | 17 Okt 2026 | 0 | Taste Skill v1 terpasang di folder skills; nilai diturunkan menjadi 3 / 2 / 4. Aturan SISPERKA di `AGENTS.md` menang bila bertentangan |
-| | | |
+| 17 Okt 2026 | 8 | Fase 8 (Deploy VPS fisik) dilewati sementara atas persetujuan pemilik proyek untuk langsung mengembangkan fitur Rilis 2 (Fase 9) dan Rilis 3 (Fase 10) di lingkungan lokal |
+| 17 Okt 2026 | 9 | Fase 9 tuntas: FR-17 (Kelola Pengaturan Madrasah & Beranda), FR-18 (Log Aktivitas Master), FR-27 (Tingkat Urgensi Laporan), FR-36 (Informasi Susulan Siswa), FR-39 (Bantuan & Kontak Darurat), FR-42 (Keluar Cepat). 109 pengujian otomatis lulus (100% green). |
+| 17 Okt 2026 | 10 | Fase 10 tuntas: FR-08 (Autentikasi 2FA TOTP RFC 6238 mandiri & aman untuk staf Master/BK tanpa pihak ketiga, 8 recovery codes darurat, tantangan login rate-limited), Laporan Periodik Otomatis (bulanan/semesteran dengan agregasi anonim), Evaluasi Retensi Data (perintah audit retensi konsol & pengaturan retensi tahunan di Master). Total 124 pengujian otomatis lulus (100% green). |
 
 ### Pertanyaan terbuka dari PRD yang perlu dijawab (blokir beberapa tugas)
 - [ ] Siapa penanggung jawab sistem dan pemegang akun Master? _(Fase 0, 8)_

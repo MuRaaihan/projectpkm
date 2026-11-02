@@ -7,6 +7,7 @@ Aplikasi web untuk melaporkan perundungan (bullying) di madrasah. Pengguna ±400
 - `docs/tasks.md` : daftar fase dan tugas. Ikuti urutannya.
 - `docs/database.md` : rancangan tabel dan relasi.
 - `docs/security-checklist.md` : daftar cek keamanan yang wajib lulus.
+- `docs/ui-guide.md` : panduan tampilan, warna, bahasa, dan komponen. **Wajib diikuti untuk semua pekerjaan UI.**
 - Jika dokumen bertentangan dengan permintaan di chat atau dengan satu sama lain, **berhenti dan tanyakan**.
 
 ## Stack
@@ -46,8 +47,8 @@ Aplikasi web untuk melaporkan perundungan (bullying) di madrasah. Pengguna ±400
 - Hapus akun = **arsip/nonaktif secara default**. Hapus permanen hanya dengan konfirmasi password Master. Laporan lama tetap tersimpan.
 
 ## Tampilan
-Gunakan skill `design-taste-frontend-v1` hanya sebagai panduan desain, dengan stack di atas.
-Aturan SISPERKA menang bila bertentangan dengan skill:
+Ikuti `docs/ui-guide.md`. Gunakan skill `design-taste-frontend-v1` hanya sebagai inspirasi kerapian visual, dengan stack di atas.
+Bila `docs/ui-guide.md` atau aturan SISPERKA bertentangan dengan skill, **`ui-guide.md` dan aturan SISPERKA menang**:
 - Tenang, ramah anak, aman; hindari kesan "startup".
 - Tanpa animasi yang berjalan terus-menerus; transisi sederhana saja.
 - **Mobile-first**, ringan di HP murah, kontras tinggi, ukuran huruf nyaman.

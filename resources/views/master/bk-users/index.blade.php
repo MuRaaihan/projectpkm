@@ -134,7 +134,12 @@
                                     </form>
 
                                     {{-- Reset Password --}}
-                                    <form method="POST" action="{{ route('master.bk-users.reset-password', $user) }}" onsubmit="return confirm('Reset kata sandi akun {{ $user->name }}? Sistem akan membuat kata sandi sementara baru.');" class="inline">
+                                    <form method="POST" action="{{ route('master.bk-users.reset-password', $user) }}" 
+                                          data-confirm="Reset kata sandi akun Guru BK {{ $user->name }}? Sistem akan membuat kata sandi sementara baru."
+                                          data-confirm-title="Konfirmasi Reset Kata Sandi"
+                                          data-confirm-button="Ya, Reset Sandi"
+                                          data-confirm-color="#0284C7"
+                                          class="inline">
                                         @csrf
                                         <button type="submit" class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-400 hover:text-sky-600 dark:hover:text-sky-400 hover:bg-sky-50 dark:hover:bg-slate-700 rounded-lg transition" title="Reset Kata Sandi">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -145,7 +150,12 @@
                                     </form>
 
                                     {{-- Arsipkan (Soft Delete) --}}
-                                    <form method="POST" action="{{ route('master.bk-users.archive', $user) }}" onsubmit="return confirm('Arsipkan akun Guru BK {{ $user->name }}? Akun ini tidak akan bisa masuk tetapi datanya tersimpan.');" class="inline">
+                                    <form method="POST" action="{{ route('master.bk-users.archive', $user) }}" 
+                                          data-confirm="Arsipkan akun Guru BK {{ $user->name }}? Akun ini tidak akan bisa masuk tetapi datanya tersimpan."
+                                          data-confirm-title="Konfirmasi Arsipkan Akun"
+                                          data-confirm-button="Ya, Arsipkan"
+                                          data-confirm-color="#9333EA"
+                                          class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-slate-700 rounded-lg transition" title="Arsipkan Akun">

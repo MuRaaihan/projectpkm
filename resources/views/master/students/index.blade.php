@@ -158,35 +158,29 @@
                                         </button>
                                     </form>
 
-                                    {{-- Reset Password (Modal) --}}
-                                    <button type="button" 
-                                            @click="$dispatch('open-modal', 'modal-reset-student-{{ $student->id }}')" 
-                                            class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-700 rounded-lg transition" 
-                                            title="Reset Kata Sandi">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                        </svg>
-                                        <span class="sr-only">Reset kata sandi {{ $student->name }}</span>
-                                    </button>
-
-                                    <x-modal id="modal-reset-student-{{ $student->id }}" title="Reset Kata Sandi Siswa">
-                                        <form method="POST" action="{{ route('master.students.reset-password', $student) }}" class="space-y-4">
-                                            @csrf
-                                            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                                                Apakah Anda yakin ingin mengatur ulang kata sandi untuk <strong>{{ $student->name }} (NIS: {{ $student->login_id }})</strong>?
-                                            </p>
-                                            <div class="p-3.5 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300 leading-relaxed">
-                                                Sistem akan membuat kata sandi acak baru dan mewajibkan siswa langsung menggantinya pada saat masuk berikutnya.
-                                            </div>
-                                            <div class="flex justify-end gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                                                <x-button type="button" variant="outline" size="sm" @click="$dispatch('close-modal', 'modal-reset-student-{{ $student->id }}')">Batal</x-button>
-                                                <x-button type="submit" variant="primary" size="sm">Ya, Reset Kata Sandi</x-button>
-                                            </div>
-                                        </form>
-                                    </x-modal>
+                                    {{-- Reset Password --}}
+                                    <form method="POST" action="{{ route('master.students.reset-password', $student) }}" 
+                                          data-confirm="Reset kata sandi akun siswa {{ $student->name }} (NIS: {{ $student->login_id }})? Sistem akan membuat kata sandi acak sementara baru dan mewajibkan siswa langsung menggantinya saat masuk."
+                                          data-confirm-title="Konfirmasi Reset Kata Sandi"
+                                          data-confirm-button="Ya, Reset Sandi"
+                                          data-confirm-color="#D97706"
+                                          class="inline">
+                                        @csrf
+                                        <button type="submit" class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-amber-50 dark:hover:bg-slate-700 rounded-lg transition" title="Reset Kata Sandi">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                            </svg>
+                                            <span class="sr-only">Reset kata sandi {{ $student->name }}</span>
+                                        </button>
+                                    </form>
 
                                     {{-- Arsipkan (Soft Delete) --}}
-                                    <form method="POST" action="{{ route('master.students.archive', $student) }}" class="inline" onsubmit="return confirm('Arsipkan akun siswa ini? Akun tidak dapat masuk namun seluruh riwayat laporan tetap aman tersimpan.');">
+                                    <form method="POST" action="{{ route('master.students.archive', $student) }}" 
+                                          data-confirm="Arsipkan akun siswa ini? Akun tidak dapat masuk namun seluruh riwayat laporan tetap aman tersimpan."
+                                          data-confirm-title="Konfirmasi Arsipkan Akun"
+                                          data-confirm-button="Ya, Arsipkan"
+                                          data-confirm-color="#9333EA"
+                                          class="inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-slate-700 rounded-lg transition" title="Arsipkan Akun">

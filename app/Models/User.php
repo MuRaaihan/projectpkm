@@ -33,6 +33,9 @@ class User extends Authenticatable
         'must_change_password',
         'last_login_at',
         'locked_until',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
+        'two_factor_confirmed_at',
     ];
 
     /**
@@ -43,6 +46,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
     ];
 
     /**
@@ -58,7 +63,49 @@ class User extends Authenticatable
             'must_change_password' => 'boolean',
             'last_login_at' => 'datetime',
             'locked_until' => 'datetime',
+            'two_factor_secret' => 'encrypted',
+            'two_factor_recovery_codes' => 'encrypted',
+            'two_factor_confirmed_at' => 'datetime',
         ];
+    }
+
+    /**
+     * Cek apakah 2FA sudah aktif
+     */
+    public function hasTwoFactorEnabled(): bool
+    {
+        return ! is_null($this->two_factor_confirmed_at);
+    }
+
+    /**
+     * Ambil daftar recovery codes
+     */
+    public function recoveryCodes(): array
+    {
+        if (empty($this->two_factor_recovery_codes)) {
+            return [];
+        }
+
+        return json_decode($this->two_factor_recovery_codes, true) ?: [];
+    }
+
+    /**
+     * Gunakan satu recovery code dan hapus dari daftar
+     */
+    public function replaceRecoveryCode(string $code): bool
+    {
+        $codes = $this->recoveryCodes();
+        $key = array_search(trim($code), $codes, true);
+
+        if ($key === false) {
+            return false;
+        }
+
+        unset($codes[$key]);
+        $this->two_factor_recovery_codes = json_encode(array_values($codes));
+        $this->save();
+
+        return true;
     }
 
     /**
@@ -93,5 +140,29 @@ class User extends Authenticatable
     public function activityLogs(): HasMany
     {
         return $this->hasMany(ActivityLog::class);
+    }
+
+    /**
+     * Relasi ke laporan yang dibuat
+     */
+    public function reports(): HasMany
+    {
+        return $this->hasMany(Report::class, 'reporter_id');
+    }
+
+    /**
+     * Relasi ke notifikasi dalam website
+     */
+    public function siteNotifications(): HasMany
+    {
+        return $this->hasMany(AppNotification::class, 'user_id')->latest();
+    }
+
+    /**
+     * Jumlah notifikasi yang belum dibaca
+     */
+    public function unreadNotificationsCount(): int
+    {
+        return $this->siteNotifications()->whereNull('read_at')->count();
     }
 }

@@ -68,6 +68,17 @@
                         <a href="{{ url('/dashboard') }}" class="inline-flex items-center justify-center px-4 py-2 min-h-[40px] text-xs sm:text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:bg-primary-800 rounded-xl shadow-xs transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600">
                             Dashboard
                         </a>
+                        <form method="POST" action="{{ route('logout') }}" class="inline-flex items-center">
+                            @csrf
+                            <button type="submit" 
+                                    class="inline-flex items-center gap-1.5 px-3 py-2 min-h-[40px] text-xs sm:text-sm font-semibold text-rose-700 dark:text-rose-300 hover:text-rose-800 dark:hover:text-rose-100 bg-rose-50/80 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-950/70 border border-rose-200/90 dark:border-rose-900/60 rounded-xl transition focus:outline-none focus:ring-2 focus:ring-rose-500"
+                                    title="Keluar dari Akun">
+                                <svg class="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                                <span class="hidden sm:inline">Keluar</span>
+                            </button>
+                        </form>
                     @else
                         <a href="{{ url('/login') }}" class="inline-flex items-center justify-center px-4.5 py-2 min-h-[40px] text-xs sm:text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:bg-primary-800 rounded-xl shadow-xs transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600">
                             Lapor Sekarang
@@ -90,11 +101,25 @@
             <a href="{{ url('/') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Beranda</a>
             <a href="{{ url('/#tentang') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Tentang</a>
             <a href="{{ url('/#cara-kerja') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Cara Kerja</a>
-            @guest
+            @auth
+                <a href="{{ url('/dashboard') }}" class="block w-full text-center font-bold px-4 py-2.5 rounded-xl bg-primary-600 text-white mt-2">Buka Dashboard</a>
+                <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    @csrf
+                    <button type="submit" class="w-full text-center font-bold px-4 py-2.5 rounded-xl text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 mt-2">Keluar dari Akun</button>
+                </form>
+            @else
                 <a href="{{ route('login') }}" class="block w-full text-center font-bold px-4 py-2.5 rounded-xl bg-primary-600 text-white mt-2">Mulai Menggunakan SIPERKA</a>
-            @endguest
+            @endauth
         </div>
     </header>
+
+    {{-- Flash Messages Hook for SweetAlert2 --}}
+    <div id="sisperka-flash-messages" class="hidden"
+        @if(session('success')) data-success="{{ session('success') }}" @endif
+        @if(session('error')) data-error="{{ session('error') }}" @endif
+        @if(session('status')) data-status="{{ session('status') }}" @endif
+        @if(session('warning')) data-warning="{{ session('warning') }}" @endif
+    ></div>
 
     {{-- Notifikasi Flash --}}
     @if (session('status') || session('success') || session('error') || session('warning'))

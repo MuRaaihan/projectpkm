@@ -36,19 +36,17 @@
     <header class="sticky top-0 z-30 bg-white/95 dark:bg-[#14201A]/95 backdrop-blur border-b border-slate-200/90 dark:border-[#22342A] transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
-                {{-- Kiri: Hamburger (Staf) & Brand --}}
+                {{-- Kiri: Hamburger (Semua Peran saat Layar Mobile) & Brand --}}
                 <div class="flex items-center gap-3">
-                    @if ($isStaff)
-                        {{-- Tombol Hamburger Mobile --}}
-                        <button type="button" 
-                                @click="sidebarOpen = !sidebarOpen"
-                                class="lg:hidden p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition focus:outline-none focus:ring-2 focus:ring-primary-600"
-                                aria-label="Buka Menu Navigasi">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    @endif
+                    {{-- Tombol Hamburger Mobile --}}
+                    <button type="button" 
+                            @click="sidebarOpen = !sidebarOpen"
+                            class="lg:hidden p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition focus:outline-none focus:ring-2 focus:ring-primary-600"
+                            aria-label="Buka Menu Navigasi">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
 
                     <a href="{{ url('/dashboard') }}" class="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-primary-600 rounded-2xl p-1">
                         <img src="{{ asset('images/logo-sekolah.png') }}" 
@@ -64,24 +62,6 @@
                     <span class="hidden md:inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                         {{ $roleLabels[$role] ?? ucfirst($role) }}
                     </span>
-
-                    {{-- Navigasi Desktop Khusus Siswa --}}
-                    @if ($role === 'siswa')
-                        <nav class="hidden md:flex items-center gap-1 ml-4 text-sm font-semibold">
-                            <a href="{{ route('siswa.dashboard') }}" class="px-3.5 py-2 rounded-xl transition min-h-[40px] inline-flex items-center {{ request()->routeIs('siswa.dashboard') ? 'text-primary-700 dark:text-[#5AE39D] bg-emerald-50 dark:bg-emerald-950/60' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800' }}">
-                                Beranda
-                            </a>
-                            <a href="{{ route('siswa.reports.create') }}" class="px-3.5 py-2 rounded-xl transition min-h-[40px] inline-flex items-center {{ request()->routeIs('siswa.reports.create') ? 'text-primary-700 dark:text-[#5AE39D] bg-emerald-50 dark:bg-emerald-950/60' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800' }}">
-                                Buat Laporan
-                            </a>
-                            <a href="{{ route('siswa.reports.index') }}" class="px-3.5 py-2 rounded-xl transition min-h-[40px] inline-flex items-center {{ request()->routeIs('siswa.reports.index') || request()->routeIs('siswa.reports.show') ? 'text-primary-700 dark:text-[#5AE39D] bg-emerald-50 dark:bg-emerald-950/60' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800' }}">
-                                Riwayat Laporan
-                            </a>
-                            <a href="{{ route('siswa.help') }}" class="px-3.5 py-2 rounded-xl transition min-h-[40px] inline-flex items-center {{ request()->routeIs('siswa.help') ? 'text-primary-700 dark:text-[#5AE39D] bg-emerald-50 dark:bg-emerald-950/60' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800' }}">
-                                Bantuan & Kontak
-                            </a>
-                        </nav>
-                    @endif
                 </div>
 
                 {{-- Kanan: Theme Toggle, Keluar Cepat, Lonceng, Akun --}}
@@ -198,37 +178,74 @@
         </div>
     </header>
 
-    {{-- Layout Grid untuk Staf (Sidebar) & Siswa (Container) --}}
+    {{-- Layout Grid untuk Sidebar & Konten Utama --}}
     <div class="flex-1 flex w-full">
-        @if ($isStaff)
-            {{-- Backdrop Sidebar Mobile --}}
-            <div x-show="sidebarOpen" 
-                 @click="sidebarOpen = false" 
-                 class="fixed inset-0 z-40 bg-black/40 backdrop-blur-xs lg:hidden"
-                 x-transition:enter="transition-opacity ease-linear duration-200"
-                 x-transition:enter-start="opacity-0"
-                 x-transition:enter-end="opacity-100"
-                 x-transition:leave="transition-opacity ease-linear duration-200"
-                 x-transition:leave-start="opacity-100"
-                 x-transition:leave-end="opacity-0"
-                 style="display: none;"></div>
+        {{-- Backdrop Sidebar Mobile --}}
+        <div x-show="sidebarOpen" 
+             @click="sidebarOpen = false" 
+             class="fixed inset-0 z-40 bg-black/40 backdrop-blur-xs lg:hidden"
+             x-transition:enter="transition-opacity ease-linear duration-200"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-200"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             style="display: none;"></div>
 
-            {{-- Sidebar Navigasi Staf (Desktop & Mobile Drawer) --}}
-            <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-                   class="fixed lg:sticky top-0 lg:top-20 z-40 lg:z-10 w-68 h-screen lg:h-[calc(100vh-5rem)] bg-white dark:bg-[#14201A] border-r border-slate-200/90 dark:border-[#22342A] transition-transform duration-200 ease-in-out shrink-0 overflow-y-auto">
-                <div class="p-4 flex flex-col gap-1.5 min-h-full">
-                    {{-- Header Sidebar Mobile --}}
-                    <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-100 dark:border-slate-800 lg:hidden">
-                        <div class="flex items-center gap-2.5">
-                            <img src="{{ asset('images/logo-sekolah.png') }}" alt="Logo" class="w-8 h-8 object-contain" />
-                            <span class="font-bold text-sm text-slate-900 dark:text-slate-100">SISPERKA Menu</span>
+        {{-- Sidebar Navigasi (Desktop & Mobile Drawer) --}}
+        <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+               class="fixed lg:sticky top-0 lg:top-20 z-40 lg:z-10 w-68 h-screen lg:h-[calc(100vh-5rem)] bg-white dark:bg-[#14201A] border-r border-slate-200/90 dark:border-[#22342A] transition-transform duration-200 ease-in-out shrink-0 overflow-y-auto">
+            <div class="p-4 flex flex-col gap-1.5 min-h-full">
+                {{-- Header Sidebar Mobile --}}
+                <div class="flex items-center justify-between pb-3 mb-2 border-b border-slate-100 dark:border-slate-800 lg:hidden">
+                    <div class="flex items-center gap-2.5">
+                        <img src="{{ asset('images/logo-sekolah.png') }}" alt="Logo" class="w-8 h-8 object-contain" />
+                        <div>
+                            <span class="block font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight">SISPERKA</span>
+                            <span class="block text-[11px] text-slate-500 dark:text-slate-400 font-medium">{{ $roleLabels[$role] ?? ucfirst($role) }}</span>
                         </div>
-                        <button type="button" @click="sidebarOpen = false" class="p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Tutup menu navigasi">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                        </button>
                     </div>
+                    <button type="button" @click="sidebarOpen = false" class="p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Tutup menu navigasi">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
 
-                    @if ($role === 'bk')
+                @if ($role === 'siswa')
+                    {{-- Menu Navigasi Siswa --}}
+                    <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1">Menu Utama Siswa</p>
+
+                    <a href="{{ route('siswa.dashboard') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('siswa.dashboard') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        <span>Beranda</span>
+                    </a>
+
+                    <a href="{{ route('siswa.reports.create') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('siswa.reports.create') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        <span>Buat Laporan</span>
+                    </a>
+
+                    <a href="{{ route('siswa.reports.index') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('siswa.reports.index') || request()->routeIs('siswa.reports.show') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        <span>Riwayat Laporan</span>
+                    </a>
+
+                    <a href="{{ route('siswa.help') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('siswa.help') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <span>Bantuan & Kontak</span>
+                    </a>
+
+                    <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1 mt-4">Akun & Privasi</p>
+
+                    <a href="{{ route('siswa.profile') }}" 
+                       class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('siswa.profile') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white' }}">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        <span>Profil Saya</span>
+                    </a>
+                @elseif ($role === 'bk')
                         {{-- Menu Navigasi Guru BK --}}
                         <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1">Konseling & Pengaduan</p>
                         
@@ -257,20 +274,15 @@
                             <span>Unduh Laporan Resmi</span>
                         </a>
 
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1 mt-4">Rekap & Keamanan</p>
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1 mt-4">Rekapitulasi</p>
 
                         <a href="{{ route('periodic-reports.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('periodic-reports.*') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             <span>Laporan Periodik</span>
                         </a>
-
-                        <a href="{{ route('two-factor.setup') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('two-factor.setup') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900' }}">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                            <span>Autentikasi 2FA TOTP</span>
-                        </a>
                     @elseif ($role === 'master')
                         {{-- Menu Navigasi Master Administrator --}}
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1">Manajemen & Sistem</p>
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1">Data Pokok &amp; Pengguna</p>
 
                         <a href="{{ route('master.dashboard') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('master.dashboard') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
@@ -307,7 +319,7 @@
                             <span>Operasi Massal Kelas</span>
                         </a>
 
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1 mt-4">Audit & Pengaturan</p>
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 px-3 py-1 mt-4">Audit &amp; Pengaturan</p>
 
                         <a href="{{ route('periodic-reports.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('periodic-reports.*') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -323,18 +335,20 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                             <span>Pengaturan Website</span>
                         </a>
-
-                        <a href="{{ route('two-factor.setup') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition {{ request()->routeIs('two-factor.setup') ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-slate-900' }}">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                            <span>Autentikasi 2FA TOTP</span>
-                        </a>
-                    @endif
-                </div>
-            </aside>
-        @endif
+                @endif
+            </div>
+        </aside>
 
         {{-- Konten Utama Halaman --}}
-        <main class="flex-1 w-full min-w-0 pb-24 lg:pb-12">
+        <main class="flex-1 w-full min-w-0 pb-12">
+            {{-- Flash Messages Hook for SweetAlert2 --}}
+            <div id="sisperka-flash-messages" class="hidden"
+                @if(session('success')) data-success="{{ session('success') }}" @endif
+                @if(session('error')) data-error="{{ session('error') }}" @endif
+                @if(session('status')) data-status="{{ session('status') }}" @endif
+                @if(session('warning')) data-warning="{{ session('warning') }}" @endif
+            ></div>
+
             {{-- Notifikasi Flash Pesan --}}
             @if (session('status') || session('success') || session('error') || session('warning') || session('info'))
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 w-full">
@@ -359,28 +373,5 @@
         </main>
     </div>
 
-    {{-- Bottom Navigation Bar untuk Siswa di Mobile --}}
-    @if ($role === 'siswa')
-        <nav class="md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 dark:bg-[#14201A]/95 backdrop-blur border-t border-slate-200/90 dark:border-[#22342A] px-2 py-2" aria-label="Navigasi Bawah">
-            <div class="grid grid-cols-4 max-w-md mx-auto">
-                <a href="{{ route('siswa.dashboard') }}" class="flex flex-col items-center gap-1 py-1 px-2 rounded-xl {{ request()->routeIs('siswa.dashboard') ? 'text-primary-700 dark:text-[#5AE39D] font-bold' : 'text-slate-500 dark:text-slate-400' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                    <span class="text-[11px]">Beranda</span>
-                </a>
-                <a href="{{ route('siswa.reports.create') }}" class="flex flex-col items-center gap-1 py-1 px-2 rounded-xl {{ request()->routeIs('siswa.reports.create') ? 'text-primary-700 dark:text-[#5AE39D] font-bold' : 'text-slate-500 dark:text-slate-400' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                    <span class="text-[11px]">Buat Aduan</span>
-                </a>
-                <a href="{{ route('siswa.reports.index') }}" class="flex flex-col items-center gap-1 py-1 px-2 rounded-xl {{ request()->routeIs('siswa.reports.index') || request()->routeIs('siswa.reports.show') ? 'text-primary-700 dark:text-[#5AE39D] font-bold' : 'text-slate-500 dark:text-slate-400' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <span class="text-[11px]">Riwayat</span>
-                </a>
-                <a href="{{ route('siswa.profile') }}" class="flex flex-col items-center gap-1 py-1 px-2 rounded-xl {{ request()->routeIs('siswa.profile') ? 'text-primary-700 dark:text-[#5AE39D] font-bold' : 'text-slate-500 dark:text-slate-400' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                    <span class="text-[11px]">Profil</span>
-                </a>
-            </div>
-        </nav>
-    @endif
 </body>
 </html>
