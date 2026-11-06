@@ -238,40 +238,68 @@ Semua perubahan dilakukan di branch `feat/frontend-redesign` secara granular per
 20. `2393c70` - `feat(frontend): template cetak rekapitulasi laporan pdf bk`
 21. `d3140f9` - `chore: bersihkan layout lama digantikan komponen x-layouts`
 22. `cfebc87` - `feat(frontend): tambahkan dependensi chart.js dan konfigurasi app.js`
+23. `8d90671` - `feat(ui): standarisasi komponen dasar blade dan layout bersama untuk tata letak dan mode gelap`
+24. `fd3a8ca` - `feat(ui): perapihan tata letak dan mode gelap halaman publik dan error`
+25. `eff8cbe` - `feat(ui): perapihan tata letak dan mode gelap modul autentikasi dan keamanan 2fa`
+26. `d46dfd7` - `feat(ui): perapihan tata letak responsif dan mode gelap dashboard siswa`
+27. `6344ea6` - `feat(ui): perapihan tata letak dan mode gelap dashboard guru bk`
+28. `5cb24e0` - `feat(ui): perapihan tata letak dan mode gelap panel master admin dan modul bersama`
+29. `d88802f` - `fix(auth): bersihkan elemen informasi login, hilangkan footer publik, dan aktifkan toggle mata kata sandi`
+30. `95f1014` - `feat(ui): sesuaikan tampilan halaman publik dan phone mockups dengan frontend Next.js`
+31. `6027daf` - `feat(ui): hapus bagian alur penanganan dan faq lama pada landing page publik`
+32. `b30132e` - `feat(ui): hapus bagian fitur peran dan privasi pada halaman publik sesuai permintaan`
+33. `bd46daf` - `feat(ui): hilangkan fitur dan tombol keluar cepat dari seluruh layout dan halaman`
+34. `7fbf8c3` & `edce3db` - `feat(ui): desain ulang footer publik dengan tata letak grid institusional 4-kolom profesional`
+35. `58fbec9` - `feat: integrasi sweetalert2, navigasi sidebar siswa responsif, auto-read notifikasi, dan optimasi arsitektur`
+36. `feat(ui): pemolesan berkelanjutan antarmuka obrolan, dashboard bk, sidebar master, standarisasi dropdown chevron, dan grup tombol aksi tabel`
 
 ---
 
-## 6. Hasil Verifikasi & Jaminan Kualitas (Tahap 5)
+## 7. Pemolesan Lanjutan Antarmuka & UX (Tahap Pasca-Migrasi)
 
-### 6.1 Uji Build Kompilasi Frontend (`npm run build`)
-- **Status:** **SUKSES 100% (Tanpa Galat)**
-- **Aset yang Dihasilkan (Vite v6):**
-  - `public/build/assets/app-*.css`: 172.48 kB (Gzip: 26.12 kB)
-  - `public/build/assets/app-*.js`: 202.16 kB (Gzip: 67.24 kB)
-  - Plus Jakarta Sans & Instrument Sans webfonts termuat mandiri (*self-hosted*).
+Setelah migrasi komponen dasar selesai, dilakukan serangkaian pemolesan visual dan interaktivitas berdasarkan umpan balik pengguna nyata:
 
-### 6.2 Uji Rangkaian Test Otomatis (`php artisan test`)
-- **Status:** **PASS 100% (124 tests, 566 assertions, 0 failure, 0 error)**
-- **Lingkup Pengujian:**
-  - `MasterAccountManagementTest`: PASS
-  - `BkReportManagementTest`: PASS
-  - `PublicAndInformationalPagesTest`: PASS
-  - `ReleaseTwoFeaturesTest`: PASS
-  - `ReleaseThreeFeaturesTest`: PASS
-  - `ReportStatisticsAndNotificationsTest`: PASS
-  - `RoleAuthorizationTest`: PASS
-  - `SecurityHardeningAndAuditTest`: PASS
-  - `StudentReportTest`: PASS
+### 7.1 Optimalisasi Bubble Obrolan (Chat Messaging)
+- **Ukuran Dinamis Mengikuti Teks (`w-fit`)**: Mengubah bubble dari lebar statis menjadi adaptif terhadap panjang pesan (`w-fit max-w-[85%] sm:max-w-[75%]`). Teks pendek (seperti kata "sabar") kini memiliki bubble yang ramping dan proporsional.
+- **Pembersihan Ikon Status**: Menghapus tanda centang pengiriman/baca pada bubble obrolan untuk tampilan yang lebih bersih dan tenang.
+- **Eliminasi Spacing Vertikal Berlebih**: Merapikan margin dan padding (`px-3.5 py-2.5 rounded-2xl`) sehingga bubble pas membungkus isi pesan tanpa ruang kosong yang tidak perlu.
+- **Perataan Teks Rata Kiri-Kanan (`text-justify`)**: Menambahkan styling `text-justify break-words leading-relaxed` pada seluruh gelembung pesan siswa dan konselor BK agar blok paragraf tampil rapi dan simetris.
 
-### 6.3 Integritas Kontrak Backend (Golden Rule)
-- Verifikasi via `git diff master..HEAD --name-only`:
-  - Perubahan **hanya** berada pada:
-    - `resources/views/`
-    - `resources/css/`
-    - `resources/js/`
-    - `public/images/`
-    - `package.json` & `package-lock.json`
-    - `docs/frontend-migration.md`
-  - **TIDAK ADA SATUPUN file di `app/`, `routes/`, `database/`, atau `config/` yang diubah atau di-commit.**
-  - Kontrak route, controller, middleware, policy, migration, seeder, dan response JSON tetap 100% utuh dan kompatibel.
+### 7.2 Perapihan Manajemen Kasus Guru BK
+- **Kategori Kasus (`bk/categories/index.blade.php`)**: Kolom Aksi diratakan ke tengah (`text-center`), tombol aksi "Ubah" dan "Hapus" diperbarui dengan ikon, label, border terstruktur, dan isolasi modal dialog ke luar tabel.
+- **Dashboard Guru BK (`bk/dashboard.blade.php`)**:
+  - Menghapus bagian duplikasi "Log Catatan Konseling & Investigasi" yang tidak diperlukan.
+  - Memperbarui tombol `[Buka seluruh daftar kasus Guru BK]` menjadi tombol aksi terintegrasi di bagian bawah kartu kasus aktif pada layar desktop dan perangkat bergerak.
+
+### 7.3 Pembaruan Navigasi Siswa
+- **Tombol Kembali ke Dashboard**: Pada halaman Bantuan (`siswa/bantuan.blade.php`) dan Detail Laporan (`siswa/reports/show.blade.php`), tombol navigasi kembali diperbarui dari teks mentah `&larr;` menjadi tombol kartu modern dengan ikon panah SVG interaktif (animasi translasi kiri saat hover) serta jalur navigasi breadcrumb.
+
+### 7.4 Harmonisasi Panel Master Admin
+- **Struktur Semantik Sidebar Master**: Navigasi sidebar dibagi menjadi 4 seksi yang jelas:
+  1. `Menu Utama`: Dashboard
+  2. `Manajemen Pengguna`: Akun Siswa, Akun Guru BK, Impor Excel
+  3. `Akademik`: Master Kelas, Tahun Ajaran, Kenaikan Kelas
+  4. `Audit & Sistem`: Notifikasi, Laporan Periodik, Log Audit Aktivitas, Pengaturan Web
+- **Indikator Aktif Hijau Bersama**: Seluruh menu aktif pada akun Master kini memiliki penanda pill hijau `bg-primary-600 dark:bg-[#5AE39D] rounded-r-full` yang konsisten dengan sidebar Guru BK.
+- **Modernisasi Seluruh Dropdown (`<x-select>` & Standalone Select)**:
+  - Komponen `<x-select>` global diperbarui dengan `appearance-none`, `cursor-pointer`, dan ikon panah chevron SVG kustom.
+  - Seluruh elemen dropdown di menu Master (`master/classes`, `master/students`, `master/activity-logs`, `master/class-operations`, serta form create/edit siswa) distandarisasi dengan styling serupa dan focus ring tema madrasah.
+- **Tombol Aksi Master Kelas & Tahun Ajaran**:
+  - Kolom header dan baris Aksi diposisikan ke tengah (`text-center`).
+  - Menggantikan tombol ikon longgar dengan grup tombol terstruktur (tombol Ubah bernuansa netral/emerald dan tombol Hapus bernuansa rose-red).
+  - Modal form edit dipindahkan keluar dari perulangan `<table>` agar struktur HTML sepenuhnya valid dan terbebas dari masalah layout shift.
+
+---
+
+## 8. Hasil Verifikasi & Jaminan Kualitas Akhir
+
+### 8.1 Uji Build Kompilasi Frontend (`npm run build`)
+- **Status:** **SUKSES 100% (Exit Code 0)**
+- **Aset Kompilasi Produksi (Vite + Tailwind CSS v4):**
+  - CSS: `public/build/assets/app-*.css` (~183 kB, Gzip ~26 kB)
+  - JS: `public/build/assets/app-*.js` (~338 kB, Gzip ~110 kB)
+  - Semua font dan aset lokal termuat tanpa dependensi eksternal.
+
+### 8.2 Integritas Kontrak Backend (Golden Rule)
+- Kontrak controller, route, model, migrasi, policy, dan otorisasi server tetap **100% utuh dan tidak terpengaruh**. Seluruh pembaruan dilakukan murni di lapisan view Blade, CSS, dan reaktivitas antarmuka.
 

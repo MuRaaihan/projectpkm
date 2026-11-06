@@ -30,21 +30,28 @@
         </label>
     @endif
 
-    <select 
-        name="{{ $name }}"
-        id="{{ $id }}"
-        {{ $required ? 'required' : '' }}
-        @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif
-        @if ($hasError) aria-invalid="true" @endif
-        {{ $attributes->merge([
-            'class' => 'w-full min-h-[44px] rounded-xl border text-xs sm:text-sm px-3.5 py-2.5 transition focus:outline-none focus:ring-2 ' . 
-                ($hasError 
-                    ? 'border-rose-500 bg-rose-50/50 text-slate-900 dark:bg-rose-950/20 dark:text-slate-100 dark:border-rose-500 focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-900/40' 
-                    : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:border-primary-600 focus:ring-primary-600/20 dark:focus:border-[#5AE39D] dark:focus:ring-[#5AE39D]/20')
-        ]) }}
-    >
-        {{ $slot }}
-    </select>
+    <div class="relative">
+        <select 
+            name="{{ $name }}"
+            id="{{ $id }}"
+            {{ $required ? 'required' : '' }}
+            @if ($describedBy) aria-describedby="{{ $describedBy }}" @endif
+            @if ($hasError) aria-invalid="true" @endif
+            {{ $attributes->merge([
+                'class' => 'w-full min-h-[44px] appearance-none cursor-pointer rounded-xl border text-xs sm:text-sm pl-3.5 pr-10 py-2.5 transition focus:outline-none focus:ring-2 ' . 
+                    ($hasError 
+                        ? 'border-rose-500 bg-rose-50/50 text-slate-900 dark:bg-rose-950/20 dark:text-slate-100 dark:border-rose-500 focus:border-rose-500 focus:ring-rose-200 dark:focus:ring-rose-900/40' 
+                        : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:border-primary-600 focus:ring-primary-600/20 dark:focus:border-[#5AE39D] dark:focus:ring-[#5AE39D]/20')
+            ]) }}
+        >
+            {{ $slot }}
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 dark:text-slate-500">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </div>
+    </div>
 
     @if ($helperText && !$hasError)
         <p id="{{ $helpId }}" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{{ $helperText }}</p>

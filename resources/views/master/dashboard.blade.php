@@ -306,83 +306,159 @@
             document.addEventListener('DOMContentLoaded', function () {
                 if (typeof Chart === 'undefined') return;
 
-                const isDark = document.documentElement.classList.contains('dark');
-                const textColor = isDark ? '#94A3B8' : '#64748B';
-                const gridColor = isDark ? 'rgba(148, 163, 184, 0.1)' : 'rgba(226, 232, 240, 0.6)';
-                const doughnutBorder = isDark ? '#16231D' : '#ffffff';
+                Chart.defaults.font.family = '"Inter", ui-sans-serif, system-ui, -apple-system, sans-serif';
 
-                // 1. Master Trend Line Chart
-                const trendCtx = document.getElementById('masterTrendChart');
-                if (trendCtx) {
-                    new Chart(trendCtx, {
-                        type: 'line',
-                        data: {
-                            labels: {!! json_encode(array_column($report_stats['monthly_trend'], 'label')) !!},
-                            datasets: [{
-                                label: 'Kasus',
-                                data: {!! json_encode(array_column($report_stats['monthly_trend'], 'count')) !!},
-                                borderColor: '#176B4D',
-                                backgroundColor: isDark ? 'rgba(90, 227, 157, 0.12)' : 'rgba(23, 107, 77, 0.1)',
-                                borderWidth: 2.5,
-                                fill: true,
-                                tension: 0.3,
-                                pointBackgroundColor: '#176B4D',
-                                pointRadius: 3
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    labels: { color: textColor, font: { family: 'Plus Jakarta Sans, sans-serif' } }
-                                }
-                            },
-                            scales: {
-                                x: {
-                                    ticks: { color: textColor, font: { family: 'Plus Jakarta Sans, sans-serif' } },
-                                    grid: { color: gridColor }
-                                },
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: { precision: 0, color: textColor, font: { family: 'Plus Jakarta Sans, sans-serif' } },
-                                    grid: { color: gridColor }
-                                }
-                            }
-                        }
-                    });
+                let masterTrendChart, masterCategoryChart;
+
+                function getMasterTheme() {
+                    const isDark = document.documentElement.classList.contains('dark');
+                    return {
+                        isDark: isDark,
+                        textColor: isDark ? '#9EB3A8' : '#64748B',
+                        headingColor: isDark ? '#F2F7F4' : '#18241E',
+                        gridColor: isDark ? 'rgba(34, 52, 42, 0.6)' : 'rgba(226, 232, 240, 0.6)',
+                        doughnutBorder: isDark ? '#16231D' : '#ffffff',
+                        primaryColor: isDark ? '#5AE39D' : '#176B4D',
+                        pointBg: isDark ? '#16231D' : '#ffffff',
+                        tooltipBg: isDark ? '#14201A' : '#ffffff',
+                        tooltipText: isDark ? '#F2F7F4' : '#18241E',
+                        tooltipBorder: isDark ? '#22342A' : '#E2E1D9',
+                    };
                 }
 
-                // 2. Master Category Doughnut Chart
-                const catCtx = document.getElementById('masterCategoryChart');
-                if (catCtx) {
-                    new Chart(catCtx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: {!! json_encode(array_column($report_stats['category_distribution'], 'label')) !!},
-                            datasets: [{
-                                data: {!! json_encode(array_column($report_stats['category_distribution'], 'count')) !!},
-                                backgroundColor: ['#176B4D', '#B8E34B', '#F59E0B', '#0284C7', '#8B5CF6', '#EC4899', '#94A3B8'],
-                                borderWidth: 2,
-                                borderColor: doughnutBorder
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                legend: {
-                                    position: 'bottom',
-                                    labels: {
-                                        boxWidth: 10,
-                                        color: textColor,
-                                        font: { size: 10, family: 'Plus Jakarta Sans, sans-serif' }
+                function createOrUpdateMasterCharts() {
+                    const theme = getMasterTheme();
+
+                    // 1. Master Trend Line Chart
+                    const trendCtx = document.getElementById('masterTrendChart');
+                    if (trendCtx) {
+                        const ctx = trendCtx.getContext('2d');
+                        const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+                        gradient.addColorStop(0, theme.isDark ? 'rgba(90, 227, 157, 0.22)' : 'rgba(23, 107, 77, 0.2)');
+                        gradient.addColorStop(1, 'rgba(23, 107, 77, 0.0)');
+
+                        if (masterTrendChart) {
+                            masterTrendChart.data.datasets[0].borderColor = theme.primaryColor;
+                            masterTrendChart.data.datasets[0].backgroundColor = gradient;
+                            masterTrendChart.data.datasets[0].pointBorderColor = theme.primaryColor;
+                            masterTrendChart.data.datasets[0].pointBackgroundColor = theme.pointBg;
+                            masterTrendChart.options.scales.x.ticks.color = theme.textColor;
+                            masterTrendChart.options.scales.x.grid.color = theme.gridColor;
+                            masterTrendChart.options.scales.y.ticks.color = theme.textColor;
+                            masterTrendChart.options.scales.y.grid.color = theme.gridColor;
+                            masterTrendChart.update();
+                        } else {
+                            masterTrendChart = new Chart(trendCtx, {
+                                type: 'line',
+                                data: {
+                                    labels: {!! json_encode(array_column($report_stats['monthly_trend'], 'label')) !!},
+                                    datasets: [{
+                                        label: 'Kasus',
+                                        data: {!! json_encode(array_column($report_stats['monthly_trend'], 'count')) !!},
+                                        borderColor: theme.primaryColor,
+                                        backgroundColor: gradient,
+                                        borderWidth: 2.5,
+                                        fill: true,
+                                        tension: 0.35,
+                                        pointBackgroundColor: theme.pointBg,
+                                        pointBorderColor: theme.primaryColor,
+                                        pointBorderWidth: 2,
+                                        pointRadius: 4,
+                                        pointHoverRadius: 6
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    plugins: {
+                                        legend: { display: false },
+                                        tooltip: {
+                                            backgroundColor: theme.tooltipBg,
+                                            titleColor: theme.tooltipText,
+                                            bodyColor: theme.tooltipText,
+                                            borderColor: theme.tooltipBorder,
+                                            borderWidth: 1,
+                                            padding: 10
+                                        }
+                                    },
+                                    scales: {
+                                        x: {
+                                            ticks: { color: theme.textColor, font: { size: 10.5, weight: '500' } },
+                                            grid: { color: theme.gridColor }
+                                        },
+                                        y: {
+                                            beginAtZero: true,
+                                            ticks: { precision: 0, color: theme.textColor, font: { size: 10.5, weight: '500' } },
+                                            grid: { color: theme.gridColor }
+                                        }
                                     }
                                 }
-                            }
+                            });
+                        }
+                    }
+
+                    // 2. Master Category Doughnut Chart
+                    const catCtx = document.getElementById('masterCategoryChart');
+                    if (catCtx) {
+                        if (masterCategoryChart) {
+                            masterCategoryChart.data.datasets[0].borderColor = theme.doughnutBorder;
+                            masterCategoryChart.options.plugins.legend.labels.color = theme.headingColor;
+                            masterCategoryChart.update();
+                        } else {
+                            masterCategoryChart = new Chart(catCtx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: {!! json_encode(array_column($report_stats['category_distribution'], 'label')) !!},
+                                    datasets: [{
+                                        data: {!! json_encode(array_column($report_stats['category_distribution'], 'count')) !!},
+                                        backgroundColor: ['#176B4D', '#289E70', '#B8E34B', '#FAD46B', '#0284C7', '#8B5CF6', '#F43F5E', '#94A3B8'],
+                                        borderWidth: 2,
+                                        borderColor: theme.doughnutBorder
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    cutout: '66%',
+                                    plugins: {
+                                        legend: {
+                                            position: 'bottom',
+                                            labels: {
+                                                boxWidth: 9,
+                                                boxHeight: 9,
+                                                borderRadius: 2,
+                                                color: theme.headingColor,
+                                                font: { size: 10, weight: '500' },
+                                                padding: 8
+                                            }
+                                        },
+                                        tooltip: {
+                                            backgroundColor: theme.tooltipBg,
+                                            titleColor: theme.tooltipText,
+                                            bodyColor: theme.tooltipText,
+                                            borderColor: theme.tooltipBorder,
+                                            borderWidth: 1,
+                                            padding: 10
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+
+                // Inisialisasi awal
+                createOrUpdateMasterCharts();
+
+                // Observer realtime mode gelap
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        if (mutation.attributeName === 'class') {
+                            createOrUpdateMasterCharts();
                         }
                     });
-                }
+                });
+                observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
             });
         </script>
     @endif

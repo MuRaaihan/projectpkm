@@ -1,5 +1,17 @@
 <x-layouts.app title="Bantuan & Kontak Darurat">
     <div class="px-4 py-5 sm:px-6 sm:py-6 lg:px-8 lg:py-8 max-w-4xl w-full mx-auto space-y-8 animate-fade-in">
+        {{-- Breadcrumb Nav --}}
+        <div class="flex items-center gap-2 text-xs sm:text-sm">
+            <a href="{{ route('siswa.dashboard') }}" class="font-medium text-slate-500 hover:text-primary-700 dark:hover:text-[#5AE39D] transition-colors flex items-center gap-1.5 group">
+                <svg class="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+                <span>Dashboard Siswa</span>
+            </a>
+            <span class="text-slate-400">/</span>
+            <span class="font-semibold text-primary-700 dark:text-[#5AE39D]">Bantuan & Kontak Darurat</span>
+        </div>
+
         {{-- Header Bantuan --}}
         <div class="pb-6 border-b border-slate-200 dark:border-slate-800 space-y-2">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800 text-xs font-semibold">
@@ -121,12 +133,20 @@
         </div>
 
         {{-- KEMBALI KE DASHBOARD --}}
-        <div class="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-            <a href="{{ route('siswa.dashboard') }}" class="min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
-                &larr; Kembali ke Dashboard Saya
+        <div class="pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            <a href="{{ route('siswa.dashboard') }}" 
+               class="min-h-[44px] inline-flex items-center justify-center gap-2.5 px-5 py-2.5 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-[#16231D] hover:bg-slate-100/80 dark:hover:bg-slate-800/80 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xs hover:shadow-xs active:scale-[0.98] transition-all group cursor-pointer">
+                <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                <span>Kembali ke Dashboard Saya</span>
             </a>
-            <a href="{{ route('siswa.reports.create') }}" class="min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl shadow-xs transition">
-                Buat Laporan Sekarang
+            <a href="{{ route('siswa.reports.create') }}" 
+               class="min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:bg-primary-800 rounded-xl shadow-xs hover:shadow-md active:scale-[0.98] transition-all group cursor-pointer">
+                <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                </svg>
+                <span>Buat Laporan Sekarang</span>
             </a>
         </div>
     </div>

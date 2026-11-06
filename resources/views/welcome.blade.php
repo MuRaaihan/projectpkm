@@ -1,9 +1,9 @@
 <x-layouts.public title="SISPERKA - Ruang Aman Pelaporan Perundungan MTs Soebono Mantofani">
-    <div class="space-y-16 sm:space-y-24 animate-fade-in pb-16">
+    <div class="animate-fade-in">
         {{-- ===================================================
-            1. HERO SECTION (Sesuai Desain frontend/src/app/page.tsx)
+            1. HERO SECTION (Sesuai Desain frontend/src/app/page.tsx:784-850)
             =================================================== --}}
-        <section class="relative overflow-hidden pt-10 pb-16 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 bg-[#EDECEA] dark:bg-[#0E1713] border-b border-slate-300 dark:border-slate-800 -mt-px">
+        <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-24 bg-[#EDECEA] dark:bg-[#0E1713] border-b border-slate-300 dark:border-slate-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 items-center">
                     {{-- Hero Copy --}}
@@ -13,7 +13,7 @@
                             <span>Ruang Konseling Digital Siswa & Guru BK</span>
                         </div>
 
-                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-slate-100 tracking-tight leading-[1.14] mb-5">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-slate-100 tracking-tight leading-[1.12] mb-5">
                             Berani Bersuara, <br class="hidden sm:inline" />
                             <span class="text-primary-600 dark:text-[#5AE39D] underline decoration-[#B8E34B] decoration-4 underline-offset-8">
                                 Ciptakan Sekolah Bebas Perundungan.
@@ -81,68 +81,70 @@
         </section>
 
         {{-- ===================================================
-            2. APA ITU SIPERKA (Sesuai Desain frontend #tentang)
+            2. APA ITU SIPERKA (Sesuai Desain frontend/src/app/page.tsx:855-931)
             =================================================== --}}
-        <section id="tentang" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24 text-center">
-            <span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-950/40 text-primary-700 dark:text-primary-300 border border-primary-200/60 dark:border-primary-800 text-xs font-bold mb-4">
-                TENTANG SISTEM
-            </span>
+        <section id="tentang" class="py-20 bg-white dark:bg-[#16231D] border-b border-slate-300 dark:border-slate-800 scroll-mt-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border border-primary-200/60 dark:border-primary-800 text-xs font-bold mb-4">
+                    TENTANG SISTEM
+                </span>
 
-            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
-                Apa itu SIPERKA?
-            </h2>
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
+                    Apa itu SIPERKA?
+                </h2>
 
-            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-14 leading-relaxed">
-                {{ \App\Models\Setting::get('about_text', 'SIPERKA adalah sistem informasi berbasis web yang membantu siswa menyampaikan laporan terkait perundungan secara lebih terstruktur serta membantu Guru BK dalam mengelola, memverifikasi, memantau, dan mencatat tindak lanjut laporan.') }}
-            </p>
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-16 leading-relaxed">
+                    {{ \App\Models\Setting::get('about_text', 'SIPERKA adalah sistem informasi berbasis web yang membantu siswa menyampaikan laporan terkait perundungan secara lebih terstruktur serta membantu Guru BK dalam mengelola, memverifikasi, memantau, dan mencatat tindak lanjut laporan.') }}
+                </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-                {{-- Langkah 1 --}}
-                <div class="flex flex-col items-center text-center p-7 rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-sm bg-[#f0f7f3] dark:bg-[#12231b] border-emerald-200/80 dark:border-emerald-800">
-                    <div class="w-13 h-13 rounded-xl bg-white dark:bg-slate-800 shadow-2xs border border-slate-200/90 dark:border-slate-700 flex items-center justify-center mb-4 p-3">
-                        <svg class="w-6 h-6 text-[#176B4D] dark:text-[#86efac]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {{-- Langkah 1 --}}
+                    <div class="flex flex-col items-center text-center p-7 rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-sm bg-[#f0f7f3] dark:bg-[#12231b] border-emerald-200/80 dark:border-emerald-800">
+                        <div class="w-13 h-13 rounded-xl bg-white dark:bg-slate-800 shadow-2xs border border-slate-200/90 dark:border-slate-700 flex items-center justify-center mb-4 p-3">
+                            <svg class="w-6 h-6 text-[#176B4D] dark:text-[#86efac]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider mb-1 text-[#176B4D] dark:text-[#86efac]">
+                            Langkah 1
+                        </span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                            Sampaikan
+                        </h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Laporkan kejadian yang kamu alami atau saksikan dengan aman dan terlindungi.
+                        </p>
                     </div>
-                    <span class="text-[11px] font-bold uppercase tracking-wider mb-1 text-[#176B4D] dark:text-[#86efac]">
-                        Langkah 1
-                    </span>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-                        Sampaikan
-                    </h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Laporkan kejadian yang kamu alami atau saksikan dengan aman dan terlindungi.
-                    </p>
-                </div>
 
-                {{-- Langkah 2 --}}
-                <div class="flex flex-col items-center text-center p-7 rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-sm bg-[#fef9eb] dark:bg-[#261f0a] border-amber-200/80 dark:border-amber-800">
-                    <div class="w-13 h-13 rounded-xl bg-white dark:bg-slate-800 shadow-2xs border border-slate-200/90 dark:border-slate-700 flex items-center justify-center mb-4 p-3">
-                        <svg class="w-6 h-6 text-[#966b09] dark:text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    {{-- Langkah 2 --}}
+                    <div class="flex flex-col items-center text-center p-7 rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-sm bg-[#fef9eb] dark:bg-[#261f0a] border-amber-200/80 dark:border-amber-800">
+                        <div class="w-13 h-13 rounded-xl bg-white dark:bg-slate-800 shadow-2xs border border-slate-200/90 dark:border-slate-700 flex items-center justify-center mb-4 p-3">
+                            <svg class="w-6 h-6 text-[#966b09] dark:text-[#fde68a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider mb-1 text-[#8c6708] dark:text-[#fde68a]">
+                            Langkah 2
+                        </span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                            Pantau
+                        </h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Lihat perkembangan laporan secara transparan melalui nomor tiket unik.
+                        </p>
                     </div>
-                    <span class="text-[11px] font-bold uppercase tracking-wider mb-1 text-[#8c6708] dark:text-[#fde68a]">
-                        Langkah 2
-                    </span>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-                        Pantau
-                    </h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Lihat perkembangan laporan secara transparan melalui nomor tiket unik.
-                    </p>
-                </div>
 
-                {{-- Langkah 3 --}}
-                <div class="flex flex-col items-center text-center p-7 rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-sm bg-[#f7faeb] dark:bg-[#1a230c] border-lime-200/80 dark:border-lime-900/40">
-                    <div class="w-13 h-13 rounded-xl bg-white dark:bg-slate-800 shadow-2xs border border-slate-200/90 dark:border-slate-700 flex items-center justify-center mb-4 p-3">
-                        <svg class="w-6 h-6 text-[#4d6614] dark:text-[#c4e84a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    {{-- Langkah 3 --}}
+                    <div class="flex flex-col items-center text-center p-7 rounded-2xl border transition-all hover:-translate-y-1 hover:shadow-sm bg-[#f7faeb] dark:bg-[#1a230c] border-lime-200/80 dark:border-lime-900/40">
+                        <div class="w-13 h-13 rounded-xl bg-white dark:bg-slate-800 shadow-2xs border border-slate-200/90 dark:border-slate-700 flex items-center justify-center mb-4 p-3">
+                            <svg class="w-6 h-6 text-[#4d6614] dark:text-[#c4e84a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider mb-1 text-[#4d6614] dark:text-[#c4e84a]">
+                            Langkah 3
+                        </span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+                            Tindak Lanjut
+                        </h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Guru BK mendampingi dan mencatat proses penanganan sampai tuntas.
+                        </p>
                     </div>
-                    <span class="text-[11px] font-bold uppercase tracking-wider mb-1 text-[#4d6614] dark:text-[#c4e84a]">
-                        Langkah 3
-                    </span>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
-                        Tindak Lanjut
-                    </h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                        Guru BK mendampingi dan mencatat proses penanganan sampai tuntas.
-                    </p>
                 </div>
             </div>
         </section>
@@ -674,38 +676,207 @@
         </section>
 
         {{-- ===================================================
-            4. FINAL CALL TO ACTION (Sesuai Desain frontend)
+            SIAPA YANG MENGGUNAKAN (ROLES) - Sesuai frontend #pengguna
             =================================================== --}}
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="py-16 sm:py-20 bg-primary-600 dark:bg-[#123F28] relative text-white rounded-3xl p-8 sm:p-12 text-center shadow-lg border border-primary-700">
-                <div class="max-w-3xl mx-auto space-y-4">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-[#B8E34B] text-primary-950 text-xs font-bold shadow-xs">
-                        MULAI SEKARANG
-                    </span>
+        <section
+          id="pengguna"
+          class="py-20 bg-white dark:bg-[#101713] border-b border-slate-200/90 dark:border-slate-800 scroll-mt-20"
+        >
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-14">
+              <span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 border border-primary-200/60 dark:border-primary-800 text-xs font-bold mb-4">
+                EKOSISTEM PENGGUNA
+              </span>
 
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-                        Siap Mewujudkan Sekolah Bebas Perundungan?
-                    </h2>
+              <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white mb-4 tracking-tight">
+                Siapa yang Menggunakan SIPERKA?
+              </h2>
 
-                    <p class="text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
-                        Sampaikan aspirasi dan laporanmu melalui sistem yang aman, terpercaya, dan langsung terhubung dengan Guru BK.
-                    </p>
-
-                    <div class="pt-4">
-                        @auth
-                            <a href="{{ url('/dashboard') }}" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary-800 hover:bg-emerald-50 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all card-hover">
-                                <span>Buka Dashboard</span>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </a>
-                        @else
-                            <a href="{{ route('login') }}" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary-800 hover:bg-emerald-50 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all card-hover">
-                                <span>Lapor Sekarang</span>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </a>
-                        @endauth
-                    </div>
-                </div>
+              <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Dirancang spesifik untuk mendukung tiga peran utama warga sekolah
+                dengan hak akses yang teratur.
+              </p>
             </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {{-- Card 1: Siswa --}}
+              <div class="bg-[#FCFCFB] dark:bg-[#151c18] border border-slate-200/90 dark:border-slate-800 rounded-2xl p-6 shadow-2xs hover:shadow-xs transition-shadow">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs mb-5 border bg-primary-50 text-primary-800 border-primary-200/70 dark:bg-primary-900/30 dark:text-primary-300 dark:border-primary-800">
+                  <svg class="w-4 h-4 text-primary-700 dark:text-primary-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                  SISWA / I
+                </div>
+
+                <ul class="space-y-3">
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Membuat laporan kejadian</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Melihat riwayat laporan pribadi</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Memantau status penanganan</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Opsi kerahasiaan identitas</span>
+                  </li>
+                </ul>
+              </div>
+
+              {{-- Card 2: Guru BK --}}
+              <div class="bg-[#FCFCFB] dark:bg-[#151c18] border border-slate-200/90 dark:border-slate-800 rounded-2xl p-6 shadow-2xs hover:shadow-xs transition-shadow">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs mb-5 border bg-amber-50 text-amber-800 border-amber-200/70 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800">
+                  <svg class="w-4 h-4 text-amber-700 dark:text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                  GURU BK
+                </div>
+
+                <ul class="space-y-3">
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Menerima notifikasi laporan baru</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Memverifikasi keabsahan laporan</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Memperbarui status penanganan</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Mencatat tindak lanjut dan konseling</span>
+                  </li>
+                </ul>
+              </div>
+
+              {{-- Card 3: Administrator --}}
+              <div class="bg-[#FCFCFB] dark:bg-[#151c18] border border-slate-200/90 dark:border-slate-800 rounded-2xl p-6 shadow-2xs hover:shadow-xs transition-shadow">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs mb-5 border bg-slate-100 text-slate-800 border-slate-200/90 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700">
+                  <svg class="w-4 h-4 text-slate-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                  ADMINISTRATOR
+                </div>
+
+                <ul class="space-y-3">
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Manajemen akun pengguna</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Pemantauan operasional sistem</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Analitik dan statistik sekolah</span>
+                  </li>
+                  <li class="flex items-center gap-3">
+                    <svg class="w-4 h-4 text-primary-600 dark:text-primary-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-sm text-slate-700 dark:text-slate-300">Pengaturan kategori & konfigurasi</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {{-- ===================================================
+            5. PRIVASI & SEBELUM MEMBUAT LAPORAN (Sesuai Desain frontend/src/app/page.tsx:1176-1227)
+            =================================================== --}}
+        <section class="py-20 bg-[#F5F4EE] dark:bg-[#0B110E] border-b border-slate-200/90 dark:border-slate-800">
+          <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            {{-- Privacy Card --}}
+            <div class="bg-white dark:bg-[#111A15] border border-slate-200/90 dark:border-slate-800 rounded-2xl p-8 flex flex-col items-start shadow-2xs">
+              <div class="w-12 h-12 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-xl flex items-center justify-center mb-6 border border-amber-200/60 dark:border-amber-800/60">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              </div>
+
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">
+                Identitas Dirahasiakan
+              </h3>
+
+              <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">
+                Informasi pelapor hanya dapat diakses oleh pihak Guru BK yang
+                berwenang untuk keperluan pendampingan dan penyelesaian kasus.
+                Kamu berhak memilih opsi anonim saat mengirimkan laporan.
+              </p>
+            </div>
+
+            {{-- Before Report Guide --}}
+            <div class="bg-white dark:bg-[#111A15] border border-slate-200/90 dark:border-slate-800 rounded-2xl p-8 shadow-2xs">
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">
+                Sebelum Membuat Laporan
+              </h3>
+
+              <ul class="space-y-2.5 mb-6 text-sm text-slate-700 dark:text-slate-300">
+                <li class="flex items-start gap-2.5">
+                  <span class="text-primary-600 dark:text-primary-400 font-bold mt-0.5">•</span>
+                  <span>Ceritakan kejadian secara objektif dan jujur</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="text-primary-600 dark:text-primary-400 font-bold mt-0.5">•</span>
+                  <span>Sertakan waktu dan lokasi kejadian jika diketahui</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="text-primary-600 dark:text-primary-400 font-bold mt-0.5">•</span>
+                  <span>Gunakan bahasa yang jelas dan mudah dipahami</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="text-primary-600 dark:text-primary-400 font-bold mt-0.5">•</span>
+                  <span>Lampirkan bukti pendukung (jika tersedia)</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="text-primary-600 dark:text-primary-400 font-bold mt-0.5">•</span>
+                  <span>Periksa kembali rincian sebelum menekan kirim</span>
+                </li>
+              </ul>
+
+              <div class="rounded-xl border border-primary-200/80 bg-primary-50/70 dark:border-primary-900/60 dark:bg-primary-950/30 p-4">
+                <p class="text-xs leading-relaxed text-primary-900 dark:text-primary-200">
+                  <span class="font-bold">Catatan Etika:</span> SIPERKA adalah
+                  wadah pendampingan dan pembinaan, bukan untuk mencari kesalahan
+                  secara sepihak. Laporan diproses secara profesional oleh Guru BK.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {{-- ===================================================
+            6. FINAL CALL TO ACTION (Sesuai Desain frontend/src/app/page.tsx:1232-1258)
+            =================================================== --}}
+        <section class="py-20 bg-primary-600 dark:bg-[#123F28] relative text-white">
+          <div class="max-w-4xl mx-auto px-4 text-center">
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-lime-400 text-primary-950 text-xs font-bold mb-4 shadow-xs">
+              MULAI SEKARANG
+            </span>
+
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">
+              Siap Mewujudkan Sekolah Bebas Perundungan?
+            </h2>
+
+            <p class="text-base sm:text-lg text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+              Sampaikan aspirasi dan laporanmu melalui sistem yang aman,
+              terpercaya, dan langsung terhubung dengan Guru BK.
+            </p>
+
+            <div>
+              @auth
+                <a href="{{ url('/dashboard') }}" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary-800 hover:bg-primary-50 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all card-hover">
+                  <span>Buka Dashboard</span>
+                  <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+              @else
+                <a href="{{ route('login') }}" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary-800 hover:bg-primary-50 rounded-xl font-bold text-base shadow-md hover:shadow-lg transition-all card-hover">
+                  <span>Lapor Sekarang</span>
+                  <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+              @endauth
+            </div>
+          </div>
         </section>
     </div>
 </x-layouts.public>

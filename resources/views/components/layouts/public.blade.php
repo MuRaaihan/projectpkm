@@ -1,5 +1,6 @@
 @props([
     'title' => null,
+    'hideHeader' => false,
     'hideFooter' => false,
 ])
 <!DOCTYPE html>
@@ -22,96 +23,149 @@
         } catch (_) {}
     </script>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-full flex flex-col bg-[#F8FAF9] dark:bg-[#0E1713] text-slate-800 dark:text-slate-100 font-sans antialiased selection:bg-emerald-100 selection:text-emerald-900 transition-colors duration-200">
-    {{-- Header Publik --}}
-    <header class="sticky top-0 z-30 bg-white/95 dark:bg-[#14201A]/95 backdrop-blur border-b border-slate-200/90 dark:border-[#22342A] transition-colors" x-data="{ mobileMenuOpen: false }">
+    @unless($hideHeader)
+    {{-- Header Publik (Sesuai frontend/src/app/page.tsx:673-780) --}}
+    <header 
+        x-data="{ isScrolled: false, mobileMenuOpen: false }"
+        @scroll.window="isScrolled = (window.pageYOffset > 20)"
+        class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b"
+        :class="isScrolled ? 'bg-white/95 backdrop-blur-md border-slate-200 shadow-xs dark:bg-[#0B110E]/95 dark:border-slate-800' : 'bg-white/85 backdrop-blur-md border-slate-200/80 dark:bg-[#0B110E]/85 dark:border-slate-800'"
+    >
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
-                {{-- Brand Logo & Nama Sekolah --}}
-                <a href="{{ url('/') }}" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-primary-600 rounded-2xl p-1 shrink-0">
-                    <img src="{{ asset('images/logo-sekolah.png') }}" 
-                         alt="Logo MTs Soebono Mantofani" 
-                         class="w-10 h-10 object-contain rounded-xl drop-shadow-xs" />
-                    <div>
-                        <span class="block font-black text-lg sm:text-xl text-slate-900 dark:text-slate-100 tracking-tight leading-tight">SISPERKA</span>
-                        <span class="block text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-semibold leading-none">MTs Soebono Mantofani</span>
-                    </div>
-                </a>
+            <div class="flex items-center justify-between h-16">
+                {{-- Brand Logo --}}
+                <div class="flex items-center gap-3">
+                    <a href="{{ url('/') }}" class="flex items-center gap-3 group">
+                        <img src="{{ asset('logo-sekolah.png') }}" 
+                             alt="Logo MTs Soebono Mantofani" 
+                             class="w-10 h-10 object-contain shrink-0" />
+                        <div class="flex flex-col">
+                            <span class="font-extrabold text-base sm:text-lg text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
+                                SIPERKA
+                            </span>
+                            <span class="text-[9px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold hidden sm:inline">
+                                Sistem Pelaporan Sekolah
+                            </span>
+                        </div>
+                    </a>
+                </div>
 
-                {{-- Navigasi Tautan Publik Desktop (Sesuai frontend) --}}
-                <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600 dark:text-slate-300">
-                    <a href="{{ url('/') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Beranda</a>
-                    <a href="{{ url('/#tentang') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Tentang</a>
-                    <a href="{{ url('/#cara-kerja') }}" class="hover:text-primary-600 dark:hover:text-[#5AE39D] transition py-1">Cara Kerja</a>
+                {{-- Desktop Navigation --}}
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="{{ url('/#tentang') }}"
+                       class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        Tentang
+                    </a>
+                    <a href="{{ url('/#cara-kerja') }}"
+                       class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        Cara Kerja
+                    </a>
+                    <a href="{{ url('/#pengguna') }}"
+                       class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                        Fitur Peran
+                    </a>
                 </nav>
 
-                {{-- Action Navigasi & Dark Mode Toggle --}}
-                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                    {{-- Toggle Theme --}}
+                {{-- Right Actions --}}
+                <div class="hidden md:flex items-center gap-3">
+                    {{-- ThemeToggle --}}
                     <button type="button" 
                             onclick="try { const isDark = document.documentElement.classList.toggle('dark'); localStorage.setItem('ui-theme', isDark ? 'dark' : 'light'); } catch(_) {}"
-                            class="p-2.5 min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-                            aria-label="Alihkan tema gelap/terang"
+                            class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors duration-150"
+                            aria-label="Mode Terang/Gelap"
                             title="Ganti Tema">
-                        <svg class="w-4 h-4 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        <svg class="w-4 h-4 block dark:hidden text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                        </svg>
+                        <svg class="w-4 h-4 hidden dark:block text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                     </button>
 
-
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="inline-flex items-center justify-center px-4 py-2 min-h-[40px] text-xs sm:text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:bg-primary-800 rounded-xl shadow-xs transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600">
+                        <a href="{{ url('/dashboard') }}" 
+                           class="px-3 py-1.5 text-xs rounded-lg gap-1.5 h-8 font-semibold bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-xs transition-colors inline-flex items-center justify-center">
                             Dashboard
                         </a>
                         <form method="POST" action="{{ route('logout') }}" class="inline-flex items-center">
                             @csrf
                             <button type="submit" 
-                                    class="inline-flex items-center gap-1.5 px-3 py-2 min-h-[40px] text-xs sm:text-sm font-semibold text-rose-700 dark:text-rose-300 hover:text-rose-800 dark:hover:text-rose-100 bg-rose-50/80 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-950/70 border border-rose-200/90 dark:border-rose-900/60 rounded-xl transition focus:outline-none focus:ring-2 focus:ring-rose-500"
+                                    class="px-3 py-1.5 text-xs rounded-lg gap-1.5 h-8 font-semibold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 transition-colors inline-flex items-center justify-center"
                                     title="Keluar dari Akun">
-                                <svg class="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                                </svg>
-                                <span class="hidden sm:inline">Keluar</span>
+                                Keluar
                             </button>
                         </form>
                     @else
-                        <a href="{{ url('/login') }}" class="inline-flex items-center justify-center px-4.5 py-2 min-h-[40px] text-xs sm:text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 active:bg-primary-800 rounded-xl shadow-xs transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600">
+                        <a href="{{ route('login') }}" 
+                           class="px-3 py-1.5 text-xs rounded-lg gap-1.5 h-8 font-semibold bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-xs transition-colors inline-flex items-center justify-center">
                             Lapor Sekarang
                         </a>
                     @endauth
+                </div>
 
-                    {{-- Hamburger Mobile Button --}}
+                {{-- Mobile Actions --}}
+                <div class="flex md:hidden items-center gap-2">
                     <button type="button" 
-                            onclick="const m = document.getElementById('public-mobile-menu'); if(m) m.classList.toggle('hidden');"
-                            class="md:hidden p-2 min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"
+                            onclick="try { const isDark = document.documentElement.classList.toggle('dark'); localStorage.setItem('ui-theme', isDark ? 'dark' : 'light'); } catch(_) {}"
+                            class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors duration-150"
+                            aria-label="Mode Terang/Gelap">
+                        <svg class="w-4 h-4 hidden dark:block text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                    </button>
+                    <button type="button" 
+                            @click="mobileMenuOpen = !mobileMenuOpen"
+                            class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
                             aria-label="Toggle menu">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg x-show="!mobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg x-show="mobileMenuOpen" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
             </div>
         </div>
 
         {{-- Mobile Menu Dropdown --}}
-        <div id="public-mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-800 py-3 px-4 space-y-2 bg-white/95 dark:bg-[#14201A]/95 backdrop-blur">
-            <a href="{{ url('/') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Beranda</a>
-            <a href="{{ url('/#tentang') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Tentang</a>
-            <a href="{{ url('/#cara-kerja') }}" class="block font-medium text-slate-700 dark:text-slate-200 p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg">Cara Kerja</a>
+        <div x-show="mobileMenuOpen" 
+             x-cloak
+             class="md:hidden absolute top-16 left-0 right-0 bg-white dark:bg-[#101713] border-b border-slate-200 dark:border-slate-800 shadow-md p-4 flex flex-col gap-3">
+            <a href="{{ url('/#tentang') }}" 
+               @click="mobileMenuOpen = false"
+               class="text-sm font-medium text-slate-700 dark:text-slate-200 py-2 border-b border-slate-100 dark:border-slate-800">
+                Tentang
+            </a>
+            <a href="{{ url('/#cara-kerja') }}" 
+               @click="mobileMenuOpen = false"
+               class="text-sm font-medium text-slate-700 dark:text-slate-200 py-2 border-b border-slate-100 dark:border-slate-800">
+                Cara Kerja
+            </a>
+            <a href="{{ url('/#pengguna') }}" 
+               @click="mobileMenuOpen = false"
+               class="text-sm font-medium text-slate-700 dark:text-slate-200 py-2 border-b border-slate-100 dark:border-slate-800">
+                Fitur Peran
+            </a>
             @auth
-                <a href="{{ url('/dashboard') }}" class="block w-full text-center font-bold px-4 py-2.5 rounded-xl bg-primary-600 text-white mt-2">Buka Dashboard</a>
+                <a href="{{ url('/dashboard') }}" 
+                   @click="mobileMenuOpen = false"
+                   class="w-full mt-2 inline-flex items-center justify-center px-4 py-2.5 text-sm rounded-xl font-semibold bg-primary-600 text-white hover:bg-primary-700 transition">
+                    Buka Dashboard
+                </a>
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
-                    <button type="submit" class="w-full text-center font-bold px-4 py-2.5 rounded-xl text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 mt-2">Keluar dari Akun</button>
+                    <button type="submit" class="w-full py-2.5 text-sm rounded-xl font-semibold text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 mt-1">
+                        Keluar dari Akun
+                    </button>
                 </form>
             @else
-                <a href="{{ route('login') }}" class="block w-full text-center font-bold px-4 py-2.5 rounded-xl bg-primary-600 text-white mt-2">Mulai Menggunakan SIPERKA</a>
+                <a href="{{ route('login') }}" 
+                   @click="mobileMenuOpen = false"
+                   class="w-full mt-2 inline-flex items-center justify-center px-4 py-2.5 text-sm rounded-xl font-semibold bg-primary-600 text-white hover:bg-primary-700 shadow-xs transition">
+                    Mulai Menggunakan SIPERKA
+                </a>
             @endauth
         </div>
     </header>
+    @endunless
 
     {{-- Flash Messages Hook for SweetAlert2 --}}
     <div id="sisperka-flash-messages" class="hidden"
@@ -137,198 +191,35 @@
     @endif
 
     {{-- Konten Utama --}}
-    <main class="flex-1 w-full">
+    <main class="flex-1 w-full {{ $hideHeader ? '' : 'pt-16' }}">
         {{ $slot }}
     </main>
 
-    {{-- Footer Resmi & Profesional Madrasah (FR-41) --}}
+    {{-- Footer (Sesuai Desain frontend/src/app/page.tsx:1264-1289) --}}
     @if(!$hideFooter)
-    <footer class="bg-white dark:bg-[#080D0A] border-t border-slate-200/90 dark:border-[#1A2820] text-slate-600 dark:text-slate-400 text-sm transition-colors mt-auto">
-        {{-- Konten Utama Footer --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
-                {{-- Kolom 1: Profil Madrasah & Identitas Sistem (lg:col-span-4) --}}
-                <div class="lg:col-span-4 space-y-4">
-                    <div class="flex items-center gap-3.5">
-                        <div class="w-12 h-12 rounded-2xl bg-white dark:bg-[#121B16] border border-slate-200/80 dark:border-slate-800 p-1.5 flex items-center justify-center shadow-2xs shrink-0">
-                            <img src="{{ asset('images/logo-sekolah.png') }}" 
-                                 alt="Logo MTs Soebono Mantofani" 
-                                 class="w-full h-full object-contain" />
-                        </div>
-                        <div>
-                            <span class="block font-black text-xl text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
-                                SIPERKA
-                            </span>
-                            <span class="block text-xs font-semibold text-primary-700 dark:text-[#5AE39D]">
-                                {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-sm">
-                        Sistem Informasi Pelaporan Kasus Perundungan resmi madrasah. Ruang aman, tenang, dan rahasia bagi peserta didik untuk bercerita tanpa rasa takut demi terwujudnya madrasah ramah anak.
-                    </p>
-
-                    <div class="pt-2 flex flex-col gap-2">
-                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80 shadow-2xs w-fit">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span>Permendikbudristek No. 46 Tahun 2023</span>
-                        </div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-50 dark:bg-[#121B16] text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 w-fit">
-                            <svg class="w-3.5 h-3.5 text-primary-600 dark:text-[#5AE39D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                            <span>Enkripsi Database & Perlindungan Pelapor</span>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Kolom 2: Navigasi Layanan (lg:col-span-2) --}}
-                <div class="lg:col-span-2 space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                        <span class="w-1.5 h-3.5 bg-primary-600 dark:bg-[#5AE39D] rounded-full"></span>
-                        Navigasi
-                    </h3>
-                    <ul class="space-y-2.5 text-xs sm:text-sm">
-                        <li>
-                            <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
-                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Beranda Utama</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/#tentang') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
-                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Tentang SIPERKA</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/#cara-kerja') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
-                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Tata Cara Pelaporan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
-                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Portal Masuk Siswa</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                {{-- Kolom 3: Kebijakan & Perlindungan (lg:col-span-2) --}}
-                <div class="lg:col-span-2 space-y-4">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                        <span class="w-1.5 h-3.5 bg-primary-600 dark:bg-[#5AE39D] rounded-full"></span>
-                        Perlindungan
-                    </h3>
-                    <ul class="space-y-2.5 text-xs sm:text-sm">
-                        <li>
-                            <a href="{{ url('/kebijakan-privasi') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
-                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Kebijakan Privasi</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/kebijakan-privasi#kerahasiaan') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
-                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Batas Kerahasiaan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/kebijakan-privasi#hak-siswa') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
-                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Hak Peserta Didik</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/kebijakan-privasi#alur-keamanan') }}" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium group">
-                                <span class="text-slate-400 group-hover:translate-x-0.5 transition-transform font-bold">&rsaquo;</span>
-                                <span>Independensi BK</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                {{-- Kolom 4: Layanan Bimbingan & Konseling (lg:col-span-4) --}}
-                <div class="lg:col-span-4 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100 flex items-center gap-2">
-                            <span class="w-1.5 h-3.5 bg-primary-600 dark:bg-[#5AE39D] rounded-full"></span>
-                            Layanan Bimbingan & Konseling
-                        </h3>
-                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            BK Aktif
-                        </span>
-                    </div>
-
-                    {{-- Kotak Kontak Resmi BK --}}
-                    <div class="bg-slate-50/80 dark:bg-[#121B16] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 space-y-3.5 text-xs sm:text-sm shadow-2xs">
-                        <div class="flex items-start gap-3">
-                            <div class="w-8 h-8 rounded-xl bg-white dark:bg-[#192720] text-primary-600 dark:text-[#5AE39D] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700/80 shadow-2xs mt-0.5">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            </div>
-                            <div class="space-y-0.5">
-                                <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Alamat Madrasah</span>
-                                <span class="text-slate-700 dark:text-slate-300 leading-snug font-medium block">
-                                    {{ \App\Models\Setting::get('school_address', 'Jl. Nurul Huda No. 27, RT 01/RW 02, Jombang, Ciputat, Tangerang Selatan') }}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-3 pt-1 border-t border-slate-200/70 dark:border-slate-800/80">
-                            <div class="w-8 h-8 rounded-xl bg-white dark:bg-[#192720] text-[#8C6708] dark:text-[#FAD46B] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700/80 shadow-2xs">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            </div>
-                            <div class="space-y-0.5">
-                                <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Jam Layanan Konseling</span>
-                                <span class="text-slate-700 dark:text-slate-300 font-semibold block text-xs">
-                                    {{ \App\Models\Setting::get('counseling_hours', 'Senin - Jumat: 07.30 - 15.00 WIB') }}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-3 pt-1 border-t border-slate-200/70 dark:border-slate-800/80">
-                            <div class="w-8 h-8 rounded-xl bg-white dark:bg-[#192720] text-primary-600 dark:text-[#5AE39D] flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700/80 shadow-2xs">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                            </div>
-                            <div class="space-y-0.5">
-                                <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Surel Resmi BK</span>
-                                <a href="mailto:{{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}" class="text-slate-700 dark:text-slate-300 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium block text-xs underline decoration-slate-300 dark:decoration-slate-700 underline-offset-2">
-                                    {{ \App\Models\Setting::get('school_email', 'bk@mtssoebonomantofani.sch.id') }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <footer class="bg-white dark:bg-[#0B110E] py-12 border-t border-slate-200/90 dark:border-slate-800 transition-colors mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+            <div class="mb-4">
+                <img src="{{ asset('logo-sekolah.png') }}" alt="Logo MTs Soebono Mantofani" class="w-14 h-14 object-contain" />
             </div>
-        </div>
 
-        {{-- Baris Hak Cipta & Kredensial Bawah --}}
-        <div class="border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/70 dark:bg-[#050907]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
-                <div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
-                    <p>
-                        &copy; {{ date('Y') }} <span class="font-bold text-slate-800 dark:text-slate-200">SIPERKA</span> &bull; {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}. Seluruh hak cipta dilindungi.
-                    </p>
-                </div>
+            <h4 class="text-lg font-extrabold text-slate-900 dark:text-white mb-1 tracking-tight">
+                SIPERKA
+            </h4>
 
-                <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-2">
-                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 shadow-xs"></span>
-                        <span class="font-medium text-slate-600 dark:text-slate-300">Madrasah Ramah Anak</span>
-                    </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">
+                Sistem Informasi Pelaporan Kasus Perundungan &bull; {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}
+            </p>
 
-                    <span class="text-slate-300 dark:text-slate-700">|</span>
+            <div class="w-12 h-px bg-slate-200 dark:bg-slate-800 mb-6"></div>
 
-                    <button type="button" 
-                            onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" 
-                            class="inline-flex items-center gap-1.5 text-slate-500 dark:text-slate-400 hover:text-primary-600 dark:hover:text-[#5AE39D] transition font-medium focus:outline-none">
-                        <span>Ke Atas</span>
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
-                    </button>
-                </div>
-            </div>
+            <p class="text-sm font-medium text-slate-600 dark:text-slate-300 max-w-md">
+                Bersama mewujudkan lingkungan sekolah yang aman, inklusif, dan saling menghargai.
+            </p>
+
+            <p class="text-xs text-slate-400 dark:text-slate-600 mt-8">
+                &copy; {{ date('Y') }} SIPERKA &bull; {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }}. All rights reserved.
+            </p>
         </div>
     </footer>
     @endif

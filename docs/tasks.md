@@ -44,8 +44,9 @@ Acuan utama: [`docs/prd.md`](./prd.md). Jika ada pertentangan antara file ini da
 | 6 | Beranda publik dan halaman informasi | P0 | ✅ |
 | 7 | Penguatan keamanan dan pengujian | P0 | ✅ |
 | 8 | Deploy dan peluncuran | P0 | ⏩ |
-| 9 | Rilis 2 (fitur P1) | P1 | 🟨 |
-| 10 | Rilis 3 (fitur P2) | P2 | ⬜ |
+| 9 | Rilis 2 (fitur P1) | P1 | ✅ |
+| 10 | Rilis 3 (fitur P2) | P2 | ✅ |
+| 11 | Pemolesan UI/UX & Harmonisasi Sistem | P1/P2 | ✅ |
 
 Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 
@@ -389,7 +390,7 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 - [x] **FR-27:** Tingkat urgensi laporan (rendah/sedang/tinggi) dan pengurutan berdasarkan urgensi
 - [x] **FR-36:** Siswa dapat menambah informasi susulan pada laporan yang masih berjalan
 - [x] **FR-39:** Halaman bantuan dan kontak darurat untuk siswa
-- [x] **FR-42:** Tombol **Keluar Cepat** yang mengalihkan ke situs netral
+- [x] **FR-42:** Tombol **Keluar Cepat** *(Dihapus/Nonaktif atas keputusan institusional madrasah untuk kenyamanan pelapor)*
 - [x] Evaluasi masukan pengguna dan perbaikan dari bulan pertama pemakaian
 
 ---
@@ -399,6 +400,29 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 - [x] **FR-08:** Autentikasi dua faktor (2FA) untuk Master dan Guru BK (TOTP RFC 6238 offline, zero external services, recovery codes darurat)
 - [x] Laporan periodik otomatis (bulanan/semester agregat anonim via scheduler & perintah artisan `reports:generate-summary`)
 - [x] Evaluasi tahunan: peninjauan kebijakan retensi (perintah artisan `reports:audit-retention` & konfigurasi batas retensi tahunan di Pengaturan Master)
+
+---
+
+## FASE 11: Pemolesan UI/UX & Harmonisasi Sistem ✅
+
+- [x] **Optimalisasi Bubble Chat (`siswa/reports/show`, `bk/reports/show`)**:
+  - Lebar gelembung pesan dinamis mengikuti panjang teks (`w-fit max-w-[85%] sm:max-w-[75%]`).
+  - Penghapusan tanda centang status pengiriman pada bubble obrolan.
+  - Spacing vertikal rapat dan proporsional untuk pesan singkat (seperti kata "sabar").
+  - Perataan teks rata kiri-kanan (`text-justify break-words leading-relaxed`) untuk kerapian paragraf obrolan.
+- [x] **Pembersihan & Perapihan Dashboard Guru BK (`bk/dashboard.blade.php`)**:
+  - Penghapusan duplikasi catatan investigasi/konseling yang tidak diperlukan.
+  - Penyatuan tombol `[Buka seluruh daftar kasus Guru BK]` ke dalam footer kartu daftar kasus di desktop dan mobile.
+- [x] **Perapihan Kolom Aksi Kategori Kasus (`bk/categories/index.blade.php`)**:
+  - Kolom header dan data Aksi diatur ke posisi tengah (`text-center`).
+  - Grup tombol Ubah dan Hapus distandarisasi dengan border, ikon, dan label yang rapi.
+  - Modal edit/delete dipindahkan ke luar tag `<table>` untuk menjaga validitas DOM.
+- [x] **Standardisasi Tombol Navigasi Kembali Siswa (`siswa/bantuan`, `siswa/reports/show`)**:
+  - Tombol kembali diperbarui menjadi tombol kartu dengan ikon SVG interaktif (efek translate saat hover) dan breadcrumb.
+- [x] **Harmonisasi Panel Master Admin**:
+  - Penataan semantik sidebar Master (`Menu Utama`, `Manajemen Pengguna`, `Akademik`, `Audit & Sistem`) dengan indikator pill hijau seragam.
+  - Modernisasi seluruh dropdown Master & komponen `<x-select>` global dengan `appearance-none` dan ikon panah chevron SVG kustom.
+  - Perapihan tombol aksi Master Kelas & Tahun Ajaran (posisi tengah, grup tombol Ubah/Hapus, modal isolasi di luar tabel).
 
 ---
 
@@ -415,6 +439,8 @@ Gunakan bagian ini untuk mencatat keputusan, kendala, atau hal yang perlu ditany
 | 17 Okt 2026 | 8 | Fase 8 (Deploy VPS fisik) dilewati sementara atas persetujuan pemilik proyek untuk langsung mengembangkan fitur Rilis 2 (Fase 9) dan Rilis 3 (Fase 10) di lingkungan lokal |
 | 17 Okt 2026 | 9 | Fase 9 tuntas: FR-17 (Kelola Pengaturan Madrasah & Beranda), FR-18 (Log Aktivitas Master), FR-27 (Tingkat Urgensi Laporan), FR-36 (Informasi Susulan Siswa), FR-39 (Bantuan & Kontak Darurat), FR-42 (Keluar Cepat). 109 pengujian otomatis lulus (100% green). |
 | 17 Okt 2026 | 10 | Fase 10 tuntas: FR-08 (Autentikasi 2FA TOTP RFC 6238 mandiri & aman untuk staf Master/BK tanpa pihak ketiga, 8 recovery codes darurat, tantangan login rate-limited), Laporan Periodik Otomatis (bulanan/semesteran dengan agregasi anonim), Evaluasi Retensi Data (perintah audit retensi konsol & pengaturan retensi tahunan di Master). Total 124 pengujian otomatis lulus (100% green). |
+| 2 Nov 2026 | 11 | Migrasi desain frontend Next.js ke Blade selesai 100%. Dilakukan standarisasi komponen dasar, penyesuaian mode gelap, eliminasi tombol Keluar Cepat, pembersihan alur FAQ & alur lama, perancangan footer institusional 4-kolom, serta integrasi SweetAlert2. |
+| 6 Nov 2026 | 11 | Sesi pemolesan UI/UX intensif: optimalisasi gelembung obrolan chat (w-fit, no checkmark, tight spacing, text-justify), pembersihan dashboard BK & integrasi tombol Buka Kasus, pemolesan aksi kategori kasus BK, standardisasi tombol kembali siswa, restrukturisasi semantik sidebar Master, modernisasi seluruh dropdown menu Master dengan chevron SVG kustom, serta perapihan tombol aksi Master Kelas & Tahun Ajaran. |
 
 ### Pertanyaan terbuka dari PRD yang perlu dijawab (blokir beberapa tugas)
 - [ ] Siapa penanggung jawab sistem dan pemegang akun Master? _(Fase 0, 8)_

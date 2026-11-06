@@ -9,7 +9,7 @@
                 <thead class="bg-slate-50/80 dark:bg-slate-900/60 border-b border-slate-200/80 dark:border-slate-800 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     <tr>
                         @foreach ($headers as $header)
-                            <th scope="col" class="px-4 py-3 sm:px-5 sm:py-3.5 whitespace-nowrap">
+                            <th scope="col" class="px-4 py-3 sm:px-5 sm:py-3.5 whitespace-nowrap {{ $header === 'Aksi' ? 'text-center' : '' }}">
                                 {{ $header }}
                             </th>
                         @endforeach

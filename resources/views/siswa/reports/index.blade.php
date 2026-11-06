@@ -34,9 +34,9 @@
         @php
             $tabList = [
                 'semua' => 'Semua',
-                'baru' => 'Baru',
+                'baru' => 'Diterima',
                 'diverifikasi' => 'Diverifikasi',
-                'diproses' => 'Diproses',
+                'diproses' => 'Dalam Penanganan',
                 'selesai' => 'Selesai',
                 'ditolak' => 'Ditolak',
             ];
@@ -55,7 +55,7 @@
                     :class="activeTab === '{{ $key }}' 
                         ? 'bg-primary-600 text-white shadow-xs' 
                         : 'bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700/80'"
-                    class="shrink-0 flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-150"
+                    class="shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-150"
                 >
                     <span x-show="activeTab === '{{ $key }}'" class="w-1.5 h-1.5 rounded-full bg-[#B8E34B]"></span>
                     <span>{{ $label }}</span>

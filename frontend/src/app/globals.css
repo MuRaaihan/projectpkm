@@ -1,0 +1,269 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Custom Theme ──────────────────────────────────────────── */
+@theme {
+  /* Brand Colors — Emerald Green (#176B4D) */
+  --color-primary-50: #f0f7f3;
+  --color-primary-100: #eaf5ee;
+  --color-primary-200: #c9e6d8;
+  --color-primary-300: #93ceb5;
+  --color-primary-400: #469a79;
+  --color-primary-500: #1f855f;
+  --color-primary-600: #176B4D;
+  --color-primary-700: #12553d;
+  --color-primary-800: #0e422f;
+  --color-primary-900: #092c20;
+
+  /* Accents */
+  --color-lime-accent: #B8E34B;
+  --color-lime-accent-light: #f5fad4;
+  --color-gold-accent: #F2C94C;
+  --color-gold-accent-light: #fef7db;
+  --color-soft-mint: #EAF5EE;
+  --color-greige: #D5D4CB;
+
+  /* Neutrals — Consistent scale from light (50) to dark (950) */
+  --color-slate-50: #F8FAF9;
+  --color-slate-100: #F0EFE8;
+  --color-slate-200: #E2E1D9;
+  --color-slate-300: #D5D4CB;
+  --color-slate-400: #9EB3A8;
+  --color-slate-500: #7A8C82;
+  --color-slate-600: #69736C;
+  --color-slate-700: #46554D;
+  --color-slate-800: #26362E;
+  --color-slate-900: #18241E;
+  --color-slate-950: #0E1713;
+
+  /* Semantic surface tokens linked to CSS variables */
+  --color-surface: var(--surface-bg);
+  --color-surface-alt: var(--surface-alt);
+  --color-surface-card: var(--surface-card);
+  --color-surface-elevated: var(--surface-elevated);
+
+  /* Semantic status tokens linked to CSS variables */
+  --color-status-received-bg: var(--status-received-bg);
+  --color-status-received-text: var(--status-received-text);
+  --color-status-verified-bg: var(--status-verified-bg);
+  --color-status-verified-text: var(--status-verified-text);
+  --color-status-processing-bg: var(--status-processing-bg);
+  --color-status-processing-text: var(--status-processing-text);
+  --color-status-completed-bg: var(--status-completed-bg);
+  --color-status-completed-text: var(--status-completed-text);
+  --color-status-rejected-bg: var(--status-rejected-bg);
+  --color-status-rejected-text: var(--status-rejected-text);
+
+  /* Typography scale */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
+  --shadow-card: 0 2px 8px 0 rgb(0 0 0 / 0.06), 0 1px 2px 0 rgb(0 0 0 / 0.04);
+}
+
+/* ── Base / Light Mode ─────────────────────────────────────── */
+:root {
+  --background: #F8FAF9;
+  --foreground: #26332C;
+
+  --surface-bg: #F8FAF9;
+  --surface-alt: #EDECEA;
+  --surface-card: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+
+  --sidebar-bg: #FFFFFF;
+  --sidebar-border: #E2E1D9;
+  --topbar-bg: #FFFFFF;
+  --topbar-border: #E2E1D9;
+
+  /* Sidebar active state */
+  --sidebar-active-bg: #EAF5EE;
+  --sidebar-active-text: #176B4D;
+  --sidebar-active-border: #176B4D;
+
+  /* Status Colors */
+  --status-received-bg: #F0F4F2;
+  --status-received-text: #3D5245;
+  --status-verified-bg: #EAF5EE;
+  --status-verified-text: #176B4D;
+  --status-processing-bg: #FEF8E3;
+  --status-processing-text: #8C6708;
+  --status-completed-bg: #EDF8F1;
+  --status-completed-text: #176B4D;
+  --status-rejected-bg: #FDF0F0;
+  --status-rejected-text: #B91C1C;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Dark Mode ─────────────────────────────────────────────── */
+.dark {
+  --background: #0E1713;
+  --foreground: #F2F7F4;
+
+  --surface-bg: #0E1713;
+  --surface-alt: #13211B;
+  --surface-card: #16231D;
+  --surface-elevated: #1E3027;
+
+  --sidebar-bg: #14201A;
+  --sidebar-border: #22342A;
+  --topbar-bg: #14201A;
+  --topbar-border: #22342A;
+
+  --sidebar-active-bg: #1A3326;
+  --sidebar-active-text: #5AE39D;
+  --sidebar-active-border: #289E70;
+
+  /* Dark Status Colors — Tested WCAG AA >= 7:1 */
+  --status-received-bg: #1B2920;
+  --status-received-text: #D2E2D8;
+  --status-verified-bg: #153222;
+  --status-verified-text: #5AE39D;
+  --status-processing-bg: #332408;
+  --status-processing-text: #FAD46B;
+  --status-completed-bg: #153222;
+  --status-completed-text: #5AE39D;
+  --status-rejected-bg: #381515;
+  --status-rejected-text: #FCA5A5;
+
+  color-scheme: dark;
+}
+
+/* ── Surface utility ───────────────────────────────────────── */
+.sidebar-surface {
+  background-color: var(--sidebar-bg);
+  border-color: var(--sidebar-border);
+}
+.topbar-surface {
+  background-color: var(--topbar-bg);
+  border-color: var(--topbar-border);
+}
+
+/* ── Animations ────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-fade-in { animation: fadeIn 200ms ease-out both; }
+.animate-slide-up { animation: slideUp 240ms ease-out both; }
+.animate-slide-in { animation: slideInLeft 200ms ease-out both; }
+.animate-scale-in { animation: scaleIn 200ms ease-out both; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+/* Stagger helpers */
+.stagger-1 { animation-delay: 40ms; }
+.stagger-2 { animation-delay: 80ms; }
+.stagger-3 { animation-delay: 120ms; }
+.stagger-4 { animation-delay: 160ms; }
+.stagger-5 { animation-delay: 200ms; }
+.stagger-6 { animation-delay: 240ms; }
+
+/* Respect user motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-up,
+  .animate-slide-in,
+  .animate-scale-in,
+  .animate-float {
+    animation: none;
+  }
+}
+
+/* ── Selection ─────────────────────────────────────────────── */
+::selection {
+  background: #b2e4cc;
+  color: #0a3d25;
+}
+
+/* ── Custom scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #c9e6d8;
+  border-radius: 999px;
+}
+.dark ::-webkit-scrollbar-thumb { background: #243028; }
+
+/* ── Focus ring ─────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid #176B4D;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.dark *:focus-visible {
+  outline-color: #5AE39D;
+}
+
+/* ── Input date picker ─────────────────────────────────────── */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+  cursor: pointer;
+}
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* ── Table utilities ───────────────────────────────────────── */
+.table-fixed-layout { table-layout: fixed; }
+
+/* ── Transition default ────────────────────────────────────── */
+.transition-theme {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* ── Sidebar active indicator ──────────────────────────────── */
+.nav-active-indicator {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  border-radius: 0 2px 2px 0;
+  background: var(--sidebar-active-border);
+}
+
+/* ── Card hover lift ───────────────────────────────────────── */
+.card-hover {
+  transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px 0 rgb(0 0 0 / 0.08);
+}
+.dark .card-hover:hover {
+  box-shadow: 0 6px 20px 0 rgb(0 0 0 / 0.35);
+}

@@ -22,7 +22,7 @@ Daftar cek keamanan yang **harus lulus sebelum peluncuran** (Fase 7 dan 8 di [`t
 - [x] 🟠 Cookie sesi: `Secure`, `HttpOnly`, `SameSite=Lax` (atau `Strict`)
 - [x] 🟠 Password awal acak (bukan pola yang mudah ditebak seperti NIS atau tanggal lahir)
 - [x] 🟡 Daftar kredensial awal hasil impor hanya bisa diunduh sekali dan tidak tersimpan permanen di server
-- [ ] 🟡 2FA untuk Master dan Guru BK (Rilis 3)
+- [x] 🟡 2FA untuk Master dan Guru BK (Fase 10 - TOTP RFC 6238 mandiri, 8 recovery codes darurat, rate-limited challenge)
 
 ## B. Kontrol Akses (Otorisasi)
 
@@ -107,7 +107,7 @@ Daftar cek:
 - [x] 🟠 Redirect tidak menerima URL eksternal dari input pengguna (open redirect)
 - [x] 🟠 Tidak ada halaman/route debug (`/telescope`, `/_ignition`, `phpinfo`) yang aktif di produksi
 - [ ] 🟡 Cloudflare Turnstile pada form laporan bila terjadi spam
-- [x] 🟡 Tombol **Keluar Cepat** berfungsi dan tidak meninggalkan jejak
+- [x] 🟡 Fitur **Keluar Cepat** telah dinonaktifkan/dihapus secara menyeluruh sesuai arahan institusional untuk mencegah insiden pengalihan tak sengaja bagi siswa pelapor.
 
 ## G. Log Audit
 

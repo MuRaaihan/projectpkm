@@ -48,14 +48,19 @@
                         <label for="class_id" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
                             Kelas Siswa <span class="text-rose-500 font-semibold ml-0.5">*</span>
                         </label>
-                        <select name="class_id" id="class_id" required class="w-full min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 px-3.5 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-slate-900 dark:text-slate-100 @error('class_id') border-rose-500 bg-rose-50/30 @enderror">
-                            <option value="">Pilih Kelas</option>
-                            @foreach ($classes as $c)
-                                <option value="{{ $c->id }}" {{ old('class_id', $student->class_id) == $c->id ? 'selected' : '' }}>
-                                    {{ $c->name }} (Tingkat {{ $c->grade_level }})
-                                </option>
-                            @endforeach
-                        </select>
+                        <div class="relative">
+                            <select name="class_id" id="class_id" required class="w-full min-h-[44px] appearance-none cursor-pointer text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3.5 pr-10 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-slate-900 dark:text-slate-100 transition font-medium @error('class_id') border-rose-500 bg-rose-50/30 @enderror">
+                                <option value="">Pilih Kelas</option>
+                                @foreach ($classes as $c)
+                                    <option value="{{ $c->id }}" {{ old('class_id', $student->class_id) == $c->id ? 'selected' : '' }}>
+                                        {{ $c->name }} (Tingkat {{ $c->grade_level }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 dark:text-slate-500">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            </div>
+                        </div>
                         @error('class_id')
                             <p class="text-xs text-rose-500 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
@@ -66,11 +71,16 @@
                         <label for="gender" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
                             Jenis Kelamin <span class="text-rose-500 font-semibold ml-0.5">*</span>
                         </label>
-                        <select name="gender" id="gender" required class="w-full min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 px-3.5 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-slate-900 dark:text-slate-100 @error('gender') border-rose-500 bg-rose-50/30 @enderror">
-                            <option value="">Pilih Jenis Kelamin</option>
-                            <option value="L" {{ old('gender', $student->gender) === 'L' ? 'selected' : '' }}>Laki-laki (L)</option>
-                            <option value="P" {{ old('gender', $student->gender) === 'P' ? 'selected' : '' }}>Perempuan (P)</option>
-                        </select>
+                        <div class="relative">
+                            <select name="gender" id="gender" required class="w-full min-h-[44px] appearance-none cursor-pointer text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3.5 pr-10 bg-white dark:bg-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 text-slate-900 dark:text-slate-100 transition font-medium @error('gender') border-rose-500 bg-rose-50/30 @enderror">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="L" {{ old('gender', $student->gender) === 'L' ? 'selected' : '' }}>Laki-laki (L)</option>
+                                <option value="P" {{ old('gender', $student->gender) === 'P' ? 'selected' : '' }}>Perempuan (P)</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 dark:text-slate-500">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                            </div>
+                        </div>
                         @error('gender')
                             <p class="text-xs text-rose-500 font-medium mt-0.5">{{ $message }}</p>
                         @enderror

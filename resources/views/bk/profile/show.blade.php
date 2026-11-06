@@ -100,7 +100,7 @@
                 </div>
 
                 <div class="flex justify-end pt-2">
-                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white text-xs sm:text-sm font-bold shadow-xs transition card-hover">
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white text-xs sm:text-sm font-bold shadow-xs transition active:scale-[0.98] cursor-pointer">
                         Simpan Perubahan Profil
                     </button>
                 </div>
@@ -196,11 +196,39 @@
                 </div>
 
                 <div class="flex justify-end pt-2">
-                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white text-xs sm:text-sm font-bold shadow-xs transition card-hover">
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white text-xs sm:text-sm font-bold shadow-xs transition active:scale-[0.98] cursor-pointer">
                         Simpan Kata Sandi Baru
                     </button>
                 </div>
             </form>
+        </div>
+
+        {{-- ── Keamanan & Keluar (Sesuai Frontend guru-bk/profil/page.tsx:342-353) ── --}}
+        <div class="bg-surface-card dark:bg-[#16231D] border border-slate-200/90 dark:border-slate-800 rounded-2xl overflow-hidden shadow-xs animate-slide-up">
+            <div class="px-6 py-3.5 border-b border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
+                    Sesi &amp; Keamanan Akun
+                </p>
+            </div>
+
+            <div class="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <p class="text-sm font-bold text-slate-900 dark:text-slate-100">
+                        Keluar dari Sesi
+                    </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                        Pastikan seluruh data tindak lanjut konseling telah tersimpan sebelum keluar.
+                    </p>
+                </div>
+                <form method="POST" action="{{ route('logout') }}" class="inline-flex shrink-0">
+                    @csrf
+                    <button type="submit" 
+                            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-rose-300 dark:border-rose-900 bg-rose-50/60 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-xs font-bold transition-colors cursor-pointer shadow-2xs">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        <span>Keluar dari Akun</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </x-layouts.app>

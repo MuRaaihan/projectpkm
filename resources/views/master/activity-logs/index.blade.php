@@ -30,14 +30,21 @@
             <form method="GET" action="{{ route('master.activity-logs.index') }}" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div class="flex flex-wrap items-center gap-3">
                     {{-- Filter Jenis Aksi --}}
-                    <select name="action" onchange="this.form.submit()" class="min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2 pl-3 pr-8 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        <option value="">Semua Jenis Aktivitas</option>
-                        @foreach ($actionTypes as $key => $label)
-                            <option value="{{ $key }}" {{ ($action ?? '') === $key ? 'selected' : '' }}>
-                                {{ $label }}
-                            </option>
-                        @endforeach
-                    </select>
+                    <div class="relative inline-flex items-center">
+                        <select name="action" onchange="this.form.submit()" class="min-h-[44px] appearance-none cursor-pointer text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3.5 pr-9 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 dark:focus:border-[#5AE39D] transition font-medium">
+                            <option value="">Semua Jenis Aktivitas</option>
+                            @foreach ($actionTypes as $key => $label)
+                                <option value="{{ $key }}" {{ ($action ?? '') === $key ? 'selected' : '' }}>
+                                    {{ $label }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 dark:text-slate-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
 
                     {{-- Search Input --}}
                     <div class="relative w-full sm:w-72">

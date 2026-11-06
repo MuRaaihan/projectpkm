@@ -53,58 +53,33 @@
                                 {{ $year->classes_count }} kelas
                             </a>
                         </td>
-                        <td class="px-4 py-3 sm:px-6">
-                            <div class="flex items-center gap-1">
-                                {{-- Tombol Edit --}}
+                        <td class="px-4 py-3 sm:px-5 whitespace-nowrap text-center">
+                            <div class="inline-flex items-center gap-1.5 justify-center">
+                                {{-- Tombol Ubah --}}
                                 <button type="button" 
                                         @click="$dispatch('open-modal', 'modal-edit-tahun-{{ $year->id }}')"
-                                        class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-slate-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-slate-700 rounded-lg transition"
-                                        title="Ubah Tahun Ajaran">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                    </svg>
-                                    <span class="sr-only">Ubah</span>
+                                        class="inline-flex items-center gap-1.5 px-2.5 h-8 text-xs font-semibold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:border-emerald-500 hover:text-emerald-700 dark:hover:text-[#5AE39D] hover:bg-slate-50 dark:hover:bg-slate-700/50 shadow-2xs transition cursor-pointer active:scale-95" 
+                                        title="Ubah Tahun Ajaran {{ $year->name }}"
+                                        aria-label="Ubah tahun ajaran {{ $year->name }}">
+                                    <svg class="w-3.5 h-3.5 text-slate-400 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
+                                    <span>Ubah</span>
                                 </button>
 
                                 {{-- Tombol Hapus (jika 0 kelas) --}}
                                 @if ($year->classes_count === 0)
-                                    <form method="POST" action="{{ route('master.academic-years.destroy', $year) }}" onsubmit="return confirm('Hapus tahun ajaran {{ $year->name }}?');" class="inline">
+                                    <form method="POST" action="{{ route('master.academic-years.destroy', $year) }}" onsubmit="return confirm('Hapus tahun ajaran {{ $year->name }}?');" class="inline-flex m-0">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition" title="Hapus">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                            </svg>
-                                            <span class="sr-only">Hapus</span>
+                                        <button type="submit" 
+                                                class="inline-flex items-center gap-1.5 px-2.5 h-8 text-xs font-semibold rounded-lg border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/30 text-rose-600 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-950/60 hover:border-rose-300 shadow-2xs transition cursor-pointer active:scale-95" 
+                                                title="Hapus Tahun Ajaran {{ $year->name }}"
+                                                aria-label="Hapus tahun ajaran {{ $year->name }}">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                            <span>Hapus</span>
                                         </button>
                                     </form>
                                 @endif
                             </div>
-
-                            {{-- Modal Edit Tahun Ajaran --}}
-                            <x-modal id="modal-edit-tahun-{{ $year->id }}" title="Ubah Tahun Ajaran {{ $year->name }}">
-                                <form method="POST" action="{{ route('master.academic-years.update', $year) }}" class="space-y-4">
-                                    @csrf
-                                    @method('PUT')
-
-                                    <x-input name="name" label="Nama Tahun Ajaran" value="{{ $year->name }}" required placeholder="Mis. 2026/2027" />
-
-                                    <div class="grid grid-cols-2 gap-3">
-                                        <x-input type="date" name="starts_on" label="Tanggal Mulai" value="{{ $year->starts_on?->format('Y-m-d') }}" />
-                                        <x-input type="date" name="ends_on" label="Tanggal Selesai" value="{{ $year->ends_on?->format('Y-m-d') }}" />
-                                    </div>
-
-                                    <div class="flex items-center gap-2.5 pt-2">
-                                        <input type="checkbox" name="is_active" id="active-{{ $year->id }}" value="1" {{ $year->is_active ? 'checked' : '' }} class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4" />
-                                        <label for="active-{{ $year->id }}" class="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">Jadikan Tahun Ajaran Aktif</label>
-                                    </div>
-
-                                    <div class="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-                                        <x-button type="button" variant="outline" size="sm" @click="$dispatch('close-modal', 'modal-edit-tahun-{{ $year->id }}')">Batal</x-button>
-                                        <x-button type="submit" variant="primary" size="sm">Simpan Perubahan</x-button>
-                                    </div>
-                                </form>
-                            </x-modal>
                         </td>
                     </tr>
                 @empty
@@ -115,6 +90,33 @@
                     </tr>
                 @endforelse
             </x-table>
+
+            {{-- Modal Edit Tahun Ajaran (di luar tabel) --}}
+            @foreach ($academicYears as $year)
+                <x-modal id="modal-edit-tahun-{{ $year->id }}" title="Ubah Tahun Ajaran {{ $year->name }}">
+                    <form method="POST" action="{{ route('master.academic-years.update', $year) }}" class="space-y-4">
+                        @csrf
+                        @method('PUT')
+
+                        <x-input name="name" label="Nama Tahun Ajaran" value="{{ $year->name }}" required placeholder="Mis. 2026/2027" />
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <x-input type="date" name="starts_on" label="Tanggal Mulai" value="{{ $year->starts_on?->format('Y-m-d') }}" />
+                            <x-input type="date" name="ends_on" label="Tanggal Selesai" value="{{ $year->ends_on?->format('Y-m-d') }}" />
+                        </div>
+
+                        <div class="flex items-center gap-2.5 pt-2">
+                            <input type="checkbox" name="is_active" id="active-{{ $year->id }}" value="1" {{ $year->is_active ? 'checked' : '' }} class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4" />
+                            <label for="active-{{ $year->id }}" class="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">Jadikan Tahun Ajaran Aktif</label>
+                        </div>
+
+                        <div class="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+                            <x-button type="button" variant="outline" size="sm" @click="$dispatch('close-modal', 'modal-edit-tahun-{{ $year->id }}')">Batal</x-button>
+                            <x-button type="submit" variant="primary" size="sm">Simpan Perubahan</x-button>
+                        </div>
+                    </form>
+                </x-modal>
+            @endforeach
 
             @if ($academicYears->hasPages())
                 <div class="p-4 border-t border-slate-200 dark:border-slate-800">

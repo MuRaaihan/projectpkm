@@ -145,7 +145,7 @@
                 <div class="flex items-center flex-1">
                     <div class="flex flex-col items-center gap-1.5 flex-1">
                         <button type="button" @click="goToStep(0)" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
-                            :class="step > 0 ? 'bg-primary-600 text-white' : (step === 0 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-primary-950/80' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400')">
+                            :class="step > 0 ? 'bg-primary-600 text-white' : (step === 0 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-[#1A3326]' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400')">
                             <template x-if="step > 0">
                                 <svg class="w-4 h-4 text-[#B8E34B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                             </template>
@@ -164,7 +164,7 @@
                 <div class="flex items-center flex-1">
                     <div class="flex flex-col items-center gap-1.5 flex-1">
                         <button type="button" @click="goToStep(1)" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
-                            :class="step > 1 ? 'bg-primary-600 text-white' : (step === 1 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-primary-950/80' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400')">
+                            :class="step > 1 ? 'bg-primary-600 text-white' : (step === 1 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-[#1A3326]' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400')">
                             <template x-if="step > 1">
                                 <svg class="w-4 h-4 text-[#B8E34B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                             </template>
@@ -183,7 +183,7 @@
                 <div class="flex items-center">
                     <div class="flex flex-col items-center gap-1.5">
                         <button type="button" @click="goToStep(2)" class="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-all"
-                            :class="step === 2 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-primary-950/80' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'">
+                            :class="step === 2 ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-[#1A3326]' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'">
                             <span>3</span>
                         </button>
                         <span class="text-[11px] font-semibold text-center" :class="step === 2 ? 'text-primary-700 dark:text-[#5AE39D]' : 'text-slate-500 dark:text-slate-400'">
@@ -247,8 +247,8 @@
                         </label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <label class="relative flex items-start p-4 rounded-xl border cursor-pointer transition-all card-hover"
-                                :class="reporter_role === 'korban' ? 'border-primary-500 bg-primary-50/60 dark:bg-primary-950/40 ring-1 ring-primary-500' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40'">
-                                <input type="radio" name="reporter_role" value="korban" x-model="reporter_role" class="mt-1 w-4 h-4 text-primary-600 focus:ring-primary-600 border-slate-300">
+                                :class="reporter_role === 'korban' ? 'border-primary-500 dark:border-[#289E70] bg-primary-50/80 dark:bg-[#1A3326] ring-1 ring-primary-500 dark:ring-[#289E70]' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-[#16231D]'">
+                                <input type="radio" name="reporter_role" value="korban" x-model="reporter_role" class="mt-1 w-4 h-4 text-primary-600 focus:ring-primary-600 border-slate-300 dark:border-slate-700 dark:bg-slate-900">
                                 <div class="ml-3">
                                     <span class="block text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">Saya Korban</span>
                                     <span class="block text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5">Saya sendiri yang mengalami perlakuan tidak menyenangkan ini.</span>
@@ -256,8 +256,8 @@
                             </label>
 
                             <label class="relative flex items-start p-4 rounded-xl border cursor-pointer transition-all card-hover"
-                                :class="reporter_role === 'saksi' ? 'border-primary-500 bg-primary-50/60 dark:bg-primary-950/40 ring-1 ring-primary-500' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40'">
-                                <input type="radio" name="reporter_role" value="saksi" x-model="reporter_role" class="mt-1 w-4 h-4 text-primary-600 focus:ring-primary-600 border-slate-300">
+                                :class="reporter_role === 'saksi' ? 'border-primary-500 dark:border-[#289E70] bg-primary-50/80 dark:bg-[#1A3326] ring-1 ring-primary-500 dark:ring-[#289E70]' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-[#16231D]'">
+                                <input type="radio" name="reporter_role" value="saksi" x-model="reporter_role" class="mt-1 w-4 h-4 text-primary-600 focus:ring-primary-600 border-slate-300 dark:border-slate-700 dark:bg-slate-900">
                                 <div class="ml-3">
                                     <span class="block text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">Saya Saksi</span>
                                     <span class="block text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5">Saya melihat, mendengar, atau mengetahui kejadian yang menimpa teman saya.</span>
@@ -348,7 +348,7 @@
                                 Kurang <span x-text="10 - (description || '').length"></span> karakter lagi
                             </span>
                         </div>
-                        <div class="mt-3 p-3 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900/50 flex items-start gap-2.5 text-xs text-emerald-900 dark:text-emerald-300">
+                        <div class="mt-3 p-3 rounded-xl bg-emerald-50/80 dark:bg-[#13241C] border border-emerald-200/80 dark:border-[#22342A] flex items-start gap-2.5 text-xs text-emerald-900 dark:text-[#5AE39D]">
                             <svg class="w-4 h-4 text-emerald-600 dark:text-[#5AE39D] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             <span><strong>Info Bukti Foto:</strong> Pada langkah berikutnya, kamu dapat menambahkan foto bukti / tangkapan layar jika memilikinya (bersifat opsional).</span>
                         </div>
@@ -475,29 +475,29 @@
                         <div class="grid grid-cols-1 gap-3">
                             {{-- Option 1: Hidden (Pelapor Rahasia) --}}
                             <label class="relative flex items-start p-4 rounded-xl border cursor-pointer transition-all card-hover"
-                                :class="privacy === 'hidden' ? 'border-primary-500 bg-primary-50/70 dark:bg-primary-950/40 ring-1 ring-primary-500' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40'">
-                                <input type="radio" value="hidden" x-model="privacy" class="mt-1 w-4 h-4 text-primary-600 focus:ring-primary-600 border-slate-300">
+                                :class="privacy === 'hidden' ? 'border-primary-500 dark:border-[#289E70] bg-primary-50/80 dark:bg-[#1A3326] ring-1 ring-primary-500 dark:ring-[#289E70]' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-[#16231D]'">
+                                <input type="radio" value="hidden" x-model="privacy" class="mt-1 w-4 h-4 text-primary-600 focus:ring-primary-600 border-slate-300 dark:border-slate-700 dark:bg-slate-900">
                                 <div class="ml-3.5 flex-1">
                                     <div class="flex items-center gap-2">
                                         <svg class="w-4 h-4 text-primary-700 dark:text-[#5AE39D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                                         <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">Rahasiakan Identitas Saya (Pelapor Rahasia - Disarankan)</span>
                                     </div>
-                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
-                                        Namamu disamarkan sebagai <strong>"Pelapor Rahasia"</strong>. Siswa lain dan pihak umum tidak akan mengetahui identitasmu. Guru BK memegang akses ini secara rahasia dan aman demi keselamatanmu.
+                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                                        Namamu disamarkan sebagai <strong class="text-slate-900 dark:text-slate-100">"Pelapor Rahasia"</strong>. Siswa lain dan pihak umum tidak akan mengetahui identitasmu. Guru BK memegang akses ini secara rahasia dan aman demi keselamatanmu.
                                     </p>
                                 </div>
                             </label>
 
                             {{-- Option 2: Shown --}}
                             <label class="relative flex items-start p-4 rounded-xl border cursor-pointer transition-all card-hover"
-                                :class="privacy === 'shown' ? 'border-primary-500 bg-primary-50/70 dark:bg-primary-950/40 ring-1 ring-primary-500' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40'">
-                                <input type="radio" value="shown" x-model="privacy" class="mt-1 w-4 h-4 text-primary-600 focus:ring-primary-600 border-slate-300">
+                                :class="privacy === 'shown' ? 'border-primary-500 dark:border-[#289E70] bg-primary-50/80 dark:bg-[#1A3326] ring-1 ring-primary-500 dark:ring-[#289E70]' : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-[#16231D]'">
+                                <input type="radio" value="shown" x-model="privacy" class="mt-1 w-4 h-4 text-primary-600 focus:ring-primary-600 border-slate-300 dark:border-slate-700 dark:bg-slate-900">
                                 <div class="ml-3.5 flex-1">
                                     <div class="flex items-center gap-2">
                                         <svg class="w-4 h-4 text-slate-600 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                         <span class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">Tampilkan Nama Asli Saya</span>
                                     </div>
-                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                                    <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                                         Namamu ({{ auth()->user()->name }}) akan tercantum pada berkas tindak lanjut Guru BK.
                                     </p>
                                 </div>
@@ -506,7 +506,7 @@
                     </div>
 
                     {{-- Jaminan Perlindungan --}}
-                    <div class="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-900/60 flex items-start gap-3">
+                    <div class="p-4 rounded-xl bg-amber-50/80 dark:bg-[#261A05] border border-amber-200/80 dark:border-amber-800/80 flex items-start gap-3">
                         <svg class="w-5 h-5 text-amber-700 dark:text-[#FAD46B] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         <p class="text-xs text-amber-900 dark:text-[#FAD46B] leading-relaxed">
                             <strong>Perlindungan Pelapor:</strong> Madrasah berkomitmen melindungi setiap pelapor dari tindakan intimidasi atau aksi balasan apa pun.
@@ -608,9 +608,9 @@
                         </div>
                     </div>
 
-                    <div class="p-4 rounded-xl bg-primary-50/70 dark:bg-primary-950/30 border border-primary-200/80 dark:border-primary-900/60 flex items-start gap-3">
+                    <div class="p-4 rounded-xl bg-primary-50/80 dark:bg-[#13241C] border border-primary-200/80 dark:border-[#22342A] flex items-start gap-3">
                         <svg class="w-5 h-5 text-primary-700 dark:text-[#5AE39D] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                        <p class="text-xs text-primary-900 dark:text-primary-200 leading-relaxed">
+                        <p class="text-xs text-primary-900 dark:text-primary-100 leading-relaxed">
                             Dengan mengirimkan laporan ini, kamu mengonfirmasi bahwa data yang diberikan adalah benar sesuai ingatanmu. Guru BK akan merespon melalui sistem SIPERKA secara berkala.
                         </p>
                     </div>

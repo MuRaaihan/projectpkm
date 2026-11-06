@@ -3,11 +3,11 @@
 
 | | |
 |---|---|
-| **Versi** | 1.0 (Draft) |
-| **Status** | Perencanaan |
-| **Pemilik produk** | _(isi: kepala madrasah / penanggung jawab)_ |
-| **Tim pengembang** | _(isi)_ |
-| **Terakhir diperbarui** | 17 Oktober 2026 |
+| **Versi** | 1.2 (Selesai Implementasi & Pemolesan UI/UX) |
+| **Status** | Stabil / Production-Ready |
+| **Pemilik produk** | Kepala MTs Soebono Mantofani & Tim Pengembang |
+| **Tim pengembang** | Tim Pengembang SISPERKA |
+| **Terakhir diperbarui** | November 2026 |
 
 ---
 
@@ -71,17 +71,17 @@ Siswa dan Guru BK **tidak dapat mendaftar sendiri**. Hanya ada **satu halaman lo
 1. **Beranda**
    - Perkenalan SISPERKA (apa itu, tujuan, jaminan kerahasiaan)
    - Tata cara menggunakan (langkah-langkah bergambar/ikon)
+   - Interactive Phone Mockups (pratinjau alur pelaporan ramah anak)
    - Alur penanganan laporan, FAQ singkat, dan tombol **Masuk**
-   - **Footer:** informasi sekolah (nama, alamat, kontak, jam layanan BK), tautan Kebijakan Privasi
-   - Tombol **Keluar Cepat** yang mengalihkan ke situs netral
-2. **Login** (satu halaman untuk semua peran)
+   - **Footer Institusional 4-Kolom:** identitas resmi madrasah & badge Permendikbudristek No. 46/2023, navigasi layanan, kebijakan perlindungan, kontak darurat & jam aktif BK
+2. **Login** (satu halaman terpadu untuk semua peran, dilengkapi toggle lihat kata sandi)
 3. **Kebijakan Privasi**
 
-**Siswa:** Dashboard · Buat Laporan · Riwayat Laporan · Detail Laporan · Notifikasi · Profil · Bantuan/Kontak Darurat
+**Siswa:** Dashboard · Buat Laporan (Wizard Multi-step) · Riwayat Laporan · Detail Laporan & Obrolan Responsif · Notifikasi · Profil · Bantuan & Kontak BK
 
-**Guru BK:** Dashboard · Daftar Laporan · Detail Laporan · Kelola Kategori · Statistik · Unduh Laporan · Notifikasi · Profil
+**Guru BK:** Dashboard Terpadu · Daftar Laporan · Detail Kasus & Obrolan Responsif · Kelola Kategori · Statistik Visual (Chart.js) · Unduh Laporan (PDF/Excel) · Laporan Periodik · Notifikasi · Profil
 
-**Master:** Dashboard Statistik · Kelola Akun Guru BK · Kelola Akun Siswa · Impor Excel · Kenaikan/Pindah Kelas · Master Data (kelas, tahun ajaran) · Konten Beranda dan Info Sekolah · Log Aktivitas · Profil
+**Master:** Dashboard Statistik & Audit · Kelola Akun Siswa & Guru BK · Impor Excel 3 Langkah · Kenaikan/Pindah Kelas · Master Data (Kelas, Tahun Ajaran) · Pengaturan Madrasah & Konten Beranda · Log Audit Aktivitas · Laporan Periodik · Keamanan 2FA
 
 ## 7. Alur Pengguna Utama
 
@@ -123,7 +123,7 @@ Prioritas: **P0** = wajib rilis pertama, **P1** = penting, **P2** = tahap beriku
 | FR-05 | Pembatasan percobaan login dan penguncian akun sementara | P0 |
 | FR-06 | Logout dan session timeout otomatis akibat tidak aktif | P0 |
 | FR-07 | Reset password oleh Master | P0 |
-| FR-08 | Autentikasi dua faktor (2FA) untuk Master dan Guru BK | P2 |
+| FR-08 | Autentikasi dua faktor (2FA TOTP RFC 6238) untuk Master dan Guru BK dengan 8 kode pemulihan darurat | P2 (Selesai) |
 
 ### 8.2 Modul Master
 
@@ -150,7 +150,7 @@ Prioritas: **P0** = wajib rilis pertama, **P1** = penting, **P2** = tahap beriku
 | FR-22 | Tombol **"Lihat identitas"** pelapor rahasia, tercatat di log audit | P0 |
 | FR-23 | Ubah status: **Baru → Diverifikasi → Diproses → Selesai / Ditolak**; alasan wajib saat Ditolak; riwayat perubahan status tersimpan | P0 |
 | FR-24 | **Catatan internal** dan riwayat tindak lanjut (tidak terlihat siswa) | P0 |
-| FR-25 | **Balasan** ke siswa pada laporan (komunikasi per laporan, bukan chat real-time) | P0 |
+| FR-25 | **Balasan** ke siswa pada laporan (komunikasi per laporan dengan tampilan bubble chat adaptif, teks rata kiri-kanan, dan tanpa centang) | P0 |
 | FR-26 | **Kelola kategori** perundungan: tambah, ubah, nonaktifkan. Kategori yang sudah dipakai laporan tidak boleh dihapus | P0 |
 | FR-27 | Penetapan tingkat urgensi (rendah/sedang/tinggi) | P1 |
 | FR-28 | **Statistik laporan** (per bulan, kategori, status, kelas) | P0 |
@@ -177,8 +177,8 @@ Prioritas: **P0** = wajib rilis pertama, **P1** = penting, **P2** = tahap beriku
 | ID | Kebutuhan | Prioritas |
 |---|---|---|
 | FR-40 | Beranda berisi perkenalan, tata cara penggunaan, alur penanganan, FAQ, dan tombol Masuk | P0 |
-| FR-41 | Footer informasi sekolah (nama, alamat, kontak, jam layanan BK) | P0 |
-| FR-42 | Tombol **Keluar Cepat** | P1 |
+| FR-41 | Footer institusional 4-kolom informasi sekolah (nama, alamat, kontak resmi, jam layanan BK, legalitas) | P0 |
+| FR-42 | Tombol **Keluar Cepat** *(Dihapus/Nonaktif atas pertimbangan institusional madrasah untuk mencegah redirect tak sengaja bagi siswa)* | P1 (Nonaktif) |
 | FR-43 | Halaman Kebijakan Privasi | P0 |
 
 ## 9. Kebutuhan Non-Fungsional

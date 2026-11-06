@@ -71,6 +71,9 @@ Tanda: 🔒 = terenkripsi · 🔑 = primary key · ⛓ = foreign key · ✦ = un
 | `login_id` ✦ | varchar(50) | **NIS** (siswa), **NIP/username** (bk), **username** (master) |
 | `name` | varchar(100) | |
 | `password` | varchar(255) | Hash bcrypt/argon2 |
+| 🔒 `two_factor_secret` | text, nullable | Kunci rahasia TOTP (dienkripsi) untuk 2FA staf |
+| 🔒 `two_factor_recovery_codes` | text, nullable | 8 kode pemulihan darurat 2FA (dienkripsi) |
+| `two_factor_confirmed_at` | timestamp, nullable | Waktu verifikasi aktivasi 2FA |
 | ⛓ `class_id` | → `classes.id`, nullable | Hanya untuk siswa; `nullOnDelete` |
 | `gender` | enum(`L`,`P`), nullable | |
 | `phone` | varchar(20), nullable | |
@@ -221,7 +224,27 @@ Tanda: 🔒 = terenkripsi · 🔑 = primary key · ⛓ = foreign key · ✦ = un
 | ⛓ `updated_by` | → `users.id`, nullable | `nullOnDelete` |
 | `created_at`, `updated_at` | timestamp | |
 
-### 3.13 Tabel bawaan Laravel
+### 3.13 `periodic_report_summaries` (agregat otomatis bulanan/semesteran)
+| Kolom | Tipe | Keterangan |
+|---|---|---|
+| 🔑 `id` | bigint unsigned | Primary key |
+| `period_type` | enum(`monthly`,`semester`) | Index |
+| `period_label` | varchar(100) | Mis. `Oktober 2026`, `Semester Ganjil 2026/2027` |
+| `start_date`, `end_date` | date | Batang periode (Index) |
+| `total_reports` | unsigned int, default 0 | Total laporan masuk pada periode |
+| `new_reports`, `in_process_reports` | unsigned int, default 0 | Rincian status berjalan |
+| `resolved_reports`, `rejected_reports` | unsigned int, default 0 | Rincian status selesai/ditolak |
+| `urgent_high_reports`, `urgent_medium_reports`, `urgent_low_reports` | unsigned int, default 0 | Rincian tingkat urgensi |
+| `categories_breakdown` | json, nullable | Agregasi jumlah kasus per kategori |
+| `classes_breakdown` | json, nullable | Agregasi jumlah kasus per kelas/tingkat |
+| `avg_resolution_days` | decimal(5,2), nullable | Rata-rata durasi penanganan (hari) |
+| `generated_at` | timestamp | Waktu kompilasi agregat otomatis |
+| `created_at`, `updated_at` | timestamp | |
+
+**Unik:** (`period_type`, `period_label`)  
+**Catatan Keamanan:** Agregat periodik **hanya menyimpan angka rekapitulasi statistik anonim**, sama sekali tidak memuat identitas pelapor, terlapor, maupun kronologi kasus.
+
+### 3.14 Tabel bawaan Laravel
 `sessions` (driver `database`), `cache`, `cache_locks`, `jobs`, `failed_jobs`, `migrations`.
 Tidak dibutuhkan: `password_reset_tokens`.
 
@@ -244,16 +267,17 @@ Tidak dibutuhkan: `password_reset_tokens`.
 
 ## 5. Urutan Migrasi
 
-1. `academic_years`
-2. `classes`
-3. `users` (menyesuaikan migrasi bawaan Laravel; hilangkan email dan `password_reset_tokens`)
-4. `sessions`, `cache`, `jobs` (bawaan)
+1. `academic_years` & `classes`
+2. `users` (menyesuaikan migrasi bawaan Laravel; hilangkan email dan `password_reset_tokens`)
+3. `sessions`, `cache`, `jobs` (bawaan)
+4. `activity_logs`
 5. `categories`
 6. `reports`
 7. `report_attachments`, `report_messages`, `report_notes`, `report_status_histories`
 8. `notifications`
-9. `activity_logs`
-10. `site_contents`
+9. `settings` (`site_contents`)
+10. `add_two_factor_columns_to_users_table` (Fase 10 - 2FA)
+11. `periodic_report_summaries` (Fase 10 - Laporan Periodik Otomatis)
 
 ## 6. Seeder Awal
 

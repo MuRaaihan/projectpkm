@@ -39,14 +39,19 @@
                             <label for="from_class_id" class="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
                                 Kelas Asal (Sumber) <span class="text-rose-500 font-semibold ml-0.5">*</span>
                             </label>
-                            <select name="from_class_id" id="from_class_id" required class="w-full min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 @error('from_class_id') border-rose-400 @enderror">
-                                <option value="">-- Pilih Kelas Asal --</option>
-                                @foreach ($classes as $c)
-                                    <option value="{{ $c->id }}" {{ old('from_class_id') == $c->id ? 'selected' : '' }}>
-                                        Kelas {{ $c->name }} ({{ $c->academicYear?->name ?? '-' }}) — {{ $c->students_count }} Siswa Aktif
-                                    </option>
-                                @endforeach
-                            </select>
+                            <div class="relative">
+                                <select name="from_class_id" id="from_class_id" required class="w-full min-h-[44px] appearance-none cursor-pointer text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3.5 pr-10 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 dark:focus:border-[#5AE39D] transition font-medium @error('from_class_id') border-rose-400 @enderror">
+                                    <option value="">-- Pilih Kelas Asal --</option>
+                                    @foreach ($classes as $c)
+                                        <option value="{{ $c->id }}" {{ old('from_class_id') == $c->id ? 'selected' : '' }}>
+                                            Kelas {{ $c->name }} ({{ $c->academicYear?->name ?? '-' }}) — {{ $c->students_count }} Siswa Aktif
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 dark:text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                </div>
+                            </div>
                             @error('from_class_id')
                                 <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -57,14 +62,19 @@
                             <label for="to_class_id" class="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
                                 Kelas Tujuan (Sasaran Baru) <span class="text-rose-500 font-semibold ml-0.5">*</span>
                             </label>
-                            <select name="to_class_id" id="to_class_id" required class="w-full min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500 @error('to_class_id') border-rose-400 @enderror">
-                                <option value="">-- Pilih Kelas Tujuan --</option>
-                                @foreach ($classes as $c)
-                                    <option value="{{ $c->id }}" {{ old('to_class_id') == $c->id ? 'selected' : '' }}>
-                                        Kelas {{ $c->name }} ({{ $c->academicYear?->name ?? '-' }})
-                                    </option>
-                                @endforeach
-                            </select>
+                            <div class="relative">
+                                <select name="to_class_id" id="to_class_id" required class="w-full min-h-[44px] appearance-none cursor-pointer text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3.5 pr-10 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 dark:focus:border-[#5AE39D] transition font-medium @error('to_class_id') border-rose-400 @enderror">
+                                    <option value="">-- Pilih Kelas Tujuan --</option>
+                                    @foreach ($classes as $c)
+                                        <option value="{{ $c->id }}" {{ old('to_class_id') == $c->id ? 'selected' : '' }}>
+                                            Kelas {{ $c->name }} ({{ $c->academicYear?->name ?? '-' }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 dark:text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                </div>
+                            </div>
                             @error('to_class_id')
                                 <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -106,14 +116,19 @@
                             <label for="archive_class_id" class="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
                                 Pilih Rombel Kelas yang Akan Diarsipkan <span class="text-rose-500 font-semibold ml-0.5">*</span>
                             </label>
-                            <select name="class_id" id="archive_class_id" required class="w-full min-h-[44px] text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3 pr-8 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500 @error('class_id') border-rose-400 @enderror">
-                                <option value="">-- Pilih Kelas Alumni --</option>
-                                @foreach ($classes as $c)
-                                    <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
-                                        Kelas {{ $c->name }} ({{ $c->academicYear?->name ?? '-' }}) — {{ $c->students_count }} Siswa Aktif
-                                    </option>
-                                @endforeach
-                            </select>
+                            <div class="relative">
+                                <select name="class_id" id="archive_class_id" required class="w-full min-h-[44px] appearance-none cursor-pointer text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 py-2.5 pl-3.5 pr-10 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 dark:focus:border-rose-400 transition font-medium @error('class_id') border-rose-400 @enderror">
+                                    <option value="">-- Pilih Kelas Alumni --</option>
+                                    @foreach ($classes as $c)
+                                        <option value="{{ $c->id }}" {{ old('class_id') == $c->id ? 'selected' : '' }}>
+                                            Kelas {{ $c->name }} ({{ $c->academicYear?->name ?? '-' }}) — {{ $c->students_count }} Siswa Aktif
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 dark:text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                                </div>
+                            </div>
                             @error('class_id')
                                 <p class="text-rose-500 text-xs mt-1">{{ $message }}</p>
                             @enderror

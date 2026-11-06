@@ -108,7 +108,12 @@ Palet tenang berbasis **teal** (hijau kebiruan) dengan netral **slate**. Semua p
 ### Aturan warna
 - **Jangan mengandalkan warna saja.** Status selalu disertai **teks** (dan ikon bila perlu).
 - Merah (`danger`) hanya untuk galat nyata dan aksi destruktif (hapus). Bukan untuk status laporan atau halaman siswa pada umumnya.
-- Tidak ada gradien mencolok, efek neon, atau latar gelap pekat. **Mode gelap tidak wajib** di versi 1.
+- **Mode Gelap (Dark Mode)** didukung penuh di seluruh halaman dengan sakelar tema (*theme toggle*):
+  - Latar Halaman Dark: `#0E1713`
+  - Permukaan Kartu / Sidebar Dark: `#16231D`
+  - Teks Utama Dark: `#F2F7F4`, Teks Redup: `#94A3B8`
+  - Garis Border Dark: `#1E293B` / `#334155`
+  - Aksen Brand Utama Dark: `#5AE39D` (Emerald lembut kontras tinggi WCAG AAA)
 - Tombol utama: **satu per layar**.
 
 ### Konfigurasi Tailwind
@@ -121,21 +126,17 @@ Tailwind v4 (bawaan terbaru), di `resources/css/app.css`:
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-  --color-primary-50: #F0FDFA;
-  --color-primary-600: #0F766E;
-  --color-primary-700: #115E59;
+  --color-primary-50: #F0F7F3;
+  --color-primary-100: #EAF5EE;
+  --color-primary-500: #1F855F;
+  --color-primary-600: #176B4D;
+  --color-primary-700: #12553D;
 
-  --color-bg: #F8FAFC;
+  --color-bg: #F8FAF9;
   --color-surface: #FFFFFF;
-  --color-ink: #0F172A;
-  --color-ink-muted: #475569;
-  --color-line: #CBD5E1;
-  --color-line-input: #64748B;
-
-  --color-ok: #15803D;
-  --color-warn: #92400E;
-  --color-bad: #B91C1C;
-  --color-note: #0369A1;
+  --color-dark-bg: #0E1713;
+  --color-dark-surface: #16231D;
+  --color-dark-primary: #5AE39D;
 }
 ```
 
@@ -185,13 +186,13 @@ Jika proyek memakai Tailwind v3, pindahkan token yang sama ke `theme.extend.colo
 
 | Peran | Mobile | Desktop |
 |---|---|---|
-| Publik | Header sederhana: nama + tombol **Masuk** | Sama, dengan tautan Beranda/Tata Cara/FAQ |
-| **Siswa** | **Bilah navigasi bawah** 3–4 item: Beranda, Buat Laporan, Riwayat, Profil; lonceng di header | Header dengan menu horizontal |
-| **Guru BK** | Menu hamburger + lonceng di header | Sidebar kiri: Dashboard, Laporan, Kategori, Statistik, Unduh, Profil |
-| **Master** | Menu hamburger | Sidebar kiri: Dashboard, Akun BK, Akun Siswa, Impor Excel, Kelas, Master Data, Konten, Log, Profil |
+| Publik | Header sederhana: nama + tombol **Masuk** | Sama, dengan tautan Beranda/Tata Cara/Tentang |
+| **Siswa** | **Drawer sidebar responsif** + bilah navigasi bawah 4 item: Dashboard, Buat Laporan, Riwayat, Bantuan; lonceng di header | Header dengan menu horizontal & profil terpadu |
+| **Guru BK** | Drawer navigasi + lonceng di header | Sidebar kiri terstruktur: Menu Utama (Dashboard, Kasus Masuk, Statistik), Manajemen (Kategori, Unduh, Laporan Periodik), Akun (Profil) |
+| **Master** | Drawer navigasi | Sidebar kiri 4 seksi semantik: `Menu Utama` (Dashboard), `Manajemen Pengguna` (Siswa, BK, Impor Excel), `Akademik` (Kelas, Tahun Ajaran, Kenaikan Kelas), `Audit & Sistem` (Notifikasi, Laporan Periodik, Log Audit, Pengaturan Web). Dilengkapi indikator aktif pill hijau |
 
-- **Header** selalu menampilkan: nama aplikasi, **lonceng notifikasi** (dengan jumlah belum dibaca), dan menu akun (**Profil**, **Keluar**).
-- Tombol **Keluar Cepat** (bila diaktifkan di Rilis 2) tampil tetap di pojok pada halaman yang relevan.
+- **Header** selalu menampilkan: logo & nama aplikasi, **lonceng notifikasi** (dengan penanda jumlah belum dibaca dan fitur auto-read), tombol toggle tema terang/gelap, dan menu profil pengguna.
+- *Catatan Kebijakan:* Fitur Tombol **Keluar Cepat** telah **dihapus** secara menyeluruh dari antarmuka sesuai arahan institusional madrasah guna mencegah insiden pengalihan jendela yang tidak disengaja.
 
 ---
 
@@ -207,6 +208,28 @@ Jika proyek memakai Tailwind v3, pindahkan token yang sama ke `theme.extend.colo
 
 - Keadaan wajib: normal, hover, **fokus**, nonaktif, dan **memuat** (spinner kecil + teks "Mengirim...").
 - Cegah klik ganda saat memproses (nonaktifkan tombol).
+
+### Gelembung Obrolan (Chat Bubbles)
+Dipakai pada halaman detail laporan siswa (`siswa/reports/show`) dan Guru BK (`bk/reports/show`):
+- **Lebar Dinamis (`w-fit`)**: Gelembung pesan menyesuaikan panjang isi teks secara adaptif dengan batas maksimal `max-w-[85%] sm:max-w-[75%]`. Pesan singkat (seperti kata "sabar") menghasilkan bubble yang ramping dan tidak memanjang ke samping.
+- **Pembersihan Ikon Status**: Tidak menampilkan tanda centang (checkmark) pada bubble obrolan untuk tampilan yang tenang dan tidak ambigu.
+- **Padding Vertikal Rapat**: Jarak dalam vertikal dibuat proporsional (`px-3.5 py-2.5 rounded-2xl`) agar gelembung membungkus teks tanpa ruang kosong berlebih di atas dan bawah.
+- **Perataan Teks Rata Kiri-Kanan (`text-justify`)**: Teks obrolan menggunakan perataan rata kiri-kanan (`text-justify break-words leading-relaxed`) agar bentuk paragraf simetris dan mudah dibaca.
+- **Pembeda Peran**:
+  - Pesan Siswa: Latar hijau madrasah lembut (`bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-900 dark:text-[#5AE39D]`) dengan sudut khas.
+  - Pesan Guru BK: Latar kartu netral (`bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700`).
+
+### Kolom Pilihan Dropdown (`<x-select>` & Filter)
+- Seluruh kolom dropdown memakai class `appearance-none cursor-pointer pl-3.5 pr-10 min-h-[44px] rounded-xl border`.
+- Dilengkapi **ikon panah chevron SVG kustom** (`pointer-events-none absolute right-3.5`) agar tampilan dropdown di seluruh OS dan peramban seragam dan modern.
+- Focus ring: `focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 dark:focus:border-[#5AE39D]`.
+
+### Grup Tombol Aksi Tabel (Table Actions)
+- **Header dan Kolom Terpusat**: Kolom `Aksi` pada tabel data (Akun Siswa, Akun BK, Kategori Kasus, Kelas, Tahun Ajaran) diatur ke posisi tengah (`text-center` pada th dan td).
+- **Grup Tombol Terstruktur**:
+  - Tombol **Ubah**: Ikon pensil + label teks "Ubah", berlatar putih/slate-800 dengan border lembut, hover emerald, dan efek klik `active:scale-95`.
+  - Tombol **Hapus / Arsip**: Ikon tempat sampah + label, berlatar `rose-50/70 dark:bg-rose-950/30` dengan border `rose-200 dark:border-rose-900/60`, teks `rose-600 dark:text-rose-400`.
+- **Isolasi Modal Dialog di Luar Tabel**: Modal konfirmasi (edit/hapus/reset) **wajib diletakkan di luar tag `<table>`** (setelah penutup `</x-table>`) untuk menjaga validitas DOM dan mencegah masalah layering visual / z-index.
 
 ### Form
 - Label **di atas** kolom isian, selalu terlihat (bukan hanya placeholder).
@@ -227,8 +250,8 @@ Jika proyek memakai Tailwind v3, pindahkan token yang sama ke `theme.extend.colo
 Berisi: kategori, tanggal, **badge status**, dan potongan singkat **tanpa** isi sensitif (hindari menampilkan kronologi di daftar). Seluruh kartu dapat disentuh.
 
 ### Tabel (Guru BK dan Master)
-- **Desktop:** tabel dengan header tetap, baris selang-seling lembut, aksi di kolom akhir.
-- **HP:** ubah setiap baris menjadi **kartu** bertumpuk; jangan memaksa tabel lebar.
+- **Desktop:** tabel dengan header tetap, baris selang-seling lembut, aksi di kolom akhir yang terpusat.
+- **HP:** ubah setiap baris menjadi kartu bertumpuk atau tabel dengan scroll horizontal terisolasi.
 - Pencarian dan filter di atas; paginasi di bawah (jangan scroll tak terbatas).
 
 ### Badge status
@@ -245,10 +268,9 @@ Pill kecil dengan teks + warna (lihat bagian 3). Teks selalu ada.
 - Isi **tanpa detail sensitif** (mis. "Ada laporan baru", "Status laporanmu berubah").
 - Hanya muncul saat website dibuka; tidak ada popup yang mengganggu.
 
-### Pesan umpan balik (toast/alert)
-- Berhasil, galat, dan info memakai komponen alert di dalam halaman; toast hanya untuk konfirmasi ringan dan hilang ≥ 6 detik.
-- Pesan penting (galat) **tidak** hilang otomatis.
-- Gunakan `role="status"` / `aria-live="polite"` agar terbaca pembaca layar.
+### Pesan umpan balik (SweetAlert2 & Flash Alert)
+- Terintegrasi dengan **SweetAlert2** untuk notifikasi toast interaktif elegan dan pop-up konfirmasi destruktif.
+- Pesan flash penting (galat validasi formulir) tetap hadir sebagai alert Blade ramah aksesibilitas (`aria-live="polite"`).
 
 ### Keadaan halaman (wajib untuk setiap halaman)
 | Keadaan | Perilaku |
@@ -266,14 +288,18 @@ Pill kecil dengan teks + warna (lihat bagian 3). Teks selalu ada.
 
 ### 8.1 Beranda (publik)
 Urutan bagian dari atas:
-1. **Header**: nama SISPERKA + tombol **Masuk** (+ tombol Keluar Cepat di Rilis 2).
-2. **Hero**: judul hangat, satu kalimat penjelasan, tombol **Masuk**, dan pernyataan kerahasiaan singkat.
-3. **Apa itu SISPERKA**: 2–3 kalimat tentang tujuan.
-4. **Tata cara menggunakan**: **3–4 langkah** bernomor dengan ikon (Masuk dengan NIS → Isi laporan → Pantau status → Guru BK menindaklanjuti). Boleh tiga kartu sejajar di desktop; ditumpuk di HP.
-5. **Jaminan kerahasiaan**: apa yang dapat dan tidak dapat dilihat siapa (jujur).
-6. **Alur penanganan laporan**: langkah dan perkiraan waktu respons.
-7. **FAQ** singkat (akordeon sederhana).
-8. **Footer informasi sekolah**: nama, alamat, kontak, jam layanan Guru BK, tautan Kebijakan Privasi.
+1. **Header**: Logo resmi madrasah, nama SISPERKA, tautan navigasi (Beranda, Tentang, Cara Kerja), sakelar mode gelap, dan tombol **Masuk**.
+2. **Hero**: Judul hangat dengan aksen hijau, kalimat pengantar ramah anak, tombol aksi utama **"Masuk & Buat Laporan"**, dan badge komitmen madrasah.
+3. **Pilar Utama SISPERKA**: Tiga kartu pilar (Kerahasiaan Terjamin, Penanganan Terarah oleh Guru BK, Akses Mudah & Aman).
+4. **Showcase Phone Mockup Interaktif**: Ilustrasi 6 layar HP interaktif berbingkai modern yang memperagakan alur pengisian laporan secara visual kepada siswa.
+5. **Alur Penanganan Laporan**: Linimasa 4 langkah sederhana dari pengiriman, verifikasi BK, tindak lanjut, hingga selesai.
+6. **FAQ Ramah Anak**: Akordeon interaktif pertanyaan yang sering diajukan seputar keamanan data dan proses lapor.
+7. **Footer Institusional 4-Kolom Profesional**:
+   - Kolom 1: Identitas resmi MTs Soebono Mantofani & badge legalitas Permendikbudristek No. 46/2023.
+   - Kolom 2: Navigasi Layanan (Beranda, Buat Laporan, Riwayat, Pusat Bantuan).
+   - Kolom 3: Kebijakan Perlindungan Siswa & Ketentuan Kerahasiaan Data.
+   - Kolom 4: Ruang Konseling BK, jam layanan aktif, dan kontak darurat sekolah.
+   - Sub-footer: Hak cipta dan tombol kembali ke atas (*back to top*).
 
 Hero **boleh rata tengah**. Ilustrasi sederhana (SVG ringan); tanpa foto siswa asli.
 
@@ -412,10 +438,10 @@ Sebuah halaman UI dianggap selesai bila:
 
 ---
 
-## 16. Pertanyaan Terbuka
+## 16. Pertanyaan Terbuka & Keputusan yang Telah Ditetapkan
 
-- [ ] Apakah madrasah memiliki **logo** dan **warna identitas** yang harus dipakai? (Jika ya, sesuaikan `primary` dan tetap cek kontrasnya.)
-- [ ] Apakah ada **nama atau wajah maskot** yang disukai sekolah (opsional)?
-- [ ] Apakah tampilan perlu menyertakan **bahasa/nuansa keagamaan** (mis. salam pembuka) pada beranda?
-- [ ] **Teks FAQ, "Tata Cara", dan jaminan kerahasiaan** perlu ditinjau Guru BK dan kepala madrasah.
-- [ ] Apakah siswa diizinkan memakai **mode gelap** (belum diwajibkan di versi 1)?
+- [x] **Logo dan Warna Identitas Madrasah:** Menggunakan logo resmi MTs Soebono Mantofani (`logo-sekolah.png`) dan palet warna primer hijau madrasah (Emerald `#176B4D` di mode terang dan `#5AE39D` di mode gelap) yang telah diverifikasi lulus standar kontras WCAG AA.
+- [x] **Dukungan Mode Gelap (Dark Mode):** Diimplementasikan penuh dengan sakelar tema global yang tersimpan di `localStorage` peramban untuk kenyamanan seluruh pengguna (Siswa, Guru BK, Master).
+- [x] **Teks FAQ, Tata Cara, & Jaminan Kerahasiaan:** Telah diselaraskan dengan amanat Permendikbudristek No. 46/2023 dan pedoman perlindungan anak madrasah.
+- [ ] Apakah ada nama atau wajah maskot yang disukai sekolah (opsional)?
+- [ ] Apakah tampilan perlu menyertakan bahasa/nuansa keagamaan khusus (mis. salam pembuka) pada beranda publik?

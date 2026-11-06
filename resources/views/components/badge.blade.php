@@ -1,12 +1,14 @@
 @props([
-    'variant' => 'default', // default, success, warning, danger, info, primary, or status names: baru, diverifikasi, diproses, selesai, ditolak
+    'variant' => 'default', // default, success, warning, danger, info, primary, neutral, or status names: diterima, diverifikasi, dalam_penanganan, selesai, ditolak
     'size' => 'md', // sm, md, lg
     'withDot' => true,
 ])
 
 @php
+    $normalizedVariant = strtolower(str_replace(' ', '_', (string) $variant));
+
     $dotClasses = [
-        'default' => 'bg-slate-500',
+        'default' => 'bg-slate-500 dark:bg-slate-400',
         'success' => 'bg-emerald-600 dark:bg-[#5AE39D]',
         'warning' => 'bg-amber-500 dark:bg-[#FAD46B]',
         'danger' => 'bg-red-500 dark:bg-red-400',
@@ -15,10 +17,12 @@
         'teal' => 'bg-emerald-600 dark:bg-[#5AE39D]',
         'neutral' => 'bg-slate-500 dark:bg-slate-400',
 
-        // Status Laporan Resmi SISPERKA
+        // Status Laporan Resmi SIPERKA (Sesuai Frontend StatusBadge.tsx)
+        'diterima' => 'bg-slate-500 dark:bg-slate-300',
         'baru' => 'bg-slate-500 dark:bg-slate-300',
         'diverifikasi' => 'bg-[#176B4D] dark:bg-[#5AE39D]',
         'sudah_dibaca' => 'bg-[#176B4D] dark:bg-[#5AE39D]',
+        'dalam_penanganan' => 'bg-amber-500 dark:bg-[#FAD46B]',
         'diproses' => 'bg-amber-500 dark:bg-[#FAD46B]',
         'sedang_ditangani' => 'bg-amber-500 dark:bg-[#FAD46B]',
         'selesai' => 'bg-[#176B4D] dark:bg-[#5AE39D]',
@@ -36,10 +40,12 @@
         'teal' => 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800',
         'neutral' => 'bg-slate-100 text-slate-700 border-slate-300 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700',
 
-        // Status Laporan Resmi
-        'baru' => 'bg-status-received-bg text-status-received-text border-slate-300/80 dark:border-slate-700',
+        // Status Laporan Resmi SIPERKA (Sesuai Frontend StatusBadge.tsx)
+        'diterima' => 'bg-status-received-bg text-status-received-text border-slate-300/80 dark:border-slate-700/70',
+        'baru' => 'bg-status-received-bg text-status-received-text border-slate-300/80 dark:border-slate-700/70',
         'diverifikasi' => 'bg-status-verified-bg text-status-verified-text border-emerald-300/70 dark:border-emerald-800/60',
         'sudah_dibaca' => 'bg-status-verified-bg text-status-verified-text border-emerald-300/70 dark:border-emerald-800/60',
+        'dalam_penanganan' => 'bg-status-processing-bg text-status-processing-text border-amber-300/70 dark:border-amber-800/60',
         'diproses' => 'bg-status-processing-bg text-status-processing-text border-amber-300/70 dark:border-amber-800/60',
         'sedang_ditangani' => 'bg-status-processing-bg text-status-processing-text border-amber-300/70 dark:border-amber-800/60',
         'selesai' => 'bg-status-completed-bg text-status-completed-text border-emerald-300/70 dark:border-emerald-800/60',
@@ -53,8 +59,8 @@
         'lg' => 'px-3.5 py-1.5 text-sm font-semibold',
     ];
 
-    $classes = 'inline-flex items-center gap-1.5 font-semibold rounded-full border shadow-2xs ' . ($variants[$variant] ?? $variants['default']) . ' ' . ($sizes[$size] ?? $sizes['md']);
-    $dotClass = $dotClasses[$variant] ?? $dotClasses['default'];
+    $classes = 'inline-flex items-center gap-1.5 font-semibold rounded-full border shadow-2xs ' . ($variants[$normalizedVariant] ?? $variants['default']) . ' ' . ($sizes[$size] ?? $sizes['md']);
+    $dotClass = $dotClasses[$normalizedVariant] ?? $dotClasses['default'];
 @endphp
 
 <span {{ $attributes->merge(['class' => $classes]) }}>
