@@ -118,7 +118,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('classes', SchoolClassController::class)->except(['create', 'show', 'edit']);
 
         // Akun Guru BK
-        Route::resource('bk-users', BkUserController::class);
+        Route::resource('bk-users', BkUserController::class)->except(['show', 'destroy']);
         Route::post('bk-users/{bkUser}/toggle-status', [BkUserController::class, 'toggleStatus'])->name('bk-users.toggle-status');
         Route::delete('bk-users/{bkUser}/archive', [BkUserController::class, 'archive'])->name('bk-users.archive');
         Route::post('bk-users/{id}/restore', [BkUserController::class, 'restore'])->name('bk-users.restore');
@@ -126,7 +126,7 @@ Route::middleware('auth')->group(function () {
         Route::post('bk-users/{bkUser}/reset-password', [BkUserController::class, 'resetPassword'])->name('bk-users.reset-password');
 
         // Akun Siswa
-        Route::resource('students', StudentUserController::class);
+        Route::resource('students', StudentUserController::class)->except(['show', 'destroy']);
         Route::post('students/{student}/toggle-status', [StudentUserController::class, 'toggleStatus'])->name('students.toggle-status');
         Route::delete('students/{student}/archive', [StudentUserController::class, 'archive'])->name('students.archive');
         Route::post('students/{id}/restore', [StudentUserController::class, 'restore'])->name('students.restore');

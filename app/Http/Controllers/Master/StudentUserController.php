@@ -100,7 +100,7 @@ class StudentUserController extends Controller
             'password.min' => 'Kata sandi minimal 8 karakter.',
         ]);
 
-        $plainPassword = ! empty($validated['password']) ? $validated['password'] : ('Siswa'.Str::random(3).'!'.rand(10, 99));
+        $plainPassword = ! empty($validated['password']) ? $validated['password'] : 'SiswaMTS!';
 
         $user = User::create([
             'role' => 'siswa',
@@ -120,8 +120,8 @@ class StudentUserController extends Controller
             subjectId: (string) $user->id
         );
 
-        return redirect()->route('master.students.index', ['class_id' => $user->class_id])
-            ->with('success', "Akun siswa {$user->name} berhasil dibuat. Kata sandi awal: {$plainPassword}");
+        return redirect()->route('master.students.create')
+            ->with('success', "Akun siswa {$user->name} (NIS: {$user->login_id}) berhasil dibuat. Kata sandi awal: {$plainPassword}.");
     }
 
     /**
@@ -291,7 +291,7 @@ class StudentUserController extends Controller
     {
         abort_unless($student->role === 'siswa', 404);
 
-        $newPassword = 'Siswa'.Str::random(3).'!'.rand(10, 99);
+        $newPassword = 'SiswaMTS!';
 
         $student->update([
             'password' => Hash::make($newPassword),
@@ -306,6 +306,6 @@ class StudentUserController extends Controller
         );
 
         return back()
-            ->with('success', "Kata sandi siswa {$student->name} berhasil direset. Kata sandi sementara: {$newPassword}");
+            ->with('success', "Kata sandi siswa {$student->name} berhasil direset ke kata sandi default: {$newPassword}");
     }
 }

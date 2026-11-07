@@ -95,17 +95,9 @@
         </div>
 
         {{-- Hubungi BK --}}
-        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-                <p class="text-sm font-bold text-slate-900 dark:text-slate-100">Punya pertanyaan seputar keamanan dan privasi?</p>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Guru Bimbingan & Konseling MTs Soebono Mantofani siap menjawab keraguanmu di ruang BK madrasah.</p>
-            </div>
-            <a href="{{ route('home') }}" class="min-h-[44px] inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition active:scale-[0.98]">
-                &larr; Kembali ke Beranda
-            </a>
-        </div>
-                &larr; Kembali ke Beranda
-            </a>
+        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 space-y-1">
+            <p class="text-sm font-bold text-slate-900 dark:text-slate-100">Punya pertanyaan seputar keamanan dan privasi?</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Guru Bimbingan & Konseling {{ \App\Models\Setting::get('school_name', 'MTs Soebono Mantofani') }} siap menjawab keraguanmu di ruang BK madrasah.</p>
         </div>
     </div>
 </x-layouts.public>

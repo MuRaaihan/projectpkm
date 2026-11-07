@@ -191,7 +191,9 @@ Tanda: 🔒 = terenkripsi · 🔑 = primary key · ⛓ = foreign key · ✦ = un
 | `created_at` | timestamp | |
 
 **Index:** (`user_id`, `read_at`), (`user_id`, `created_at`)
-**Aturan:** isi notifikasi **tidak boleh memuat kronologi, nama terlapor, atau nama pelapor rahasia**.
+**Aturan:**
+- Isi notifikasi **tidak boleh memuat kronologi, nama terlapor, atau nama pelapor rahasia**.
+- Notifikasi hanya dialokasikan untuk Siswa dan Guru BK terkait proses penanganan laporan. Akun Master tidak menerima notifikasi laporan.
 
 ### 3.11 `activity_logs` (append-only)
 | Kolom | Tipe | Keterangan |
@@ -321,7 +323,14 @@ class Report extends Model
 - Migrasi `reports`: `$table->uuid('id')->primary();` dan kolom `description`/`accused_name` bertipe `text`.
 - Kolom `report_id` di tabel anak: `$table->foreignUuid('report_id')->constrained()->cascadeOnDelete();`
 - **Simpan `APP_KEY` dengan aman dan cadangkan terpisah dari backup database.** Tanpa `APP_KEY` yang sama, data terenkripsi **tidak bisa dibaca lagi**. Jangan pernah mengganti `APP_KEY` di produksi tanpa prosedur rotasi.
-- Pencarian teks pada kronologi **tidak tersedia** (kolom terenkripsi). Pencarian daftar laporan hanya lewat status, kategori, kelas, tanggal, dan urgensi.
+- Pencarian teks pada kolom kronologi (`description`) sengaja **tidak dilakukan** demi keamanan (kolom terenkripsi). Namun, pencarian teks multi-kriteria pada Laporan Masuk Guru BK (`BkReportController@index`) mencakup:
+  - Nomor tiket / ID laporan (dengan pembersihan otomatis awalan `#LAP-` atau `#`),
+  - Lokasi kejadian (`location`),
+  - Kelas pelapor (`reporter_class_name`),
+  - Peran pelapor (`reporter_role`: korban / saksi),
+  - Kategori perundungan (`category.name`),
+  - Nama dan NIS pelapor non-anonim (`reporter.name`, `reporter.login_id`).
+  - Aturan FR-02 ditegakkan: identitas pelapor yang dirahasiakan (`is_hidden_identity = true`) **tidak akan pernah cocok** saat dicari berdasarkan nama siswa.
 - Pakai **Policy** untuk `Report`: siswa hanya `view` bila `reporter_id == auth()->id()`; `bk` boleh semua; `master` **tidak boleh** `view`.
 
 ## 8. Retensi dan Pencadangan

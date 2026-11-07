@@ -99,21 +99,99 @@
                 </div>
 
                 {{-- Input File --}}
-                <div class="space-y-2">
-                    <label for="excel_file" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 block">
-                        Pilih Berkas Excel (.xlsx) <span class="text-rose-500 font-semibold ml-0.5">*</span>
-                    </label>
-                    <input 
-                        type="file" 
-                        name="file" 
-                        id="excel_file" 
-                        accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
-                        required 
-                        class="block w-full min-h-[44px] text-xs sm:text-sm text-slate-600 dark:text-slate-300 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 dark:file:bg-emerald-950/50 file:text-emerald-700 dark:file:text-emerald-400 hover:file:bg-emerald-100 border border-slate-200 dark:border-slate-700 rounded-xl cursor-pointer bg-white dark:bg-slate-800"
-                    />
-                    <p class="text-xs text-slate-400">Maksimal ukuran file 2 MB. Hanya format <code>.xlsx</code> resmi yang diizinkan.</p>
+                <div class="space-y-2.5" 
+                     x-data="{ 
+                         fileName: '', 
+                         fileSize: '', 
+                         isDragging: false, 
+                         clearFile() { 
+                             this.fileName = ''; 
+                             this.fileSize = ''; 
+                             this.$refs.fileInput.value = ''; 
+                         } 
+                     }">
+                    <div class="flex items-center justify-between">
+                        <label for="excel_file" class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 block">
+                            Pilih Berkas Excel (.xlsx) <span class="text-rose-500 font-semibold ml-0.5">*</span>
+                        </label>
+                        <button 
+                            type="button" 
+                            x-show="fileName" 
+                            @click="clearFile()" 
+                            class="text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 font-medium transition cursor-pointer flex items-center gap-1"
+                            x-cloak
+                        >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            <span>Hapus / Ganti Berkas</span>
+                        </button>
+                    </div>
+
+                    {{-- Dropzone Area --}}
+                    <div 
+                        class="relative border-2 border-dashed rounded-2xl p-6 sm:p-8 text-center transition-all duration-200 cursor-pointer overflow-hidden"
+                        :class="isDragging ? 'border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 ring-4 ring-emerald-500/10' : (fileName ? 'border-emerald-400 dark:border-emerald-700 bg-emerald-50/40 dark:bg-emerald-950/20' : 'border-slate-300 dark:border-slate-700 hover:border-emerald-500 dark:hover:border-emerald-500 bg-slate-50/60 dark:bg-slate-900/40 hover:bg-emerald-50/30 dark:hover:bg-slate-900/60')"
+                        @dragover.prevent="isDragging = true"
+                        @dragleave.prevent="isDragging = false"
+                        @drop.prevent="isDragging = false; if ($event.dataTransfer.files.length) { $refs.fileInput.files = $event.dataTransfer.files; $refs.fileInput.dispatchEvent(new Event('change')); }"
+                    >
+                        <input 
+                            x-ref="fileInput"
+                            type="file" 
+                            name="file" 
+                            id="excel_file" 
+                            accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
+                            required 
+                            @change="
+                                if ($event.target.files.length) {
+                                    fileName = $event.target.files[0].name;
+                                    let sz = $event.target.files[0].size;
+                                    fileSize = sz < 1024 * 1024 ? (sz / 1024).toFixed(1) + ' KB' : (sz / (1024 * 1024)).toFixed(2) + ' MB';
+                                } else {
+                                    clearFile();
+                                }
+                            "
+                            class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        />
+
+                        {{-- Keadaan 1: Belum Ada Berkas yang Dipilih --}}
+                        <div x-show="!fileName" class="flex flex-col items-center justify-center gap-3">
+                            <div class="w-13 h-13 rounded-2xl bg-emerald-100/90 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-400 border border-emerald-200/80 dark:border-emerald-800/60 flex items-center justify-center shadow-xs">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </div>
+                            <div class="space-y-1">
+                                <p class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100">
+                                    <span class="text-emerald-700 dark:text-emerald-400 font-extrabold underline underline-offset-4 hover:text-emerald-800">Klik untuk memilih berkas</span> atau seret file Excel ke sini
+                                </p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">
+                                    Format berkas resmi: <span class="font-bold text-slate-700 dark:text-slate-300">.xlsx</span> (Maksimal ukuran 2 MB)
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Keadaan 2: Berkas Telah Dipilih --}}
+                        <div x-show="fileName" class="flex items-center justify-center gap-4 py-2" x-cloak>
+                            <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-xs shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </div>
+                            <div class="text-left min-w-0 max-w-sm">
+                                <div class="flex items-center gap-2">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300">
+                                        Berkas Excel Terpilih
+                                    </span>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400 font-medium" x-text="fileSize"></span>
+                                </div>
+                                <p class="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 truncate mt-1" x-text="fileName"></p>
+                                <p class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold mt-0.5">Siap divalidasi ke tahap pratinjau</p>
+                            </div>
+                        </div>
+                    </div>
+
                     @error('file')
-                        <p class="text-xs text-rose-500 font-medium mt-0.5">{{ $message }}</p>
+                        <p class="text-xs text-rose-500 font-medium mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -127,7 +205,7 @@
                     </p>
                     <ul class="list-disc list-inside space-y-1">
                         <li>Seluruh rumus formula dievaluasi secara statis untuk mencegah injeksi formula Excel.</li>
-                        <li>Kata sandi dibuat acak secara individual untuk tiap pengguna dan diwajibkan ganti pada saat masuk pertama kali.</li>
+                        <li>Kata sandi awal diberikan format aman standar madrasah (<code>SiswaMTS!</code> untuk siswa atau <code>GuruBKMTS!</code> untuk Guru BK) bila dikosongkan dan wajib diganti pada saat masuk pertama kali.</li>
                         <li>Kredensial akun hanya dapat diunduh <strong>1 (satu) kali</strong> sesaat setelah data berhasil disimpan ke database.</li>
                     </ul>
                 </div>

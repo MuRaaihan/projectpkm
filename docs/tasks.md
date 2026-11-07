@@ -423,6 +423,35 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
   - Penataan semantik sidebar Master (`Menu Utama`, `Manajemen Pengguna`, `Akademik`, `Audit & Sistem`) dengan indikator pill hijau seragam.
   - Modernisasi seluruh dropdown Master & komponen `<x-select>` global dengan `appearance-none` dan ikon panah chevron SVG kustom.
   - Perapihan tombol aksi Master Kelas & Tahun Ajaran (posisi tengah, grup tombol Ubah/Hapus, modal isolasi di luar tabel).
+- [x] **Pembersihan Menu & Reorganisasi Sidebar Master**:
+  - Penghapusan menu Notifikasi pada dashboard Master karena Master berfokus pada administrasi akun dan konfigurasi sistem (bukan penanganan laporan insiden siswa).
+  - Reorganisasi dan penyederhanaan nama menu sidebar Master:
+    - `Data Pengguna` diubah menjadi `Kelola Akun` (`Akun Siswa`, `Akun Guru BK`).
+    - `Data Akademik` diubah menjadi `Akademik & Kelas` (`Tahun Ajaran`, `Daftar Kelas`, `Kenaikan & Mutasi`).
+    - `Impor & Pengaturan` diubah menjadi `Sistem & Konfigurasi` (`Impor Siswa`, `Pengaturan Sistem`).
+- [x] **Perapihan Tata Letak Rekap Laporan Berkala (`reports/periodic/index.blade.php`, `show.blade.php`)**:
+  - Tata letak halaman rekapitulasi diperbaiki dengan kartu KPI modern, filter periode yang terstruktur rapi, tabel ringkasan terpusat, dan tombol aksi ekspor/cetak terintegrasi.
+- [x] **Integrasi SweetAlert2 pada Seluruh Dashboard Master**:
+  - Penggantian dialog konfirmasi browser native (`confirm()`) dengan modal SweetAlert2 yang interaktif dan ramah untuk seluruh aksi penting (Hapus Siswa, Hapus Guru BK, Reset Password, Hapus Kelas, Hapus Tahun Ajaran, Kenaikan Kelas, dsb).
+  - Tampilan umpan balik flash session (`success`, `error`, `warning`, `info`) terintegrasi langsung dengan SweetAlert2 toast & pop-up.
+- [x] **Penyempurnaan Formulir Pembuatan Akun Siswa & Guru BK**:
+  - Penghapusan tombol *Reset Form* manual yang membingungkan.
+  - Eliminasi tombol ganda ("Simpan & Tambah Baru"), menetapkan satu tombol submit utama ("Simpan Akun Siswa" / "Simpan Akun Guru BK").
+  - Redirect controller (`StudentUserController@store` & `BkUserController@store`) diarahkan kembali ke route create dengan flash `success`, sehingga formulir ter-reset bersih secara otomatis.
+- [x] **Redesain Filter & Segmented Tab Status Laporan Masuk Guru BK (`bk/reports/index.blade.php`)**:
+  - Mengintegrasikan floating tab status (`Semua`, `Baru`, `Diverifikasi`, `Diproses`, `Selesai`, `Ditolak`) dan formulir filter ke dalam satu wadah kartu terpadu (`bg-white dark:bg-[#16231D]`).
+  - Bar tab status berbentuk segmented control dengan dot indikator warna status, badge hitungan font monospace, dan status aktif kontras tinggi.
+  - Formulir filter disusun dalam grid 12 kolom presisi (Search 5 kolom, Kategori 3 kolom, Urgensi 2 kolom, Kelas 2 kolom) dilengkapi baris aksi pencarian yang bersih.
+- [x] **Perbaikan & Optimalisasi Fitur Pencarian Laporan Masuk Guru BK (`BkReportController@index`)**:
+  - Mendiagnosis dan memperbaiki masalah pencarian laporan masuk yang sebelumnya gagal menemukan laporan:
+    - Normalisasi otomatis nomor tiket UI (`#LAP-...` atau `LAP-...`) ke format UUID database.
+    - Penambahan kueri pencarian ke lokasi kejadian (`location`).
+    - Penambahan kueri pencarian ke kategori perundungan (`category.name`).
+    - Penambahan kueri pencarian ke nama kelas (`reporter_class_name`).
+    - Penambahan kueri pencarian ke peran pelapor (`reporter_role`).
+    - Penambahan kueri pencarian ke nama dan NIS pelapor non-anonim (`reporter.name`, `reporter.login_id`).
+    - Penegakan privasi FR-02 (nama pelapor rahasia/anonim tidak akan bocor melalui pencarian nama siswa).
+    - Penambahan automated feature test pencarian di `BkReportManagementTest.php` dengan 100% kelulusan (15 tes, 87 asersi).
 
 ---
 
@@ -441,6 +470,8 @@ Gunakan bagian ini untuk mencatat keputusan, kendala, atau hal yang perlu ditany
 | 17 Okt 2026 | 10 | Fase 10 tuntas: FR-08 (Autentikasi 2FA TOTP RFC 6238 mandiri & aman untuk staf Master/BK tanpa pihak ketiga, 8 recovery codes darurat, tantangan login rate-limited), Laporan Periodik Otomatis (bulanan/semesteran dengan agregasi anonim), Evaluasi Retensi Data (perintah audit retensi konsol & pengaturan retensi tahunan di Master). Total 124 pengujian otomatis lulus (100% green). |
 | 2 Nov 2026 | 11 | Migrasi desain frontend Next.js ke Blade selesai 100%. Dilakukan standarisasi komponen dasar, penyesuaian mode gelap, eliminasi tombol Keluar Cepat, pembersihan alur FAQ & alur lama, perancangan footer institusional 4-kolom, serta integrasi SweetAlert2. |
 | 6 Nov 2026 | 11 | Sesi pemolesan UI/UX intensif: optimalisasi gelembung obrolan chat (w-fit, no checkmark, tight spacing, text-justify), pembersihan dashboard BK & integrasi tombol Buka Kasus, pemolesan aksi kategori kasus BK, standardisasi tombol kembali siswa, restrukturisasi semantik sidebar Master, modernisasi seluruh dropdown menu Master dengan chevron SVG kustom, serta perapihan tombol aksi Master Kelas & Tahun Ajaran. |
+| 7 Nov 2026 | 11 | Perbaikan keamanan & UX: eliminasi ikon mata ganda Edge/IE pada input login password (CSS ::-ms-reveal & ::-ms-clear reset), pengamanan Back Button pasca-logout (OWASP Cache-Control no-store/no-cache di SecurityHeaders, Clear-Site-Data: "cache" saat logout, serta proteksi client-side bfcache restoration di layouts.app), eliminasi tombol mode gelap ganda di sidebar footer, standardisasi kontrol navbar (tinggi seragam h-9, 2FA status, divider), perbaikan scroll independen sidebar Master (`h-screen max-h-screen inset-y-0 fixed` + `overflow-y-auto min-h-0`), penambahan footer resmi institusi 4-kolom berisikan informasi sekolah dinamis (Alamat, Telepon, Email, Lokasi & Jam Konseling BK, Bantuan Darurat, Tautan Cepat) pada halaman publik (`x-layouts.public`), pembersihan tautan manual kembali di `privacy.blade.php`, penambahan tombol melayang lingkaran *Kembali ke Atas* dengan ikon V terbalik (^), modernisasi area input berkas Excel Master (`master/import/index.blade.php`) dengan dropzone interaktif drag-and-drop, perbaikan bug `ErrorException: Undefined array key "row_index"` pada pratinjau impor Excel, optimasi impor massal ratusan baris via Pre-Computed Hash & Chunked Bulk Insert (< 1 detik untuk 1.000 data), standardisasi kata sandi default siswa (`SiswaMTS!`) dan Guru BK (`GuruBKMTS!`), serta penguncian status laporan yang telah selesai di panel Tindak Lanjut Kasus Guru BK (`bk/reports/show.blade.php` & `BkReportController.php`) beserta penghapusan input catatan riwayat perubahan. |
+| 7 Nov 2026 | 11 | Penyempurnaan alur kerja Master & Guru BK: eliminasi menu Notifikasi Master (fokus Master pada tata kelola akun), perbaikan struktur & penamaan semantik navigasi sidebar Master (`Kelola Akun`, `Akademik & Kelas`, `Sistem & Konfigurasi`), perapihan tata letak halaman Rekap Laporan Berkala (`reports/periodic/index` & `show`), integrasi SweetAlert2 pada seluruh dashboard Master (dialog konfirmasi aksi destruktif & notifikasi toast otomatis), penghapusan tombol reset form manual dan eliminasi tombol ganda pada pembuatan akun siswa/BK dengan auto-reset via controller redirect, perancangan ulang antarmuka filter & segmented tab status Laporan Masuk BK dalam kontainer terpadu (`bk/reports/index.blade.php`), serta perbaikan fungsionalitas pencarian multi-kriteria laporan BK (tiket `#LAP-...`, lokasi kejadian, kelas, peran, kategori, nama/NIS pelapor) dengan proteksi privasi pelapor rahasia (FR-02). |
 
 ### Pertanyaan terbuka dari PRD yang perlu dijawab (blokir beberapa tugas)
 - [ ] Siapa penanggung jawab sistem dan pemegang akun Master? _(Fase 0, 8)_

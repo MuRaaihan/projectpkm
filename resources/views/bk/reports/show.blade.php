@@ -509,61 +509,70 @@
                         </span>
                     </div>
 
-                    <form method="POST" action="{{ route('bk.reports.update-status', $report) }}" 
-                          x-data="{ currentStatus: '{{ old('status', $report->status) }}' }" 
-                          class="space-y-4">
-                        @csrf
-                        @method('PUT')
-
-                        <div>
-                            <label for="status_select" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Perbarui Status</label>
-                            <div class="relative">
-                                <select id="status_select" name="status" x-model="currentStatus"
-                                    class="w-full appearance-none pl-3.5 pr-8 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition min-h-[42px] cursor-pointer">
-                                    <option value="baru">Baru</option>
-                                    <option value="diverifikasi">Sudah dibaca (Diverifikasi)</option>
-                                    <option value="diproses">Sedang ditangani (Diproses)</option>
-                                    <option value="selesai">Selesai</option>
-                                    <option value="ditolak">Tidak dapat diproses (Ditolak)</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                                </div>
+                    @if ($report->status === 'selesai')
+                        <div class="p-4 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200/80 dark:border-emerald-800/60 text-center space-y-2.5">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-[#5AE39D] flex items-center justify-center mx-auto shadow-2xs">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                             </div>
-                            @error('status')
-                                <p class="text-xs text-rose-600 mt-1">{{ $message }}</p>
-                            @enderror
+                            <div>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-emerald-600 text-white shadow-2xs mb-1">
+                                    Kasus Selesai
+                                </span>
+                                <p class="text-xs font-bold text-slate-800 dark:text-slate-100">
+                                    Penanganan kasus telah ditandai selesai.
+                                </p>
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+                                    Status kasus ini bersifat final dan tidak dapat diperbarui lagi.
+                                </p>
+                            </div>
                         </div>
+                    @else
+                        <form method="POST" action="{{ route('bk.reports.update-status', $report) }}" 
+                              x-data="{ currentStatus: '{{ old('status', $report->status) }}' }" 
+                              class="space-y-4">
+                            @csrf
+                            @method('PUT')
 
-                        {{-- Alasan Wajib Jika Ditolak --}}
-                        <div x-show="currentStatus === 'ditolak'" style="display: none;" class="space-y-1">
-                            <label for="reject_reason" class="block text-xs font-bold text-rose-700 dark:text-rose-400">
-                                Alasan Tidak Dapat Diproses <span class="text-rose-600">*</span>
-                            </label>
-                            <textarea id="reject_reason" name="reject_reason" rows="3"
-                                placeholder="Jelaskan alasan yang sopan dan mendidik mengapa laporan ini belum dapat diproses..." 
-                                class="w-full px-3 py-2 text-xs sm:text-sm border border-rose-300 dark:border-rose-800 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500">{{ old('reject_reason', $report->reject_reason) }}</textarea>
-                            @error('reject_reason')
-                                <p class="text-xs text-rose-600 mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+                            <div>
+                                <label for="status_select" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Perbarui Status</label>
+                                <div class="relative">
+                                    <select id="status_select" name="status" x-model="currentStatus"
+                                        class="w-full appearance-none pl-3.5 pr-8 py-2.5 text-xs sm:text-sm font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition min-h-[42px] cursor-pointer">
+                                        <option value="baru">Baru</option>
+                                        <option value="diverifikasi">Sudah dibaca (Diverifikasi)</option>
+                                        <option value="diproses">Sedang ditangani (Diproses)</option>
+                                        <option value="selesai">Selesai</option>
+                                        <option value="ditolak">Tidak dapat diproses (Ditolak)</option>
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                                    </div>
+                                </div>
+                                @error('status')
+                                    <p class="text-xs text-rose-600 mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        {{-- Catatan Opsional untuk Riwayat --}}
-                        <div x-show="currentStatus !== 'ditolak'" class="space-y-1">
-                            <label for="status_note" class="block text-xs font-bold text-slate-700 dark:text-slate-300">
-                                Catatan Riwayat Perubahan (Opsional)
-                            </label>
-                            <input type="text" id="status_note" name="status_note" 
-                                placeholder="Contoh: Telah memanggil pelapor ke ruang BK" 
-                                class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition">
-                        </div>
+                            {{-- Alasan Wajib Jika Ditolak --}}
+                            <div x-show="currentStatus === 'ditolak'" style="display: none;" class="space-y-1">
+                                <label for="reject_reason" class="block text-xs font-bold text-rose-700 dark:text-rose-400">
+                                    Alasan Tidak Dapat Diproses <span class="text-rose-600">*</span>
+                                </label>
+                                <textarea id="reject_reason" name="reject_reason" rows="3"
+                                    placeholder="Jelaskan alasan yang sopan dan mendidik mengapa laporan ini belum dapat diproses..." 
+                                    class="w-full px-3 py-2 text-xs sm:text-sm border border-rose-300 dark:border-rose-800 rounded-xl bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500">{{ old('reject_reason', $report->reject_reason) }}</textarea>
+                                @error('reject_reason')
+                                    <p class="text-xs text-rose-600 mt-1">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <button type="submit" 
-                                class="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[42px] bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white text-xs font-bold rounded-xl shadow-xs transition cursor-pointer active:scale-[0.98]">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            <span>Perbarui Status Laporan</span>
-                        </button>
-                    </form>
+                            <button type="submit" 
+                                    class="w-full inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[42px] bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white text-xs font-bold rounded-xl shadow-xs transition cursor-pointer active:scale-[0.98]">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                <span>Perbarui Status Laporan</span>
+                            </button>
+                        </form>
+                    @endif
                 </div>
 
                 {{-- Tingkat Urgensi Kasus (FR-27) --}}

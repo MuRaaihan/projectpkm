@@ -159,4 +159,52 @@ class ExcelImportTest extends TestCase
         $secondResponse->assertRedirect(route('master.import.index'));
         $secondResponse->assertSessionHas('error');
     }
+
+    /**
+     * Tampilan pratinjau impor berhasil merender baris valid dan tidak valid tanpa error undefined key.
+     */
+    public function test_import_preview_view_renders_correctly_with_invalid_and_valid_rows(): void
+    {
+        $token = 'test-preview-token';
+        $valid = [
+            [
+                'row_num' => 2,
+                'row_index' => 2,
+                'nis' => '20261001',
+                'name' => 'Budi Santoso',
+                'nama' => 'Budi Santoso',
+                'class_id' => $this->class->id,
+                'class_name' => $this->class->name,
+                'gender' => 'L',
+                'password' => '',
+            ],
+        ];
+        $invalid = [
+            [
+                'row_num' => 3,
+                'row_index' => 3,
+                'nis' => '20261002',
+                'name' => 'Siti Aisyah',
+                'nama' => 'Siti Aisyah',
+                'class_name' => 'VIII-B',
+                'class_id' => null,
+                'gender' => 'P',
+                'password' => '',
+                'errors' => ["Kelas 'VIII-B' belum terdaftar di data master kelas."],
+            ],
+        ];
+
+        $view = $this->actingAs($this->master)->view('master.import.preview', [
+            'token' => $token,
+            'type' => 'siswa',
+            'total' => 2,
+            'valid' => $valid,
+            'invalid' => $invalid,
+        ]);
+
+        $view->assertSee('Hasil Verifikasi Data Impor');
+        $view->assertSee('#3');
+        $view->assertSee('Budi Santoso');
+        $view->assertSee("Kelas &#039;VIII-B&#039; belum terdaftar", false);
+    }
 }

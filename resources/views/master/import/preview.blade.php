@@ -65,17 +65,17 @@
                             @foreach ($invalid as $item)
                                 <tr class="hover:bg-rose-50/50 dark:hover:bg-rose-950/20">
                                     <td class="p-3 font-mono font-bold text-rose-800 dark:text-rose-300">
-                                        #{{ $item['row_index'] }}
+                                        #{{ $item['row_num'] ?? $item['row_index'] ?? ($loop->iteration + 1) }}
                                     </td>
                                     <td class="p-3 text-slate-800 dark:text-slate-200">
                                         @if ($type === 'siswa')
-                                            NIS: <strong>{{ $item['raw_data']['nis'] ?? '-' }}</strong> | Nama: {{ $item['raw_data']['nama'] ?? '-' }} | Kelas: {{ $item['raw_data']['kelas'] ?? '-' }}
+                                            NIS: <strong>{{ $item['nis'] ?? $item['raw_data']['nis'] ?? '-' }}</strong> | Nama: {{ $item['name'] ?? $item['nama'] ?? $item['raw_data']['nama'] ?? '-' }} | Kelas: {{ $item['class_name'] ?? $item['kelas'] ?? $item['raw_data']['kelas'] ?? '-' }}
                                         @else
-                                            NIP/User: <strong>{{ $item['raw_data']['nip'] ?? '-' }}</strong> | Nama: {{ $item['raw_data']['nama'] ?? '-' }}
+                                            NIP/User: <strong>{{ $item['nip'] ?? $item['raw_data']['nip'] ?? '-' }}</strong> | Nama: {{ $item['name'] ?? $item['nama'] ?? $item['raw_data']['nama'] ?? '-' }}
                                         @endif
                                     </td>
                                     <td class="p-3 text-rose-600 dark:text-rose-400 font-medium">
-                                        {{ implode(', ', $item['errors']) }}
+                                        {{ is_array($item['errors']) ? implode(', ', $item['errors']) : $item['errors'] }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -103,7 +103,7 @@
                                 {{ $row['nis'] }}
                             </td>
                             <td class="px-4 py-3 sm:px-6 text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100">
-                                {{ $row['nama'] }}
+                                {{ $row['name'] ?? $row['nama'] ?? '-' }}
                             </td>
                             <td class="px-4 py-3 sm:px-6 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
                                 Kelas {{ $row['class_name'] }}
@@ -130,7 +130,7 @@
                                 {{ $row['nip'] }}
                             </td>
                             <td class="px-4 py-3 sm:px-6 text-xs sm:text-sm font-semibold text-slate-900 dark:text-slate-100">
-                                {{ $row['nama'] }}
+                                {{ $row['name'] ?? $row['nama'] ?? '-' }}
                             </td>
                             <td class="px-4 py-3 sm:px-6 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                                 {{ $row['phone'] ?? '-' }}
@@ -154,10 +154,16 @@
             </a>
 
             @if (count($valid) > 0)
-                <form action="{{ route('master.import.confirm') }}" method="POST" class="w-full sm:w-auto">
+                <form action="{{ route('master.import.confirm') }}" method="POST" 
+                      data-confirm="Simpan {{ count($valid) }} data akun {{ $type === 'siswa' ? 'siswa' : 'Guru BK' }} ke dalam database sekarang?"
+                      data-confirm-title="Konfirmasi Impor Akun Massal"
+                      data-confirm-button="Ya, Simpan Akun"
+                      data-confirm-color="#10B981"
+                      data-confirm-icon="question"
+                      class="w-full sm:w-auto">
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}" />
-                    <x-button type="submit" variant="primary" class="w-full sm:w-auto min-h-[44px] px-5 py-2 text-xs sm:text-sm font-semibold" onclick="return confirm('Simpan {{ count($valid) }} akun ke dalam database sekarang?');">
+                    <x-button type="submit" variant="primary" class="w-full sm:w-auto min-h-[44px] px-5 py-2 text-xs sm:text-sm font-semibold">
                         Konfirmasi & Simpan {{ count($valid) }} Akun ke Database
                     </x-button>
                 </form>

@@ -79,7 +79,7 @@ class BkUserController extends Controller
             'password.min' => 'Kata sandi minimal 8 karakter.',
         ]);
 
-        $plainPassword = ! empty($validated['password']) ? $validated['password'] : ('BK'.Str::random(4).'!'.rand(10, 99));
+        $plainPassword = ! empty($validated['password']) ? $validated['password'] : 'GuruBKMTS!';
 
         $user = User::create([
             'role' => 'bk',
@@ -259,7 +259,7 @@ class BkUserController extends Controller
     {
         abort_unless($bkUser->role === 'bk', 404);
 
-        $newPassword = 'BK'.Str::random(4).'!'.rand(10, 99);
+        $newPassword = 'GuruBKMTS!';
 
         $bkUser->update([
             'password' => Hash::make($newPassword),
@@ -274,6 +274,6 @@ class BkUserController extends Controller
         );
 
         return redirect()->route('master.bk-users.index')
-            ->with('success', "Kata sandi Guru BK {$bkUser->name} berhasil direset. Kata sandi sementara: {$newPassword}");
+            ->with('success', "Kata sandi Guru BK {$bkUser->name} berhasil direset ke kata sandi default: {$newPassword}");
     }
 }

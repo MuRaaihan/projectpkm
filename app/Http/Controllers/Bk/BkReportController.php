@@ -56,12 +56,35 @@ class BkReportController extends Controller
             $query->whereDate('incident_date', '<=', $request->date_to);
         }
 
-        // Pencarian ringkas berdasarkan ID atau nama kelas
+        // Pencarian komprehensif (Nomor Tiket, Lokasi Kejadian, Kelas, Peran, Kategori, Nama/NIS Pelapor non-anonim)
         if ($request->filled('q')) {
             $search = trim($request->q);
-            $query->where(function ($q) use ($search) {
-                $q->where('id', 'like', "%{$search}%")
-                    ->orWhere('reporter_class_name', 'like', "%{$search}%");
+            $cleanTicket = preg_replace('/^(#?lap-?|#)/i', '', $search);
+
+            $query->where(function ($q) use ($search, $cleanTicket) {
+                if (!empty($cleanTicket)) {
+                    $q->where('id', 'like', "%{$cleanTicket}%");
+                } else {
+                    $q->where('id', 'like', "%{$search}%");
+                }
+
+                $q->orWhere('location', 'like', "%{$search}%");
+                $q->orWhere('reporter_class_name', 'like', "%{$search}%");
+                $q->orWhere('reporter_role', 'like', "%{$search}%");
+
+                // Pencarian pelapor hanya jika identitas tidak dirahasiakan (FR-02)
+                $q->orWhere(function ($sub) use ($search) {
+                    $sub->where('is_hidden_identity', false)
+                        ->whereHas('reporter', function ($userQuery) use ($search) {
+                            $userQuery->where('name', 'like', "%{$search}%")
+                                ->orWhere('login_id', 'like', "%{$search}%");
+                        });
+                });
+
+                // Pencarian kategori
+                $q->orWhereHas('category', function ($catQuery) use ($search) {
+                    $catQuery->where('name', 'like', "%{$search}%");
+                });
             });
         }
 
@@ -141,6 +164,10 @@ class BkReportController extends Controller
     public function updateStatus(Request $request, Report $report)
     {
         Gate::authorize('updateStatus', $report);
+
+        if ($report->status === 'selesai') {
+            return back()->with('error', 'Status kasus yang telah ditandai selesai bersifat final dan tidak dapat diperbarui lagi.');
+        }
 
         $validated = $request->validate([
             'status' => 'required|in:baru,diverifikasi,diproses,selesai,ditolak',

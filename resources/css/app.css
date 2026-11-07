@@ -63,17 +63,6 @@
   --color-status-rejected-bg: var(--status-rejected-bg);
   --color-status-rejected-text: var(--status-rejected-text);
 
-  /* Aliases kompatibilitas token UI lama */
-  --color-bg: #F8FAF9;
-  --color-ink: #18241E;
-  --color-ink-muted: #46554D;
-  --color-line: #E2E1D9;
-  --color-line-input: #9EB3A8;
-  --color-ok: #15803D;
-  --color-warn: #92400E;
-  --color-bad: #B91C1C;
-  --color-note: #0369A1;
-
   /* Shadows */
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.04);
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.06);
@@ -221,6 +210,13 @@ body {
 }
 
 /* ── Custom scrollbar ──────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c9e6d8 transparent;
+}
+.dark, .dark * {
+  scrollbar-color: #22342A transparent;
+}
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
@@ -278,4 +274,16 @@ body {
 .dark .swal2-title, .dark .swal2-html-container {
   color: #F8FAF9 !important;
 }
+
+/* ── Sembunyikan icon mata & clear bawaan browser (Edge / IE) ── */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none !important;
+}
+
+/* ── Alpine.js cloak ── */
+[x-cloak] {
+  display: none !important;
+}
+
 

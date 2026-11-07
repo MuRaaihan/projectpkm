@@ -47,6 +47,13 @@ class SecurityHeaders
             $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
         }
 
+        // Cache-Control: Mencegah browser menyimpan halaman sensitif ke dalam cache (Mencegah akses via tombol Back browser sesudah logout)
+        if ($request->user() || $request->is('dashboard*', 'master*', 'bk*', 'siswa*', 'profile*', 'notifikasi*', 'ganti-password*', 'laporan-periodik*', 'two-factor*', 'login*')) {
+            $response->headers->set('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate');
+            $response->headers->set('Pragma', 'no-cache');
+            $response->headers->set('Expires', 'Sun, 02 Jan 1990 00:00:00 GMT');
+        }
+
         return $response;
     }
 }

@@ -45,6 +45,11 @@ class ImportUserController extends Controller
      */
     public function preview(Request $request): View|RedirectResponse
     {
+        if (function_exists('set_time_limit')) {
+            @set_time_limit(300);
+        }
+        @ini_set('max_execution_time', '300');
+
         $request->validate([
             'file' => ['required', 'file', 'mimes:xlsx', 'max:2048'],
             'type' => ['required', 'in:siswa,bk'],
@@ -109,6 +114,11 @@ class ImportUserController extends Controller
      */
     public function confirm(Request $request): View|RedirectResponse
     {
+        if (function_exists('set_time_limit')) {
+            @set_time_limit(300);
+        }
+        @ini_set('max_execution_time', '300');
+
         $token = $request->input('token');
         $data = session()->get('import_session_'.$token);
 

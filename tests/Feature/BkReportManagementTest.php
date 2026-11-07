@@ -142,6 +142,72 @@ class BkReportManagementTest extends TestCase
     }
 
     /**
+     * Guru BK dapat mencari laporan berdasarkan lokasi, tiket dengan prefix, kategori, dan pelapor non-anonim
+     */
+    public function test_bk_can_search_reports_by_ticket_location_category_and_reporter(): void
+    {
+        $reportLapangan = Report::create([
+            'reporter_id' => $this->siswa->id,
+            'is_hidden_identity' => false,
+            'reporter_class_name' => $this->class->name,
+            'reporter_grade_level' => $this->class->grade_level,
+            'reporter_role' => 'saksi',
+            'category_id' => $this->category->id,
+            'incident_date' => now()->toDateString(),
+            'location' => 'Lapangan basket',
+            'description' => 'Kejadian di lapangan',
+            'urgency' => 'rendah',
+            'status' => 'baru',
+        ]);
+
+        $siswaLain = User::factory()->create([
+            'role' => 'siswa',
+            'login_id' => 'NIS2002',
+            'name' => 'Budi Anonim',
+            'class_id' => $this->class->id,
+            'must_change_password' => false,
+            'is_active' => true,
+        ]);
+
+        $reportKantin = Report::create([
+            'reporter_id' => $siswaLain->id,
+            'is_hidden_identity' => true, // Anonim
+            'reporter_class_name' => $this->class->name,
+            'reporter_grade_level' => $this->class->grade_level,
+            'reporter_role' => 'korban',
+            'category_id' => $this->category->id,
+            'incident_date' => now()->toDateString(),
+            'location' => 'Kantin pojok',
+            'description' => 'Kejadian di kantin',
+            'urgency' => 'tinggi',
+            'status' => 'baru',
+        ]);
+
+        // 1. Cari berdasarkan lokasi "basket"
+        $respLocation = $this->actingAs($this->bk)->get(route('bk.reports.index', ['q' => 'basket']));
+        $respLocation->assertOk();
+        $respLocation->assertSee(route('bk.reports.show', $reportLapangan));
+        $respLocation->assertDontSee(route('bk.reports.show', $reportKantin));
+
+        // 2. Cari dengan prefix tiket #LAP-...
+        $ticketSearch = '#LAP-' . substr($reportLapangan->id, 0, 8);
+        $respTicket = $this->actingAs($this->bk)->get(route('bk.reports.index', ['q' => $ticketSearch]));
+        $respTicket->assertOk();
+        $respTicket->assertSee(route('bk.reports.show', $reportLapangan));
+
+        // 3. Cari pelapor non-anonim (Ahmad Raka / NIS1001)
+        $respReporter = $this->actingAs($this->bk)->get(route('bk.reports.index', ['q' => 'NIS1001']));
+        $respReporter->assertOk();
+        $respReporter->assertSee(route('bk.reports.show', $reportLapangan));
+        $respReporter->assertDontSee(route('bk.reports.show', $reportKantin));
+
+        // 4. Cari pelapor anonim dengan namanya ("Budi Anonim") TIDAK BOLEH menemukan laporan (FR-02)
+        $respAnon = $this->actingAs($this->bk)->get(route('bk.reports.index', ['q' => 'Budi Anonim']));
+        $respAnon->assertOk();
+        $respAnon->assertDontSee(route('bk.reports.show', $reportKantin));
+    }
+
+    /**
      * 3. Pelapor rahasia ditampilkan sebagai "Pelapor Rahasia" pada daftar
      */
     public function test_confidential_reporter_name_is_masked_in_reports_list(): void
@@ -282,6 +348,37 @@ class BkReportManagementTest extends TestCase
             'to_status' => 'diverifikasi',
             'changed_by' => $this->bk->id,
         ]);
+    }
+
+    /**
+     * Laporan yang sudah berstatus selesai tidak dapat diperbarui lagi statusnya.
+     */
+    public function test_completed_report_status_cannot_be_updated_again(): void
+    {
+        $report = Report::create([
+            'reporter_id' => $this->siswa->id,
+            'is_hidden_identity' => false,
+            'reporter_class_name' => $this->class->name,
+            'reporter_grade_level' => $this->class->grade_level,
+            'reporter_role' => 'korban',
+            'category_id' => $this->category->id,
+            'incident_date' => now()->toDateString(),
+            'location' => 'Kantin',
+            'description' => 'Laporan uji coba selesai',
+            'urgency' => 'sedang',
+            'status' => 'selesai',
+            'closed_at' => now(),
+        ]);
+
+        $response = $this->actingAs($this->bk)->put(route('bk.reports.update-status', $report), [
+            'status' => 'diproses',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+
+        $report->refresh();
+        $this->assertEquals('selesai', $report->status);
     }
 
     /**

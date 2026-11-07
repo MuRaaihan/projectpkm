@@ -94,7 +94,13 @@
 
                                 {{-- Tombol Hapus (jika 0 siswa) --}}
                                 @if ($class->students_count === 0)
-                                    <form method="POST" action="{{ route('master.classes.destroy', $class) }}" onsubmit="return confirm('Hapus kelas {{ $class->name }}? Pastikan kelas tidak lagi digunakan.');" class="inline-flex m-0">
+                                    <form method="POST" action="{{ route('master.classes.destroy', $class) }}" 
+                                          data-confirm="Hapus data kelas {{ $class->name }}? Pastikan kelas ini tidak lagi digunakan oleh siswa manapun."
+                                          data-confirm-title="Konfirmasi Hapus Kelas"
+                                          data-confirm-button="Ya, Hapus Kelas"
+                                          data-confirm-color="#DC2626"
+                                          data-confirm-icon="warning"
+                                          class="inline-flex m-0">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" 

@@ -71,7 +71,13 @@
         </div>
 
         {{-- Form Konfirmasi Eksekusi --}}
-        <form action="{{ route('master.class-operations.promote') }}" method="POST" class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+        <form action="{{ route('master.class-operations.promote') }}" method="POST" 
+              data-confirm="Pindahkan {{ $students->count() }} siswa dari Kelas {{ $fromClass->name }} ke Kelas {{ $toClass->name }} sekarang?"
+              data-confirm-title="Konfirmasi Pemindahan Kelas"
+              data-confirm-button="Ya, Pindahkan Siswa"
+              data-confirm-color="#10B981"
+              data-confirm-icon="question"
+              class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
             @csrf
             <input type="hidden" name="from_class_id" value="{{ $fromClass->id }}" />
             <input type="hidden" name="to_class_id" value="{{ $toClass->id }}" />
@@ -80,7 +86,7 @@
                 Kembali & Batal
             </a>
 
-            <x-button type="submit" variant="primary" class="w-full sm:w-auto min-h-[44px] px-5 py-2 text-xs sm:text-sm font-semibold" onclick="return confirm('Pindahkan {{ $students->count() }} siswa ke Kelas {{ $toClass->name }} sekarang?');">
+            <x-button type="submit" variant="primary" class="w-full sm:w-auto min-h-[44px] px-5 py-2 text-xs sm:text-sm font-semibold">
                 Konfirmasi & Pindahkan {{ $students->count() }} Siswa Sekarang
             </x-button>
         </form>

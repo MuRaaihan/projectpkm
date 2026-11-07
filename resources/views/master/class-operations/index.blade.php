@@ -108,7 +108,13 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('master.class-operations.archive-students') }}" method="POST" class="space-y-4 mt-5">
+                    <form action="{{ route('master.class-operations.archive-students') }}" method="POST" 
+                          data-confirm="Apakah Anda yakin ingin mengarsipkan seluruh akun siswa di kelas yang dipilih? Akun siswa akan dinonaktifkan dari login (soft-delete), namun seluruh rekam jejak laporan tetap aman tersimpan."
+                          data-confirm-title="Konfirmasi Pengarsipan Siswa Massal"
+                          data-confirm-button="Ya, Arsipkan Siswa"
+                          data-confirm-color="#DC2626"
+                          data-confirm-icon="warning"
+                          class="space-y-4 mt-5">
                         @csrf
 
                         {{-- Pilih Kelas --}}
@@ -151,7 +157,7 @@
                         </div>
 
                         <div class="pt-2">
-                            <x-button type="submit" variant="danger" class="w-full justify-center min-h-[44px]" onclick="return confirm('Apakah Anda yakin ingin mengarsipkan seluruh akun siswa di kelas ini?');">
+                            <x-button type="submit" variant="danger" class="w-full justify-center min-h-[44px]">
                                 Arsipkan Seluruh Siswa di Kelas Ini
                             </x-button>
                         </div>

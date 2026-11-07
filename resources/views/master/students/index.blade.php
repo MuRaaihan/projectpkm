@@ -149,7 +149,13 @@
                                     </a>
 
                                     {{-- Toggle Aktif / Nonaktif --}}
-                                    <form method="POST" action="{{ route('master.students.toggle-status', $student) }}" class="inline-flex m-0">
+                                    <form method="POST" action="{{ route('master.students.toggle-status', $student) }}" 
+                                          data-confirm="{{ $student->is_active ? 'Nonaktifkan akun siswa ' . $student->name . ' (NIS: ' . $student->login_id . ')? Siswa tidak akan dapat masuk ke sistem sampai akun diaktifkan kembali.' : 'Aktifkan kembali akun siswa ' . $student->name . ' (NIS: ' . $student->login_id . ')? Siswa akan dapat masuk kembali ke sistem.' }}"
+                                          data-confirm-title="{{ $student->is_active ? 'Konfirmasi Nonaktifkan Siswa' : 'Konfirmasi Aktifkan Siswa' }}"
+                                          data-confirm-button="{{ $student->is_active ? 'Ya, Nonaktifkan' : 'Ya, Aktifkan' }}"
+                                          data-confirm-color="{{ $student->is_active ? '#D97706' : '#10B981' }}"
+                                          data-confirm-icon="{{ $student->is_active ? 'warning' : 'question' }}"
+                                          class="inline-flex m-0">
                                         @csrf
                                         <button type="submit" 
                                                 class="inline-flex items-center justify-center w-8 h-8 rounded-lg border transition shadow-2xs cursor-pointer active:scale-95 {{ $student->is_active ? 'border-amber-200 dark:border-amber-900/60 bg-amber-50/70 dark:bg-amber-950/30 text-amber-600 dark:text-[#FAD46B] hover:bg-amber-100 dark:hover:bg-amber-950/60 hover:border-amber-300' : 'border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/70 dark:bg-emerald-950/30 text-emerald-700 dark:text-[#5AE39D] hover:bg-emerald-100 dark:hover:bg-emerald-950/60 hover:border-emerald-300' }}" 
@@ -197,7 +203,13 @@
                                     </form>
                                 @else
                                     {{-- Pulihkan Akun (Restore) --}}
-                                    <form method="POST" action="{{ route('master.students.restore', $student->id) }}" class="inline-flex m-0">
+                                    <form method="POST" action="{{ route('master.students.restore', $student->id) }}" 
+                                          data-confirm="Pulihkan kembali akun siswa {{ $student->name }} (NIS: {{ $student->login_id }}) dari arsip? Akun akan kembali aktif dan dapat masuk ke sistem."
+                                          data-confirm-title="Konfirmasi Pulihkan Akun"
+                                          data-confirm-button="Ya, Pulihkan Akun"
+                                          data-confirm-color="#10B981"
+                                          data-confirm-icon="question"
+                                          class="inline-flex m-0">
                                         @csrf
                                         <button type="submit" 
                                                 class="inline-flex items-center gap-1.5 px-2.5 h-8 text-xs font-semibold rounded-lg border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/70 dark:bg-emerald-950/30 text-emerald-700 dark:text-[#5AE39D] hover:bg-emerald-100 dark:hover:bg-emerald-950/60 hover:border-emerald-300 shadow-2xs transition cursor-pointer active:scale-95" 
@@ -233,7 +245,13 @@
             @foreach ($students as $student)
                 @if ($student->trashed())
                     <x-modal id="modal-force-delete-student-{{ $student->id }}" title="Konfirmasi Hapus Permanen Siswa">
-                        <form method="POST" action="{{ route('master.students.force-delete', $student->id) }}" class="space-y-4">
+                        <form method="POST" action="{{ route('master.students.force-delete', $student->id) }}" 
+                              data-confirm="PERINGATAN KRITIS: Tindakan ini permanen dan tidak dapat dibatalkan. Apakah Anda benar-benar yakin ingin menghapus akun {{ $student->name }} secara permanen?"
+                              data-confirm-title="Peringatan Hapus Permanen Siswa"
+                              data-confirm-button="Ya, Hapus Permanen"
+                              data-confirm-color="#DC2626"
+                              data-confirm-icon="error"
+                              class="space-y-4">
                             @csrf
                             @method('DELETE')
 

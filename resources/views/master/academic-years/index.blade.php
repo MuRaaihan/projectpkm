@@ -67,7 +67,13 @@
 
                                 {{-- Tombol Hapus (jika 0 kelas) --}}
                                 @if ($year->classes_count === 0)
-                                    <form method="POST" action="{{ route('master.academic-years.destroy', $year) }}" onsubmit="return confirm('Hapus tahun ajaran {{ $year->name }}?');" class="inline-flex m-0">
+                                    <form method="POST" action="{{ route('master.academic-years.destroy', $year) }}" 
+                                          data-confirm="Hapus data tahun ajaran {{ $year->name }}? Pastikan tahun ajaran ini tidak terkait dengan data kelas manapun."
+                                          data-confirm-title="Konfirmasi Hapus Tahun Ajaran"
+                                          data-confirm-button="Ya, Hapus"
+                                          data-confirm-color="#DC2626"
+                                          data-confirm-icon="warning"
+                                          class="inline-flex m-0">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" 

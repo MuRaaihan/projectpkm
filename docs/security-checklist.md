@@ -18,6 +18,7 @@ Daftar cek keamanan yang **harus lulus sebelum peluncuran** (Fase 7 dan 8 di [`t
 - [x] 🔴 Pesan gagal login **sama** untuk NIS salah dan password salah (tidak membocorkan keberadaan akun)
 - [x] 🔴 Akun **nonaktif/arsip** tidak bisa login
 - [x] 🟠 Sesi diregenerasi setelah login; sesi dihapus saat logout
+- [x] 🔴 **Proteksi Back Button Pasca-Logout (bfcache & Cache-Control)**: Cache-Control `no-cache, no-store, max-age=0, must-revalidate` pada seluruh rute sensitif, `Clear-Site-Data: "cache"` pada respon logout, dan proteksi client-side bfcache (`pageshow` event + `sessionStorage`) agar pengguna tidak bisa membuka dashboard kembali melalui tombol Back browser setelah logout
 - [x] 🟠 **Session timeout** otomatis saat tidak aktif (usulan 30 menit)
 - [x] 🟠 Cookie sesi: `Secure`, `HttpOnly`, `SameSite=Lax` (atau `Strict`)
 - [x] 🟠 Password awal acak (bukan pola yang mudah ditebak seperti NIS atau tanggal lahir)
@@ -45,7 +46,7 @@ Semua pemeriksaan dilakukan **di server** (Policy/middleware), bukan hanya menye
 | Kelola akun Guru BK dan siswa | ❌ | ❌ | ✅ |
 | Impor Excel, kenaikan kelas, hapus per kelas | ❌ | ❌ | ✅ |
 | Log aktivitas | ❌ | ❌ | ✅ |
-| Notifikasi | hanya miliknya | hanya miliknya | hanya miliknya |
+| Notifikasi | hanya miliknya | hanya miliknya | ❌ Tidak tersedia |
 
 Daftar cek:
 
@@ -53,12 +54,13 @@ Daftar cek:
 - [x] 🔴 **Siswa tidak bisa membuka laporan, bukti, atau notifikasi siswa lain** (uji IDOR, lihat bagian J)
 - [x] 🔴 **Master tidak bisa membuka isi laporan, identitas pelapor, bukti, maupun mengunduh laporan**
 - [x] 🔴 Pelapor yang memilih "Sembunyikan nama" tampil sebagai "Pelapor Rahasia" di semua tampilan, termasuk daftar, ekspor, dan notifikasi
+- [x] 🔴 **Pencarian laporan tidak membocorkan identitas pelapor rahasia (FR-02)**: kueri pencarian nama dan NIS siswa pada Laporan Masuk BK hanya berlaku untuk `is_hidden_identity = false`
 - [x] 🔴 Aksi "Lihat identitas" tercatat di `activity_logs` (siapa, kapan, laporan mana)
 - [x] 🔴 Laporan memakai **UUID**, bukan ID berurutan
 - [x] 🟠 Catatan internal tidak pernah muncul di halaman, API, atau ekspor yang bisa dilihat siswa
 - [x] 🟠 Hanya Master yang dapat membuat/mengubah akun; Guru BK tidak dapat mengubah peran
 - [x] 🟠 Mengubah status laporan, balasan, dan catatan hanya dapat dilakukan Guru BK
-- [x] 🟠 Hapus permanen dan hapus per kelas meminta **konfirmasi password Master**
+- [x] 🟠 Hapus permanen dan hapus per kelas meminta **konfirmasi password Master** (diperkuat dengan modal dialog SweetAlert2)
 - [x] 🟠 Halaman 403/404 tidak membocorkan informasi (tidak menjelaskan apakah suatu laporan ada)
 
 ## C. Perlindungan Data
@@ -162,6 +164,8 @@ Gunakan **data palsu**. Setiap skenario harus punya feature test otomatis bila m
 3. Guru BK menekan "Lihat identitas" → nama muncul **dan** ada baris `identity_revealed` di log.
 4. Ekspor PDF/Excel dari Guru BK → pelapor tetap tersamarkan sesuai aturan.
 5. Periksa database langsung: kolom kronologi **terenkripsi** (bukan teks terbaca).
+6. Guru BK mencari nama/NIS siswa pelapor rahasia di kotak pencarian Laporan Masuk → laporan **tidak boleh muncul** (FR-02).
+7. Guru BK mencari tiket dengan prefix (`#LAP-...`), lokasi, peran, atau kategori → laporan relevan muncul.
 
 ### J4. Login dan password
 1. Login pertama → dipaksa ganti password; coba buka halaman lain sebelum ganti → **diblokir**.

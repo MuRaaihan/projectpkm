@@ -18,7 +18,7 @@
         </div>
 
         <div class="bg-white dark:bg-[#16231D] border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xs">
-            <form action="{{ route('master.students.store') }}" method="POST" class="space-y-5">
+            <form id="form-create-student" action="{{ route('master.students.store') }}" method="POST" autocomplete="off" class="space-y-5">
                 @csrf
 
                 {{-- NIS / Login ID --}}
@@ -93,7 +93,7 @@
                         type="password" 
                         label="Kata Sandi Awal" 
                         placeholder="Kosongkan jika ingin dibuatkan otomatis" 
-                        hint="Minimal 8 karakter. Jika dikosongkan, sistem akan mengacak kata sandi aman otomatis."
+                        hint="Minimal 8 karakter. Jika dikosongkan, sistem otomatis menggunakan kata sandi default SiswaMTS!."
                     />
                     <div class="p-3.5 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-800 text-xs text-amber-800 dark:text-amber-300 flex items-start gap-2.5 leading-relaxed">
                         <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

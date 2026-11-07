@@ -199,7 +199,7 @@ class MasterAccountManagementTest extends TestCase
             'gender' => 'L',
         ]);
 
-        $response->assertRedirect(route('master.students.index', ['class_id' => $this->class->id]));
+        $response->assertRedirect(route('master.students.create'));
         $this->assertDatabaseHas('users', [
             'login_id' => '20269999',
             'name' => 'Fauzan Ahmad',

@@ -50,13 +50,19 @@
                     value="{{ old('phone', $bkUser->phone) }}" 
                 />
 
-                <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-1.5">
+                <div class="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400 space-y-2">
                     <p class="font-bold text-slate-900 dark:text-slate-200">Informasi Tambahan Akun:</p>
                     <ul class="list-disc list-inside space-y-1">
                         <li>Status akun saat ini: <strong class="{{ $bkUser->is_active ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400' }}">{{ $bkUser->is_active ? 'Aktif' : 'Nonaktif' }}</strong></li>
                         <li>Sesi masuk terakhir: {{ $bkUser->last_login_at?->format('d/m/Y H:i') ?? 'Belum pernah masuk' }}</li>
                         <li>Perlu ganti kata sandi: {{ $bkUser->must_change_password ? 'Ya (wajib saat masuk)' : 'Tidak' }}</li>
                     </ul>
+                    <div class="pt-2 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                        <span class="text-slate-500">Lupa kata sandi Guru BK?</span>
+                        <button type="submit" form="form-reset-password-bk" class="font-semibold text-sky-600 dark:text-sky-400 hover:underline cursor-pointer">
+                            Reset Kata Sandi Guru BK
+                        </button>
+                    </div>
                 </div>
 
                 <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
@@ -67,6 +73,15 @@
                         Perbarui Data Guru BK
                     </x-button>
                 </div>
+            </form>
+
+            <form id="form-reset-password-bk" method="POST" action="{{ route('master.bk-users.reset-password', $bkUser) }}" 
+                  data-confirm="Reset kata sandi akun Guru BK {{ $bkUser->name }} ({{ $bkUser->login_id }})? Sistem akan membuat kata sandi acak sementara baru dan mewajibkan konselor langsung menggantinya saat masuk."
+                  data-confirm-title="Konfirmasi Reset Kata Sandi"
+                  data-confirm-button="Ya, Reset Sandi"
+                  data-confirm-color="#0284C7"
+                  class="hidden">
+                @csrf
             </form>
         </div>
     </div>

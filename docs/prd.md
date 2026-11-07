@@ -54,7 +54,7 @@ Karena siswa login memakai akun, sistem ini **bukan anonim penuh**, melainkan **
 
 | Peran | Pembuatan akun | Login dengan | Ringkasan hak akses |
 |---|---|---|---|
-| **Master** | Disiapkan saat instalasi (disarankan minimal 2 akun) | Username | Kelola akun, lihat statistik, kelola master data dan konten beranda, lihat log aktivitas. **Tidak dapat melihat isi laporan.** |
+| **Master** | Disiapkan saat instalasi (disarankan minimal 2 akun) | Username | Kelola akun, lihat statistik, kelola master data dan konfigurasi sistem, lihat log aktivitas. **Tidak memiliki menu notifikasi kasus dan tidak dapat melihat isi laporan.** |
 | **Guru BK** | Dibuat oleh Master | NIP/Username | Kelola laporan, ubah status, kelola kategori, lihat statistik, unduh laporan, ganti profil, notifikasi |
 | **Siswa** | Dibuat oleh Master | **NIS** | Buat laporan, lihat riwayat dan balasan, notifikasi, profil |
 
@@ -81,7 +81,7 @@ Siswa dan Guru BK **tidak dapat mendaftar sendiri**. Hanya ada **satu halaman lo
 
 **Guru BK:** Dashboard Terpadu · Daftar Laporan · Detail Kasus & Obrolan Responsif · Kelola Kategori · Statistik Visual (Chart.js) · Unduh Laporan (PDF/Excel) · Laporan Periodik · Notifikasi · Profil
 
-**Master:** Dashboard Statistik & Audit · Kelola Akun Siswa & Guru BK · Impor Excel 3 Langkah · Kenaikan/Pindah Kelas · Master Data (Kelas, Tahun Ajaran) · Pengaturan Madrasah & Konten Beranda · Log Audit Aktivitas · Laporan Periodik · Keamanan 2FA
+**Master:** Dashboard Statistik & Audit · Kelola Akun (Akun Siswa & Akun Guru BK) · Akademik & Kelas (Daftar Kelas, Tahun Ajaran, Kenaikan & Mutasi) · Sistem & Konfigurasi (Impor Siswa Excel, Pengaturan Madrasah & Konten Beranda, Log Audit Aktivitas, Laporan Periodik) · Keamanan 2FA
 
 ## 7. Alur Pengguna Utama
 
@@ -129,11 +129,11 @@ Prioritas: **P0** = wajib rilis pertama, **P1** = penting, **P2** = tahap beriku
 
 | ID | Kebutuhan | Prioritas |
 |---|---|---|
-| FR-09 | Buat, ubah, nonaktifkan/aktifkan, dan hapus akun **Guru BK** | P0 |
-| FR-10 | Buat, ubah, nonaktifkan/aktifkan, dan hapus akun **Siswa** | P0 |
-| FR-11 | **Impor akun lewat Excel** (siswa dan guru BK) dengan template, pratinjau, validasi (NIS/NIP ganda, kolom kosong, format salah), dan laporan baris gagal | P0 |
-| FR-12 | Hapus akun siswa **per kelas** (dengan konfirmasi password Master) | P0 |
-| FR-13 | **Kenaikan kelas / pindah kelas massal** | P0 |
+| FR-09 | Buat, ubah, nonaktifkan/aktifkan, dan hapus akun **Guru BK** (dengan konfirmasi modal SweetAlert2 dan single-submit auto-reset) | P0 |
+| FR-10 | Buat, ubah, nonaktifkan/aktifkan, dan hapus akun **Siswa** (dengan konfirmasi modal SweetAlert2 dan single-submit auto-reset) | P0 |
+| FR-11 | **Impor akun lewat Excel** (siswa dan guru BK) dengan dropzone modern, template, pratinjau, validasi (NIS/NIP ganda, kolom kosong, format salah), dan eksekusi bulk insert cepat | P0 |
+| FR-12 | Hapus akun siswa **per kelas** (dengan konfirmasi modal SweetAlert2 dan password Master) | P0 |
+| FR-13 | **Kenaikan kelas / pindah kelas massal** (dengan pratinjau dan konfirmasi interaktif) | P0 |
 | FR-14 | Hapus akun bersifat **arsip/nonaktif secara default**; hapus permanen hanya dengan konfirmasi password Master. Laporan lama tetap tersimpan dengan identitas pelapor disamarkan | P0 |
 | FR-15 | Dashboard **statistik laporan** (tanpa isi laporan dan tanpa identitas) | P0 |
 | FR-16 | Kelola master data: daftar kelas dan tahun ajaran | P0 |
@@ -145,7 +145,7 @@ Prioritas: **P0** = wajib rilis pertama, **P1** = penting, **P2** = tahap beriku
 
 | ID | Kebutuhan | Prioritas |
 |---|---|---|
-| FR-20 | Daftar laporan dengan pencarian dan filter (status, kategori, kelas, tanggal, urgensi) | P0 |
+| FR-20 | Daftar laporan dengan panel filter terpadu (segmented tab status) dan pencarian multi-kriteria pintar: nomor tiket `#LAP-...`, lokasi kejadian, kelas, peran, kategori, dan identitas siswa (hanya non-anonim) | P0 |
 | FR-21 | Detail laporan: kronologi, bukti, peran pelapor, terlapor; nama pelapor rahasia tampil sebagai "Pelapor Rahasia" | P0 |
 | FR-22 | Tombol **"Lihat identitas"** pelapor rahasia, tercatat di log audit | P0 |
 | FR-23 | Ubah status: **Baru → Diverifikasi → Diproses → Selesai / Ditolak**; alasan wajib saat Ditolak; riwayat perubahan status tersimpan | P0 |

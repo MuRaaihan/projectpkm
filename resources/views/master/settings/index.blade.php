@@ -20,7 +20,13 @@
         </div>
 
         {{-- Form Pengaturan --}}
-        <form method="POST" action="{{ route('master.settings.update') }}" class="space-y-6">
+        <form method="POST" action="{{ route('master.settings.update') }}" 
+              data-confirm="Simpan seluruh perubahan informasi madrasah dan konfigurasi sistem?"
+              data-confirm-title="Konfirmasi Simpan Pengaturan"
+              data-confirm-button="Ya, Simpan Perubahan"
+              data-confirm-color="#10B981"
+              data-confirm-icon="question"
+              class="space-y-6">
             @csrf
             @method('PUT')
 

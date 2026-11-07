@@ -15,6 +15,32 @@
                 document.documentElement.classList.remove('dark');
             }
         } catch (_) {}
+
+        // Keamanan: Mencegah akses kembali ke dashboard saat tombol "Back" browser diklik setelah logout (bfcache protection)
+        (function() {
+            try {
+                if (sessionStorage.getItem('siperka_logged_out') === 'true') {
+                    if (document.documentElement) { document.documentElement.style.display = 'none'; }
+                    window.location.replace("{{ route('login') }}");
+                    return;
+                }
+            } catch (_) {}
+
+            window.addEventListener('pageshow', function (event) {
+                var wasLoggedOut = false;
+                try { wasLoggedOut = (sessionStorage.getItem('siperka_logged_out') === 'true'); } catch (_) {}
+
+                if (wasLoggedOut) {
+                    if (document.documentElement) { document.documentElement.style.display = 'none'; }
+                    window.location.replace("{{ route('login') }}");
+                    return;
+                }
+
+                if (event.persisted || (window.performance && window.performance.navigation && window.performance.navigation.type === 2)) {
+                    window.location.reload();
+                }
+            });
+        })();
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,14 +76,14 @@
         {{-- =========================================================
              1. DESKTOP SIDEBAR (Sesuai SideNav, GBKSideNav, AdminSideNav)
              ========================================================= --}}
-        <aside class="hidden lg:flex flex-col w-64 min-h-screen border-r fixed top-0 left-0 z-40 transition-theme"
+        <aside class="hidden lg:flex flex-col w-64 h-screen max-h-screen inset-y-0 left-0 fixed z-40 border-r transition-theme"
                style="background-color: var(--sidebar-bg); border-color: var(--sidebar-border);" 
                aria-label="Navigasi Utama Desktop">
             {{-- Brand Logo & Title --}}
             <div class="h-16 flex items-center px-5 border-b shrink-0"
                  style="border-color: var(--sidebar-border);">
                 <a href="{{ url('/dashboard') }}" class="flex items-center gap-3 min-w-0 group">
-                    <img src="{{ asset('logo-sekolah.png') }}" 
+                    <img src="{{ asset('images/logo-sekolah.png') }}" 
                          alt="Logo Sekolah" 
                          class="w-10 h-10 object-contain shrink-0 group-hover:scale-105 transition-transform" />
                     <div class="min-w-0">
@@ -71,8 +97,8 @@
                 </a>
             </div>
 
-            {{-- Navigation Items --}}
-            <nav class="flex-1 py-4 px-3 flex flex-col gap-1 overflow-y-auto" aria-label="Menu Utama">
+            {{-- Navigation Items (Scrollable independen saat menu melebihi tinggi layar) --}}
+            <nav class="flex-1 min-h-0 py-4 px-3 flex flex-col gap-1 overflow-y-auto overscroll-contain" aria-label="Menu Utama">
                 <p class="px-2.5 mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Navigasi
                 </p>
@@ -237,14 +263,13 @@
                         $isMasterClasses = request()->routeIs('master.classes.*');
                         $isMasterYears = request()->routeIs('master.academic-years.*');
                         $isMasterOps = request()->routeIs('master.class-operations.*');
-                        $isMasterNotif = request()->routeIs('notifications.*');
                         $isMasterPeriodic = request()->routeIs('periodic-reports.*');
                         $isMasterLogs = request()->routeIs('master.activity-logs.*');
                         $isMasterSettings = request()->routeIs('master.settings.*');
                     @endphp
 
                     <p class="px-2.5 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                        Menu Utama
+                        Beranda
                     </p>
 
                     <a href="{{ route('master.dashboard') }}" 
@@ -253,11 +278,11 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                        <span>Dashboard</span>
+                        <span>Dashboard Utama</span>
                     </a>
 
                     <p class="px-2.5 mt-4 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                        Manajemen Pengguna
+                        Kelola Pengguna
                     </p>
 
                     <a href="{{ route('master.students.index') }}" 
@@ -266,7 +291,7 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                        <span>Akun Siswa</span>
+                        <span>Data Siswa</span>
                     </a>
 
                     <a href="{{ route('master.bk-users.index') }}" 
@@ -275,7 +300,7 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                        <span>Akun Guru BK</span>
+                        <span>Data Guru BK</span>
                     </a>
 
                     <a href="{{ route('master.import.index') }}" 
@@ -284,11 +309,11 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                        <span>Impor Excel</span>
+                        <span>Impor Akun Massal</span>
                     </a>
 
                     <p class="px-2.5 mt-4 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                        Akademik
+                        Data Akademik
                     </p>
 
                     <a href="{{ route('master.classes.index') }}" 
@@ -297,7 +322,7 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                        <span>Master Kelas</span>
+                        <span>Data Kelas</span>
                     </a>
 
                     <a href="{{ route('master.academic-years.index') }}" 
@@ -315,26 +340,12 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                        <span>Kenaikan Kelas</span>
+                        <span>Kenaikan & Kelulusan</span>
                     </a>
 
                     <p class="px-2.5 mt-4 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                        Audit & Sistem
+                        Laporan & Sistem
                     </p>
-
-                    <a href="{{ route('notifications.index') }}" 
-                       class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 group {{ $isMasterNotif ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white' }}">
-                        @if ($isMasterNotif)
-                            <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
-                        @endif
-                        <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                        <span>Notifikasi</span>
-                        @if($unreadNotifCount > 0)
-                            <span class="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-primary-600 text-white">
-                                {{ $unreadNotifCount > 99 ? '99+' : $unreadNotifCount }}
-                            </span>
-                        @endif
-                    </a>
 
                     <a href="{{ route('periodic-reports.index') }}" 
                        class="relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 group {{ $isMasterPeriodic ? 'bg-[#EAF5EE] dark:bg-[#1A3326] text-primary-700 dark:text-[#5AE39D]' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100/80 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white' }}">
@@ -342,7 +353,7 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                        <span>Laporan Periodik</span>
+                        <span>Rekap Laporan Berkala</span>
                     </a>
 
                     <a href="{{ route('master.activity-logs.index') }}" 
@@ -351,7 +362,7 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        <span>Log Audit Aktivitas</span>
+                        <span>Riwayat Aktivitas</span>
                     </a>
 
                     <a href="{{ route('master.settings.index') }}" 
@@ -360,35 +371,28 @@
                             <span class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary-600 dark:bg-[#5AE39D] rounded-r-full"></span>
                         @endif
                         <svg class="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        <span>Pengaturan Web</span>
+                        <span>Pengaturan Madrasah</span>
                     </a>
                 @endif
             </nav>
 
-            {{-- Sidebar Footer: User Card & Theme Toggle (Sesuai SideNav.tsx, GBKSideNav.tsx, AdminSideNav.tsx) --}}
-            <div class="px-3 py-4 border-t flex items-center justify-between gap-2 shrink-0" 
+            {{-- Sidebar Footer: User Card (Sesuai SideNav) --}}
+            <div class="p-3 border-t shrink-0" 
                  style="border-color: var(--sidebar-border);">
                 <a href="{{ $role === 'siswa' ? route('siswa.profile') : ($role === 'bk' ? route('bk.profile.show') : route('master.settings.index')) }}"
-                   class="flex items-center gap-3 px-2 py-1.5 rounded-xl hover:bg-slate-100/70 dark:hover:bg-slate-800/60 transition-colors flex-1 min-w-0 group cursor-pointer">
-                    <div class="w-8 h-8 rounded-full bg-primary-600 flex items-center justify-center shrink-0 shadow-2xs">
-                        <span class="text-xs font-bold text-white">{{ $initials }}</span>
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-100/70 dark:hover:bg-slate-800/60 transition-all w-full group cursor-pointer border border-transparent hover:border-slate-200/60 dark:hover:border-slate-800"
+                   title="Lihat Profil Saya">
+                    <div class="w-9 h-9 rounded-xl {{ $role === 'master' ? 'bg-slate-800 dark:bg-slate-700 text-white' : 'bg-primary-600 text-white' }} flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                        <span class="text-xs font-bold">{{ $initials }}</span>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">{{ $user->name ?? 'Pengguna' }}</p>
-                        <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate">
-                            {{ $role === 'siswa' ? 'Siswa' : ($role === 'bk' ? 'Guru BK / Konselor' : 'Master Admin') }}
+                        <p class="text-xs font-bold text-slate-900 dark:text-slate-100 truncate group-hover:text-primary-600 dark:group-hover:text-[#5AE39D] transition-colors">{{ $user->name ?? 'Pengguna' }}</p>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                            {{ $role === 'siswa' ? 'Siswa' : ($role === 'bk' ? 'Guru BK / Konselor' : 'Master Administrator') }}
                         </p>
                     </div>
+                    <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-200 group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
-
-                <button type="button" 
-                        onclick="try { const isDark = document.documentElement.classList.toggle('dark'); localStorage.setItem('ui-theme', isDark ? 'dark' : 'light'); } catch(_) {}"
-                        class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors duration-150 shrink-0"
-                        aria-label="Mode Terang/Gelap"
-                        title="Ganti Tema">
-                    <svg class="w-4 h-4 hidden dark:block text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
-                </button>
             </div>
         </aside>
 
@@ -399,63 +403,75 @@
             {{-- Desktop TopBar --}}
             <header class="hidden lg:flex items-center justify-between h-16 px-8 border-b sticky top-0 z-30 shrink-0 transition-theme"
                     style="background-color: var(--topbar-bg); border-color: var(--topbar-border);">
-                <div>
-                    <h1 class="font-bold text-slate-900 dark:text-slate-100 text-base leading-tight">
+                <div class="min-w-0">
+                    <h1 class="font-black text-slate-900 dark:text-slate-100 text-base lg:text-lg leading-tight tracking-tight truncate">
                         {{ $title ?? 'Dashboard' }}
                     </h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                        {{ $roleSubtitles[$role] ?? 'MTs Soebono Mantofani' }}
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 font-medium flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        <span>{{ $roleSubtitles[$role] ?? 'MTs Soebono Mantofani' }}</span>
                     </p>
                 </div>
 
-                <div class="flex items-center gap-2">
-                    {{-- 2FA Badge for Staff --}}
+                <div class="flex items-center gap-2 sm:gap-2.5">
+                    {{-- 2FA Security Status Pill for Staff (Master & BK) --}}
                     @if(in_array($role, ['bk', 'master']))
-                        <a href="{{ route('two-factor.setup') }}" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
-                            <svg class="w-3.5 h-3.5 text-primary-600 dark:text-[#5AE39D]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                            <span>2FA</span>
+                        @php
+                            $is2FaActive = $user->hasTwoFactorEnabled();
+                        @endphp
+                        <a href="{{ route('two-factor.setup') }}" 
+                           class="inline-flex items-center gap-1.5 h-9 px-3 rounded-xl text-xs font-bold transition-all border shadow-2xs {{ $is2FaActive ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border-emerald-200/80 dark:border-emerald-900/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/40' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700' }}"
+                           title="{{ $is2FaActive ? 'Autentikasi 2FA Aktif (Klik untuk kelola)' : 'Autentikasi 2FA Belum Aktif (Klik untuk aktifkan)' }}">
+                            <svg class="w-3.5 h-3.5 {{ $is2FaActive ? 'text-emerald-600 dark:text-[#5AE39D]' : 'text-slate-400 dark:text-slate-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            <span>2FA {{ $is2FaActive ? 'Aktif' : 'Off' }}</span>
                         </a>
                     @endif
 
-                    {{-- Theme Toggle Desktop --}}
+                    {{-- Theme Toggle (Mode Terang / Gelap Universal) --}}
                     <button type="button" 
                             onclick="try { const isDark = document.documentElement.classList.toggle('dark'); localStorage.setItem('ui-theme', isDark ? 'dark' : 'light'); } catch(_) {}"
-                            class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
-                            title="Ganti Tema">
-                        <svg class="w-4 h-4 hidden dark:block text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                        <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                            class="w-9 h-9 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all shadow-2xs cursor-pointer"
+                            aria-label="Ganti Tema Terang/Gelap"
+                            title="Ganti Tema Terang / Gelap">
+                        <svg class="w-4 h-4 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        <svg class="w-4 h-4 block dark:hidden text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                     </button>
 
-                    {{-- Notifikasi Lonceng --}}
-                    <a href="{{ route('notifications.index') }}" 
-                       class="relative w-9 h-9 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors" 
-                       title="Notifikasi">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                        @if($unreadNotifCount > 0)
-                            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary-600 rounded-full"></span>
-                        @endif
-                    </a>
+                    {{-- Notifikasi Lonceng (khusus Siswa & Guru BK) --}}
+                    @if ($role !== 'master')
+                        <a href="{{ route('notifications.index') }}" 
+                           class="relative w-9 h-9 flex items-center justify-center rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white transition-all shadow-2xs" 
+                           title="Notifikasi{{ $unreadNotifCount > 0 ? ' (' . $unreadNotifCount . ' belum dibaca)' : '' }}">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                            @if($unreadNotifCount > 0)
+                                <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full ring-2 ring-white dark:ring-slate-800"></span>
+                            @endif
+                        </a>
+                    @endif
 
-                    {{-- Profile avatar link --}}
+                    {{-- Divider Vertikal Pemisah Kontrol & Identitas --}}
+                    <div class="h-6 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
+
+                    {{-- Profil Pengguna Ringkas --}}
                     <a href="{{ $role === 'siswa' ? route('siswa.profile') : ($role === 'bk' ? route('bk.profile.show') : route('master.settings.index')) }}" 
-                       class="flex items-center gap-2.5 ml-1 px-2.5 py-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                       title="Profil">
-                        <div class="w-7 h-7 {{ $role === 'master' ? 'bg-slate-800 dark:bg-slate-700' : 'bg-primary-600' }} rounded-full flex items-center justify-center">
-                            <span class="text-xs font-bold text-white">{{ $initials }}</span>
+                       class="h-9 px-2.5 flex items-center gap-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all shadow-2xs group cursor-pointer"
+                       title="Buka Pengaturan Akun & Profil">
+                        <div class="w-6 h-6 {{ $role === 'master' ? 'bg-slate-800 dark:bg-slate-700 text-white' : 'bg-primary-600 text-white' }} rounded-lg flex items-center justify-center text-[10px] font-black group-hover:scale-105 transition-transform">
+                            {{ $initials }}
                         </div>
-                        <div class="hidden xl:block">
-                            <p class="text-xs font-semibold text-slate-900 dark:text-slate-100">{{ $user->name ?? 'User' }}</p>
-                        </div>
+                        <span class="text-xs font-semibold text-slate-800 dark:text-slate-200 max-w-[120px] truncate hidden xl:inline-block">
+                            {{ $nameParts[0] ?? ($user->name ?? 'User') }}
+                        </span>
                     </a>
 
-                    {{-- Tombol Keluar (Button Keluar) --}}
+                    {{-- Tombol Keluar (Logout) --}}
                     <form method="POST" action="{{ route('logout') }}" class="inline-flex shrink-0">
                         @csrf
                         <button type="submit" 
-                                class="inline-flex items-center gap-1.5 px-3 py-1.5 h-8 rounded-xl text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 border border-rose-200/80 dark:border-rose-900/60 transition-colors shadow-2xs cursor-pointer"
+                                class="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-xs font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 border border-rose-200/80 dark:border-rose-900/60 transition-all shadow-2xs cursor-pointer active:scale-95"
                                 title="Keluar dari Akun">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
-                            <span>Keluar</span>
+                            <span class="hidden sm:inline">Keluar</span>
                         </button>
                     </form>
                 </div>
@@ -473,7 +489,7 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                         </button>
                         <a href="{{ url('/dashboard') }}" class="flex items-center gap-2.5 group">
-                            <img src="{{ asset('logo-sekolah.png') }}" alt="Logo" class="w-10 h-10 object-contain shrink-0" />
+                            <img src="{{ asset('images/logo-sekolah.png') }}" alt="Logo" class="w-10 h-10 object-contain shrink-0" />
                             <span class="font-bold text-sm text-slate-900 dark:text-slate-100 leading-tight">
                                 SIPERKA
                             </span>
@@ -490,15 +506,17 @@
                             <svg class="w-4 h-4 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
                         </button>
 
-                        {{-- Notifikasi Lonceng Mobile --}}
-                        <a href="{{ route('notifications.index') }}" 
-                           class="relative w-8 h-8 flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" 
-                           aria-label="Notifikasi">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                            @if($unreadNotifCount > 0)
-                                <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-primary-500 rounded-full"></span>
-                            @endif
-                        </a>
+                        {{-- Notifikasi Lonceng Mobile (khusus Siswa & Guru BK) --}}
+                        @if ($role !== 'master')
+                            <a href="{{ route('notifications.index') }}" 
+                               class="relative w-8 h-8 flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors" 
+                               aria-label="Notifikasi">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                                @if($unreadNotifCount > 0)
+                                    <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-primary-500 rounded-full"></span>
+                                @endif
+                            </a>
+                        @endif
 
                         {{-- User Avatar Link --}}
                         <a href="{{ $role === 'siswa' ? route('siswa.profile') : ($role === 'bk' ? route('bk.profile.show') : route('master.settings.index')) }}" 
@@ -530,10 +548,10 @@
                  x-transition:leave-end="-translate-x-full"
                  class="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-[#14201A] border-r border-slate-200 dark:border-[#22342A] p-5 flex flex-col justify-between lg:hidden shadow-xl"
                  style="display: none;">
-                <div>
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-4">
+                <div class="flex flex-col flex-1 min-h-0">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-4 shrink-0">
                         <div class="flex items-center gap-2.5">
-                            <img src="{{ asset('logo-sekolah.png') }}" alt="Logo" class="w-10 h-10 object-contain shrink-0" />
+                            <img src="{{ asset('images/logo-sekolah.png') }}" alt="Logo" class="w-10 h-10 object-contain shrink-0" />
                             <div>
                                 <span class="block font-black text-sm text-slate-900 dark:text-slate-100">SIPERKA</span>
                                 <span class="block text-[11px] text-slate-500 dark:text-slate-400 font-semibold">{{ $roleLabels[$role] ?? $role }}</span>
@@ -544,7 +562,7 @@
                         </button>
                     </div>
 
-                    <div class="flex flex-col gap-1 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                    <div class="flex-1 min-h-0 overflow-y-auto pr-1 flex flex-col gap-1 text-sm font-semibold text-slate-700 dark:text-slate-200">
                         <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2 py-1">Menu Utama</p>
                         @if ($role === 'siswa')
                             <a href="{{ route('siswa.dashboard') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Beranda</a>
@@ -562,16 +580,16 @@
                             <a href="{{ route('two-factor.setup') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Keamanan 2FA</a>
                             <a href="{{ route('bk.profile.show') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Profil Konselor</a>
                         @elseif ($role === 'master')
-                            <a href="{{ route('master.dashboard') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Dashboard</a>
-                            <a href="{{ route('master.students.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Akun Siswa</a>
-                            <a href="{{ route('master.bk-users.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Akun Guru BK</a>
-                            <a href="{{ route('master.import.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Impor Excel</a>
-                            <a href="{{ route('master.classes.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Master Kelas</a>
+                            <a href="{{ route('master.dashboard') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Dashboard Utama</a>
+                            <a href="{{ route('master.students.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Data Siswa</a>
+                            <a href="{{ route('master.bk-users.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Data Guru BK</a>
+                            <a href="{{ route('master.import.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Impor Akun Massal</a>
+                            <a href="{{ route('master.classes.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Data Kelas</a>
                             <a href="{{ route('master.academic-years.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Tahun Ajaran</a>
-                            <a href="{{ route('master.class-operations.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Kenaikan Kelas</a>
-                            <a href="{{ route('periodic-reports.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Laporan Periodik</a>
-                            <a href="{{ route('master.activity-logs.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Log Aktivitas</a>
-                            <a href="{{ route('master.settings.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Pengaturan Web</a>
+                            <a href="{{ route('master.class-operations.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Kenaikan & Kelulusan</a>
+                            <a href="{{ route('periodic-reports.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Rekap Laporan Berkala</a>
+                            <a href="{{ route('master.activity-logs.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Riwayat Aktivitas</a>
+                            <a href="{{ route('master.settings.index') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Pengaturan Madrasah</a>
                             <a href="{{ route('two-factor.setup') }}" class="px-3 py-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800">Keamanan 2FA</a>
                         @endif
                         <a href="{{ route('password.change') }}" class="px-3 py-2 rounded-xl text-slate-500 hover:text-slate-900 dark:hover:text-white">Ganti Kata Sandi</a>
@@ -597,6 +615,7 @@
                     @if(session('error')) data-error="{{ session('error') }}" @endif
                     @if(session('status')) data-status="{{ session('status') }}" @endif
                     @if(session('warning')) data-warning="{{ session('warning') }}" @endif
+                    @if($errors->any() && !session('error')) data-error="{{ $errors->first() }}" @endif
                 ></div>
 
                 {{-- Alert Notification Banner --}}
@@ -717,14 +736,14 @@
                 $isMHome = request()->routeIs('master.dashboard');
                 $isMStd = request()->routeIs('master.students.*');
                 $isMBk = request()->routeIs('master.bk-users.*');
-                $isMNotif = request()->routeIs('notifications.*');
+                $isMLogs = request()->routeIs('master.activity-logs.*');
                 $isMSettings = request()->routeIs('master.settings.*');
             @endphp
             <div class="flex items-center justify-around px-1 h-16">
                 <a href="{{ route('master.dashboard') }}" 
                    class="flex flex-col items-center gap-1 py-2 px-2.5 rounded-2xl transition-colors duration-150 relative {{ $isMHome ? 'text-primary-600' : 'text-slate-600 dark:text-slate-400 hover:text-slate-700' }}">
                     <svg class="w-5 h-5 {{ $isMHome ? 'scale-110' : '' }} transition-transform duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                    <span class="text-[10px] font-semibold">Dashboard</span>
+                    <span class="text-[10px] font-semibold">Beranda</span>
                 </a>
 
                 <a href="{{ route('master.students.index') }}" 
@@ -739,23 +758,16 @@
                     <span class="text-[10px] font-semibold">Guru BK</span>
                 </a>
 
-                <a href="{{ route('notifications.index') }}" 
-                   class="flex flex-col items-center gap-1 py-2 px-2.5 rounded-2xl transition-colors duration-150 relative {{ $isMNotif ? 'text-primary-600' : 'text-slate-600 dark:text-slate-400 hover:text-slate-700' }}">
-                    <div class="relative">
-                        <svg class="w-5 h-5 {{ $isMNotif ? 'scale-110' : '' }} transition-transform duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                        @if($unreadNotifCount > 0)
-                            <span class="absolute -top-1 -right-1.5 min-w-[15px] h-4 px-1 bg-primary-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">
-                                {{ $unreadNotifCount > 99 ? '99+' : $unreadNotifCount }}
-                            </span>
-                        @endif
-                    </div>
-                    <span class="text-[10px] font-semibold">Notifikasi</span>
+                <a href="{{ route('master.activity-logs.index') }}" 
+                   class="flex flex-col items-center gap-1 py-2 px-2.5 rounded-2xl transition-colors duration-150 relative {{ $isMLogs ? 'text-primary-600' : 'text-slate-600 dark:text-slate-400 hover:text-slate-700' }}">
+                    <svg class="w-5 h-5 {{ $isMLogs ? 'scale-110' : '' }} transition-transform duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    <span class="text-[10px] font-semibold">Aktivitas</span>
                 </a>
 
                 <a href="{{ route('master.settings.index') }}" 
                    class="flex flex-col items-center gap-1 py-2 px-2.5 rounded-2xl transition-colors duration-150 relative {{ $isMSettings ? 'text-primary-600' : 'text-slate-600 dark:text-slate-400 hover:text-slate-700' }}">
                     <svg class="w-5 h-5 {{ $isMSettings ? 'scale-110' : '' }} transition-transform duration-150" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    <span class="text-[10px] font-semibold">Setting</span>
+                    <span class="text-[10px] font-semibold">Pengaturan</span>
                 </a>
             </div>
         @endif

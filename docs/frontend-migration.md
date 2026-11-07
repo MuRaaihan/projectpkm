@@ -252,6 +252,7 @@ Semua perubahan dilakukan di branch `feat/frontend-redesign` secara granular per
 34. `7fbf8c3` & `edce3db` - `feat(ui): desain ulang footer publik dengan tata letak grid institusional 4-kolom profesional`
 35. `58fbec9` - `feat: integrasi sweetalert2, navigasi sidebar siswa responsif, auto-read notifikasi, dan optimasi arsitektur`
 36. `feat(ui): pemolesan berkelanjutan antarmuka obrolan, dashboard bk, sidebar master, standarisasi dropdown chevron, dan grup tombol aksi tabel`
+37. `feat(ui): pembersihan notifikasi master, penataan ulang semantik navigasi master, penyempurnaan form akun, segmented filter bk, dan pemulihan pencarian multi-kriteria laporan`
 
 ---
 
@@ -288,6 +289,47 @@ Setelah migrasi komponen dasar selesai, dilakukan serangkaian pemolesan visual d
   - Kolom header dan baris Aksi diposisikan ke tengah (`text-center`).
   - Menggantikan tombol ikon longgar dengan grup tombol terstruktur (tombol Ubah bernuansa netral/emerald dan tombol Hapus bernuansa rose-red).
   - Modal form edit dipindahkan keluar dari perulangan `<table>` agar struktur HTML sepenuhnya valid dan terbebas dari masalah layout shift.
+
+### 7.5 Pembersihan Menu & Reorganisasi Navigasi Master
+- **Penghapusan Menu Notifikasi Master**: Menghapus menu Notifikasi dari sidebar Master (`resources/views/components/layouts/app.blade.php`) dan menonaktifkan rute terkait karena Master bertugas mengelola akun dan konfigurasi sistem madrasah, bukan mengelola atau menerima notifikasi insiden pelaporan siswa.
+- **Penyempurnaan Label Navigasi Semantik**:
+  - `Data Pengguna` diubah menjadi `Kelola Akun` (`Akun Siswa`, `Akun Guru BK`).
+  - `Data Akademik` diubah menjadi `Akademik & Kelas` (`Tahun Ajaran`, `Daftar Kelas`, `Kenaikan & Mutasi`).
+  - `Impor & Pengaturan` diubah menjadi `Sistem & Konfigurasi` (`Impor Siswa`, `Pengaturan Sistem`).
+
+### 7.6 Perapihan Tata Letak Rekap Laporan Berkala
+- Memperbaiki antarmuka halaman rekapitulasi periodik (`resources/views/reports/periodic/index.blade.php` dan `show.blade.php`):
+  - Penataan kartu ringkasan metrik statistik KPI dengan angka agregasi yang jelas.
+  - Formulir pemilihan periode laporan dalam grid terpadu yang rapi.
+  - Tabel ringkasan data yang presisi dan ramah perangkat layar kecil.
+  - Penataan tombol ekspor dan cetak laporan yang responsif.
+
+### 7.7 Integrasi SweetAlert2 pada Seluruh Dashboard Master
+- Menghubungkan library SweetAlert2 di bundle JS aplikasi (`resources/js/app.js`) dengan helper global `window.showConfirmDialog()` dan `window.showNotification()`.
+- Menggantikan dialog konfirmasi bawaan peramban (`confirm()`) dengan modal SweetAlert2 bertema tenang untuk seluruh aksi destruktif Master (Hapus Siswa, Hapus Guru BK, Reset Password, Hapus Kelas, Hapus Tahun Ajaran, Kenaikan Kelas).
+- Otomatisasi pemicuan toast SweetAlert2 untuk seluruh pesan flash session (`success`, `error`, `warning`, `info`).
+
+### 7.8 Penyempurnaan Formulir Pembuatan Akun Siswa & Guru BK
+- **Penghapusan Tombol Reset Manual**: Menghapus tombol *Reset Form* manual dari view `master/students/create.blade.php` dan `master/bk-users/create.blade.php` untuk menghindari kebingungan pengguna.
+- **Eliminasi Tombol Ganda**: Menghapus tombol sekunder *"Simpan & Tambah Siswa Baru"*, menyisakan satu tombol submit utama yang tegas (*"Simpan Akun Siswa"* / *"Simpan Akun Guru BK"*).
+- **Auto-Reset Pasca-Simpan**: Menyesuaikan controller (`StudentUserController@store` dan `BkUserController@store`) agar setelah akun berhasil disimpan, sistem melakukan pengalihan kembali ke route create dengan flash message `success`, sehingga seluruh field input otomatis ter-reset bersih ke kondisi awal.
+
+### 7.9 Redesain Panel Filter & Segmented Status Laporan Masuk Guru BK
+- **Penyatuan Kontainer Filter**: Menggabungkan tab status laporan dan formulir filter lanjutan yang sebelumnya terpisah menjadi satu kontainer kartu terpadu (`resources/views/bk/reports/index.blade.php`).
+- **Segmented Tab Status Control**: Baris status laporan dirancang sebagai segmented tab bar di bagian atas kartu dengan dot indikator berwarna status, badge hitungan font monospace, dan status aktif yang kontras.
+- **Grid Filter 12-Kolom Presisi**: Menata kolom filter ke dalam sistem grid 12 kolom (Pencarian 5-col, Kategori 3-col, Urgensi 2-col, Kelas 2-col) dilengkapi baris aksi pencarian yang bersih dengan tombol *Terapkan Filter* dan *Reset*.
+
+### 7.10 Pemulihan & Optimalisasi Fitur Pencarian Multi-Kriteria Laporan Masuk
+- Mengidentifikasi akar masalah fitur pencarian di mana pencarian sering kali mengembalikan hasil kosong karena kueri lama hanya memeriksa UUID mentah dan nama kelas.
+- Memperluas kueri pencarian pada `BkReportController@index`:
+  - Normalisasi otomatis nomor tiket UI (`#LAP-...` atau `LAP-...`) ke format UUID database.
+  - Pencarian lokasi kejadian (`location`).
+  - Pencarian nama kelas pelapor (`reporter_class_name`).
+  - Pencarian peran pelapor (`reporter_role`: korban / saksi).
+  - Pencarian kategori perundungan (`category.name`).
+  - Pencarian nama dan NIS pelapor non-anonim (`reporter.name`, `reporter.login_id`).
+  - Menjaga kepatuhan privasi (FR-02): pelapor dengan identitas dirahasiakan (`is_hidden_identity = true`) dilindungi secara ketat agar tidak dapat ditemukan melalui pencarian nama siswa.
+  - Menambahkan pengujian otomatis komprehensif pada `tests/Feature/BkReportManagementTest.php` dengan hasil 100% kelulusan (15 tes, 87 asersi).
 
 ---
 

@@ -189,9 +189,9 @@ Jika proyek memakai Tailwind v3, pindahkan token yang sama ke `theme.extend.colo
 | Publik | Header sederhana: nama + tombol **Masuk** | Sama, dengan tautan Beranda/Tata Cara/Tentang |
 | **Siswa** | **Drawer sidebar responsif** + bilah navigasi bawah 4 item: Dashboard, Buat Laporan, Riwayat, Bantuan; lonceng di header | Header dengan menu horizontal & profil terpadu |
 | **Guru BK** | Drawer navigasi + lonceng di header | Sidebar kiri terstruktur: Menu Utama (Dashboard, Kasus Masuk, Statistik), Manajemen (Kategori, Unduh, Laporan Periodik), Akun (Profil) |
-| **Master** | Drawer navigasi | Sidebar kiri 4 seksi semantik: `Menu Utama` (Dashboard), `Manajemen Pengguna` (Siswa, BK, Impor Excel), `Akademik` (Kelas, Tahun Ajaran, Kenaikan Kelas), `Audit & Sistem` (Notifikasi, Laporan Periodik, Log Audit, Pengaturan Web). Dilengkapi indikator aktif pill hijau |
+| **Master** | Drawer navigasi | Sidebar kiri 4 seksi semantik: `Menu Utama` (Dashboard), `Kelola Akun` (Akun Siswa, Akun Guru BK), `Akademik & Kelas` (Tahun Ajaran, Daftar Kelas, Kenaikan & Mutasi), `Sistem & Konfigurasi` (Impor Siswa, Pengaturan Sistem, Laporan Periodik, Log Audit). Dilengkapi indikator aktif pill hijau |
 
-- **Header** selalu menampilkan: logo & nama aplikasi, **lonceng notifikasi** (dengan penanda jumlah belum dibaca dan fitur auto-read), tombol toggle tema terang/gelap, dan menu profil pengguna.
+- **Header** selalu menampilkan: logo & nama aplikasi, **lonceng notifikasi** (untuk Siswa dan Guru BK, dengan penanda jumlah belum dibaca dan fitur auto-read; dinonaktifkan pada Master karena Master tidak mengurus laporan kasus), tombol toggle tema terang/gelap, dan menu profil pengguna.
 - *Catatan Kebijakan:* Fitur Tombol **Keluar Cepat** telah **dihapus** secara menyeluruh dari antarmuka sesuai arahan institusional madrasah guna mencegah insiden pengalihan jendela yang tidak disengaja.
 
 ---
@@ -239,6 +239,10 @@ Dipakai pada halaman detail laporan siswa (`siswa/reports/show`) dan Guru BK (`b
 - Atribut `autocomplete` yang tepat: `username` (login), `current-password`, `new-password`.
 - Kolom kata sandi punya tombol **tampilkan/sembunyikan**.
 - Area kronologi: tinggi awal ±140 px, ada penghitung karakter, batas wajar (mis. 2000 karakter).
+- **Formulir Pembuatan Akun (Siswa & Guru BK):**
+  - Menggunakan satu tombol submit utama yang tegas (*"Simpan Akun Siswa"* / *"Simpan Akun Guru BK"*).
+  - Tidak menggunakan tombol reset manual atau tombol ganda simpan.
+  - Setelah data berhasil disimpan, sistem mengembalikan pengguna ke formulir kosong bersih (*auto-reset*) disertai notifikasi toast SweetAlert2.
 
 ### Unggah bukti
 - Tampilkan batas jelas: "JPG, PNG, atau PDF · maks. 5 MB · maks. 3 file".
@@ -332,14 +336,33 @@ Status (badge + penjelasan), garis waktu perubahan status, balasan Guru BK, kolo
 
 ### 8.6 Dashboard dan daftar laporan (Guru BK)
 - Dashboard: kartu ringkasan (Baru, Diproses, Selesai bulan ini), daftar laporan terbaru.
-- Daftar: pencarian + filter (status, kategori, kelas, tanggal), tabel/kartu, badge status.
+- **Panel Filter & Status Terpadu (Laporan Masuk):**
+  - Menggabungkan bar tab status laporan dan formulir filter ke dalam satu kontainer kartu terpadu (`bg-white dark:bg-[#16231D] rounded-2xl border`).
+  - Bar status berupa *segmented tab control* dengan dot indikator berwarna status, badge hitungan monospace, dan tab aktif yang kontras.
+  - Formulir filter lanjutan dalam grid 12 kolom presisi:
+    - Kolom Pencarian (5 col)
+    - Kategori Perundungan (3 col)
+    - Tingkat Urgensi (2 col)
+    - Kelas Pelapor (2 col)
+    - Baris aksi pencarian di bawah dengan tombol *Terapkan Filter* dan *Reset*.
+- **Pencarian Multi-Kriteria Lengkap (`q`):**
+  - Mendukung nomor tiket baik format mentah maupun label UI (`#LAP-01a1...`, `LAP-...`).
+  - Mendukung lokasi kejadian (`location`).
+  - Mendukung nama kelas pelapor (`reporter_class_name`).
+  - Mendukung peran pelapor (`reporter_role`: korban / saksi).
+  - Mendukung kategori perundungan (`category.name`).
+  - Mendukung nama dan NIS pelapor non-anonim (`reporter.name`, `reporter.login_id`).
+  - Menjaga kerahasiaan identitas: jika pelapor memilih opsi rahasia (`is_hidden_identity = true`), pencarian nama siswa tidak akan memunculkan laporan tersebut (FR-02).
 - Nama pelapor rahasia tampil **"Pelapor Rahasia"** dengan ikon gembok; tombol **Lihat identitas** terpisah dan memberi peringatan bahwa aksi ini dicatat.
 
 ### 8.7 Master
 - Dashboard statistik (kartu angka + grafik sederhana). **Tanpa isi laporan dan tanpa identitas.**
-- Halaman akun: tabel dengan pencarian, filter kelas, aksi (ubah, nonaktifkan, reset kata sandi, arsipkan).
-- Impor Excel: unggah → **pratinjau validasi** (jumlah valid/bermasalah/ganda, daftar galat) → konfirmasi.
+- Struktur navigasi semantik: `Kelola Akun` (Akun Siswa, Akun Guru BK), `Akademik & Kelas` (Tahun Ajaran, Daftar Kelas, Kenaikan & Mutasi), `Sistem & Konfigurasi` (Impor Siswa, Pengaturan Sistem, Laporan Periodik, Log Audit).
+- Halaman akun: tabel dengan pencarian, filter kelas, aksi (ubah, nonaktifkan, reset kata sandi, arsipkan) yang dipadukan dengan modal dialog konfirmasi SweetAlert2.
+- Formulir pembuatan akun: satu tombol simpan utama, tanpa tombol reset manual, auto-reset bersih pasca-submit.
+- Impor Excel: dropzone berkas interaktif drag-and-drop → **pratinjau validasi** (jumlah valid/bermasalah/ganda, daftar galat) → konfirmasi massal berkecepatan tinggi via chunked bulk insert.
 - Operasi massal (hapus per kelas, kenaikan kelas): selalu lewat modal konfirmasi berisi jumlah terdampak.
+- Rekap Laporan Berkala: Kartu ringkasan KPI, filter rentang tanggal/periode, tabel agregasi terpusat, dan tombol cetak/ekspor responsif.
 
 ### 8.8 Statistik
 Grafik **sederhana dan terbaca**: batang untuk kategori/kelas, garis untuk tren bulanan, angka ringkasan di atas. Muat Chart.js **hanya** di halaman statistik. Beri alternatif tabel/angka agar bisa dibaca tanpa grafik.
