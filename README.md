@@ -187,6 +187,7 @@ php artisan test --filter=ExcelImportTest
 
 Dokumentasi lengkap dan spesifikasi perancangan sistem tersimpan di folder [`docs/`](docs/):
 
+* 📖 [`docs/ebook-panduan-pengguna-siperka.md`](docs/ebook-panduan-pengguna-siperka.md) — **Buku Manual & E-Book Panduan Penggunaan Resmi** untuk Siswa, Guru BK, dan Master Admin.
 * 📋 [`docs/prd.md`](docs/prd.md) — *Product Requirements Document* (PRD), alur pengguna, dan matriks hak akses.
 * 📝 [`docs/tasks.md`](docs/tasks.md) — Daftar tugas bertahap (Fase 0 s.d. Fase 11) dan catatan keputusan tim pengembang.
 * 🗄️ [`docs/database.md`](docs/database.md) — Skema basis data, ERD, tipe kolom terenkripsi, dan urutan migrasi.
