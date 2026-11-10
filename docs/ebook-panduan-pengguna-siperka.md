@@ -10,6 +10,7 @@
                        APLIKASI WEB SIPERKA (EDISI 2026)
 ================================================================================
 Aplikasi      : SIPERKA (Sistem Pelaporan Perundungan)
+Alamat Domain : https://siperka.my.id
 Institusi     : MTs Soebono Mantofani, Jombang - Ciputat, Tangerang Selatan
 Urutan Panduan: 1. Master Admin  |  2. Guru BK  |  3. Siswa (Peserta Didik)
 Fokus Buku    : Prosedur Langkah-demi-Langkah, Penjelasan Fitur & Variasi Kemungkinan
@@ -68,6 +69,10 @@ Fokus Buku    : Prosedur Langkah-demi-Langkah, Penjelasan Fitur & Variasi Kemung
 
 ## RINGKASAN PERAN PENGGUNA & KREDENSIAL AWAL
 
+> [!IMPORTANT]
+> **Alamat Portal Resmi SIPERKA**: [**https://siperka.my.id**](https://siperka.my.id)  
+> Seluruh pengguna (Master Admin, Guru BK, dan Siswa) mengakses aplikasi melalui domain resmi di atas.
+
 | Peran Pengguna | ID Masuk (*Login ID*) | Kata Sandi Bawaan | Wewenang Utama |
 |---|---|---|---|
 | **Master Admin** | Username Admin (contoh: `master1`) | Diberikan saat instalasi | Mengelola seluruh akun, data kelas, impor data, konfigurasi web, dan log audit keamanan. **Tidak dapat membaca isi kasus laporan.** |
@@ -92,7 +97,7 @@ flowchart TD
 ---
 
 ### 1.1 Cara Masuk (Login) Akun Master Admin
-1. Buka peramban dan akses alamat web SIPERKA.
+1. Buka peramban (Google Chrome, Firefox, Safari, atau Edge) dan akses alamat web resmi: [**https://siperka.my.id**](https://siperka.my.id).
 2. Klik tombol **Masuk** di pojok kanan atas.
 3. Masukkan **Username** dan **Kata Sandi** Master Admin.
 4. Klik **Masuk ke Portal**.
@@ -287,7 +292,7 @@ flowchart TD
 ---
 
 ### 2.1 Cara Masuk (Login) Akun Guru BK
-1. Akses web SIPERKA &rarr; klik **Masuk**.
+1. Buka peramban dan akses alamat web resmi: [**https://siperka.my.id**](https://siperka.my.id) lalu klik tombol **Masuk** di pojok kanan atas.
 2. Masukkan **NIP atau Username** konselor dan **Kata Sandi**.
 3. Klik **Masuk ke Portal**.
 4. *Kemungkinan*: Jika 2FA aktif, masukkan 6 digit kode OTP dari ponsel Anda.
@@ -492,7 +497,7 @@ flowchart TD
 ---
 
 ### 3.1 Cara Masuk (Login) Akun Siswa
-1. Buka web SIPERKA di ponsel atau laptopmu.
+1. Buka peramban di ponsel atau laptopmu, lalu ketik alamat domain resmi: [**https://siperka.my.id**](https://siperka.my.id).
 2. Di pojok kanan atas, tekan tombol **Masuk**.
 3. Masukkan **NIS (Nomor Induk Siswa)** kamu pada kolom ID Masuk (contoh: `20261015`).
 4. Masukkan **Kata Sandi** (kata sandi awal dari wali kelas: `SiswaMTS!`).
@@ -696,5 +701,6 @@ Tabel berikut merangkum seluruh cabang kemungkinan (*edge cases & scenarios*) ya
 ================================================================================
                     PANDUAN OPERASIONAL SELESAI
             MTs Soebono Mantofani — Menuju Madrasah Ramah Anak
+         Portal Resmi: https://siperka.my.id | Hak Cipta Dilindungi
 ================================================================================
 ```

@@ -9,6 +9,8 @@
 
 **SIPERKA** adalah aplikasi pelaporan dan penanganan insiden perundungan (*bullying*) berbasis web yang dikembangkan khusus untuk lingkungan **MTs Soebono Mantofani**. Sistem ini dirancang untuk menciptakan ruang bercerita yang aman, ramah anak, dan terpercaya bagi siswa, sekaligus memfasilitasi tim Bimbingan Konseling (Guru BK) dalam menindaklanjuti setiap pengaduan secara terstruktur, rapi, dan terdokumentasi.
 
+🌐 **Alamat Portal Resmi**: [**https://siperka.my.id**](https://siperka.my.id)
+
 Pengembangan sistem ini mengacu langsung pada amanat **Permendikbudristek No. 46 Tahun 2023** tentang Pencegahan dan Penanganan Kekerasan di Lingkungan Satuan Pendidikan (PPKSP) serta mematuhi ketentuan perlindungan data pribadi sesuai **UU No. 27 Tahun 2022 (UU PDP)**.
 
 ---
