@@ -156,21 +156,25 @@
                 </div>
 
                 {{-- Baris 2: Rentang Tanggal, Urutkan & Tombol Aksi --}}
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
-                    <div class="flex flex-wrap items-center gap-2 text-slate-600 dark:text-slate-400">
-                        <span class="font-bold flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                            <span>Tanggal:</span>
-                        </span>
-                        <input type="date" name="date_from" value="{{ request('date_from') }}" 
-                            class="px-3 py-1.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition min-h-[38px]">
-                        <span class="text-slate-400 font-medium">s/d</span>
-                        <input type="date" name="date_to" value="{{ request('date_to') }}" 
-                            class="px-3 py-1.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition min-h-[38px]">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+                    {{-- Tanggal & Urutan --}}
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2.5">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold flex items-center gap-1.5 text-slate-700 dark:text-slate-300 shrink-0">
+                                <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                <span>Tanggal:</span>
+                            </span>
+                            <div class="grid grid-cols-2 gap-2 flex-1 sm:flex sm:items-center">
+                                <input type="date" name="date_from" value="{{ request('date_from') }}" 
+                                    class="w-full sm:w-auto px-2.5 py-1.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition min-h-[38px]">
+                                <input type="date" name="date_to" value="{{ request('date_to') }}" 
+                                    class="w-full sm:w-auto px-2.5 py-1.5 text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition min-h-[38px]">
+                            </div>
+                        </div>
 
-                        <div class="relative ml-0 sm:ml-2">
+                        <div class="relative w-full sm:w-auto">
                             <select id="sort" name="sort" onchange="this.form.submit()" 
-                                class="appearance-none pl-3 pr-8 py-1.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition min-h-[38px] cursor-pointer">
+                                class="w-full sm:w-auto appearance-none pl-3 pr-8 py-1.5 text-xs font-semibold rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary-600 dark:focus:ring-[#5AE39D] transition min-h-[38px] cursor-pointer">
                                 <option value="" {{ !request('sort') ? 'selected' : '' }}>Urut: Terbaru Masuk</option>
                                 <option value="urgency_desc" {{ request('sort') === 'urgency_desc' ? 'selected' : '' }}>Urut: Urgensi Tertinggi</option>
                             </select>
@@ -180,22 +184,25 @@
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
+                    {{-- Tombol Aksi --}}
+                    <div class="flex items-center gap-2 pt-1 sm:pt-0 shrink-0">
                         @if(request()->hasAny(['q', 'status', 'urgency', 'sort', 'category_id', 'class_name', 'date_from', 'date_to']))
                             <a href="{{ route('bk.reports.index') }}" 
-                               class="px-3.5 py-2 min-h-[38px] inline-flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs transition cursor-pointer">
+                               class="flex-1 sm:flex-initial px-3.5 py-2 min-h-[38px] inline-flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs transition cursor-pointer">
                                 <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                 <span>Reset</span>
                             </a>
                         @endif
                         <button type="submit" 
-                                class="px-4 py-2 min-h-[38px] bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white font-bold rounded-xl text-xs transition shadow-xs flex items-center gap-1.5 cursor-pointer active:scale-[0.98]">
+                                class="flex-1 sm:flex-initial px-4 py-2 min-h-[38px] bg-primary-600 hover:bg-primary-700 active:bg-primary-800 text-white font-bold rounded-xl text-xs transition shadow-xs flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98]">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                             <span>Terapkan Filter</span>
                         </button>
                     </div>
                 </div>
             </form>
+        </div>
+
         {{-- ── Daftar Laporan (Desktop Table + Mobile Cards Sesuai Frontend Prototype) ── --}}
         <div class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 overflow-hidden shadow-xs">
             @if($reports->count() > 0)
@@ -282,37 +289,71 @@
                     </table>
                 </div>
 
-                {{-- 2. Mobile Card List (Sesuai Frontend Prototype guru-bk/laporan/page.tsx:233-263) --}}
+                {{-- 2. Mobile Card List --}}
                 <div class="md:hidden divide-y divide-slate-100 dark:divide-slate-800">
                     @foreach($reports as $report)
                         <a href="{{ route('bk.reports.show', $report) }}" 
-                           class="flex items-start justify-between gap-3 p-4 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors block">
+                           class="flex items-center justify-between gap-3 p-4 hover:bg-slate-50 dark:hover:bg-slate-800/40 active:bg-slate-100 dark:active:bg-slate-800/70 transition-colors group">
                             <div class="flex-1 min-w-0">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span class="font-mono text-xs font-bold text-slate-600 dark:text-slate-400">
+                                {{-- Row 1: Nomor Tiket & Status & Urgensi --}}
+                                <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
+                                    <span class="font-mono text-xs font-bold text-slate-700 dark:text-slate-300">
                                         #LAP-{{ str_pad($report->id, 4, '0', STR_PAD_LEFT) }}
                                     </span>
-                                    @if($report->is_hidden_identity)
-                                        <span class="inline-flex items-center gap-1 text-[11px] text-primary-700 dark:text-[#5AE39D] font-bold">
-                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                                            Anonim
+                                    <x-badge :variant="$report->status">
+                                        {{ $report->status_label }}
+                                    </x-badge>
+                                    @if($report->urgency === 'tinggi')
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900 shrink-0">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-rose-600 animate-pulse"></span>
+                                            Tinggi
+                                        </span>
+                                    @elseif($report->urgency === 'sedang')
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-[#FAD46B] border border-amber-200/80 dark:border-amber-900 shrink-0">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                            Sedang
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shrink-0">
+                                            Rendah
                                         </span>
                                     @endif
                                 </div>
-                                <p class="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
+
+                                {{-- Row 2: Kategori Kasus --}}
+                                <h3 class="text-sm font-extrabold text-slate-900 dark:text-slate-100 truncate group-hover:text-primary-700 dark:group-hover:text-[#5AE39D] transition-colors">
                                     {{ $report->category->name ?? 'Laporan Perundungan' }}
-                                </p>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                                    {{ $report->created_at->format('d M Y') }} &bull; {{ $report->reporter_class_name ?? 'Kelas -' }} &bull; {{ $report->location }}
+                                </h3>
+
+                                {{-- Row 3: Identitas Pelapor & Peran --}}
+                                <div class="flex items-center gap-1.5 mt-1 text-xs text-slate-600 dark:text-slate-400">
+                                    @if($report->is_hidden_identity)
+                                        <span class="inline-flex items-center gap-1 font-semibold text-primary-700 dark:text-[#5AE39D]">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                                            Anonim
+                                        </span>
+                                    @else
+                                        <span class="font-medium text-slate-800 dark:text-slate-200 truncate max-w-[150px]">
+                                            {{ $report->reporter?->name ?? 'Siswa' }}
+                                        </span>
+                                    @endif
+                                    <span>&bull;</span>
+                                    <span class="capitalize font-medium">{{ $report->reporter_role }}</span>
+                                </div>
+
+                                {{-- Row 4: Waktu, Kelas & Lokasi --}}
+                                <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                                    <span>{{ $report->created_at->format('d M Y, H:i') }} WIB</span>
+                                    <span>&bull;</span>
+                                    <span>{{ $report->reporter_class_name ?? 'Kelas -' }}</span>
+                                    <span>&bull;</span>
+                                    <span class="truncate max-w-[130px]">{{ $report->location }}</span>
                                 </p>
                             </div>
-                            <div class="shrink-0 flex flex-col items-end gap-1.5">
-                                <x-badge :variant="$report->status">
-                                    {{ $report->status_label }}
-                                </x-badge>
-                                @if($report->urgency === 'tinggi')
-                                    <span class="text-[10px] font-bold text-rose-600 dark:text-rose-400">Urgensi Tinggi</span>
-                                @endif
+
+                            {{-- Chevron Icon Aksi --}}
+                            <div class="shrink-0 text-slate-400 group-hover:text-primary-600 dark:group-hover:text-[#5AE39D] group-hover:translate-x-0.5 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                             </div>
                         </a>
                     @endforeach

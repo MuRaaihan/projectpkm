@@ -569,7 +569,7 @@
 
                         <div class="py-3 flex flex-col gap-1.5">
                             <span class="text-slate-500 dark:text-slate-400 font-medium">Kronologi Kejadian</span>
-                            <p class="font-normal text-slate-800 dark:text-slate-200 whitespace-pre-wrap leading-relaxed bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800" x-text="description || '-'"></p>
+                            <p class="font-normal text-slate-800 dark:text-slate-200 whitespace-pre-line leading-relaxed bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 text-justify [text-align-last:left] break-words" x-text="description || '-'"></p>
                         </div>
 
                         <div class="py-2.5 flex flex-col gap-2">

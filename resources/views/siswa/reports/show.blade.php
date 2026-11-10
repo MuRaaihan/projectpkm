@@ -83,9 +83,7 @@
                         </h3>
                     </div>
                     <div class="p-5 sm:p-6 space-y-4">
-                        <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line">
-                            {{ $report->description }}
-                        </p>
+                        <p class="text-xs sm:text-sm text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-line text-justify [text-align-last:left] break-words">{{ trim($report->description ?? '') }}</p>
 
                         @if ($report->accused_name)
                             <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
@@ -156,21 +154,21 @@
                     class="bg-surface-card dark:bg-[#16231D] rounded-2xl border border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 shadow-xs space-y-4">
                     
                     {{-- Header Komunikasi --}}
-                    <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-                        <div class="flex items-center gap-2.5">
+                    <div class="flex flex-wrap items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800 gap-3">
+                        <div class="flex items-center gap-2.5 min-w-0">
                             <div class="w-8 h-8 rounded-xl bg-primary-100/80 dark:bg-primary-950/70 text-primary-700 dark:text-[#5AE39D] flex items-center justify-center shrink-0">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
                             </div>
-                            <div>
-                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">
+                            <div class="min-w-0">
+                                <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 leading-tight">
                                     Ruang Percakapan &amp; Keterangan Susulan
                                 </h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                                     Saluran komunikasi langsung, aman, dan rahasia dengan Guru BK.
                                 </p>
                             </div>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-primary-700 dark:text-[#5AE39D] border border-emerald-200/80 dark:border-[#289E70]/40">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-primary-700 dark:text-[#5AE39D] border border-emerald-200/80 dark:border-[#289E70]/40 whitespace-nowrap shrink-0">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                             <span>{{ $report->messages->count() }} Pesan</span>
                         </span>
