@@ -9,9 +9,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="SISPERKA - Sistem Pelaporan Perundungan resmi MTs Soebono Mantofani. Ruang aman, tenang, dan rahasia bagi peserta didik untuk bercerita tanpa rasa takut.">
+    <meta name="description" content="SIPERKA - Sistem Pelaporan Perundungan resmi MTs Soebono Mantofani. Ruang aman, tenang, dan rahasia bagi peserta didik untuk bercerita tanpa rasa takut.">
     <link rel="icon" type="image/png" href="{{ asset('images/logo-sekolah.png') }}">
-    <title>{{ $title ?? 'SISPERKA - Sistem Pelaporan Perundungan MTs Soebono Mantofani' }}</title>
+    <title>{{ $title ?? 'SIPERKA - Sistem Pelaporan Perundungan MTs Soebono Mantofani' }}</title>
 
     <script>
         try {
@@ -168,7 +168,7 @@
     @endunless
 
     {{-- Flash Messages Hook for SweetAlert2 --}}
-    <div id="sisperka-flash-messages" class="hidden"
+    <div id="siperka-flash-messages" class="hidden"
         @if(session('success')) data-success="{{ session('success') }}" @endif
         @if(session('error')) data-error="{{ session('error') }}" @endif
         @if(session('status')) data-status="{{ session('status') }}" @endif

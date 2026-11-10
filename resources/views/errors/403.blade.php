@@ -1,4 +1,4 @@
-<x-layouts.public title="403 - Akses Dibatasi - SISPERKA">
+<x-layouts.public title="403 - Akses Dibatasi - SIPERKA">
     <div class="min-h-[calc(100dvh-16rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
         <div class="max-w-md w-full text-center space-y-6">
             <div class="mx-auto w-16 h-16 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-800 flex items-center justify-center font-bold shadow-xs">

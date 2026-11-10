@@ -1,4 +1,4 @@
-# Security Checklist: SISPERKA
+# Security Checklist: SIPERKA
 
 Daftar cek keamanan yang **harus lulus sebelum peluncuran** (Fase 7 dan 8 di [`tasks.md`](./tasks.md)). Acuan: bagian 9.1 [`prd.md`](./prd.md).
 

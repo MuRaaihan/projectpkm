@@ -96,7 +96,7 @@
                         </svg>
                         Konten Pengantar Beranda (Hero & Tentang)
                     </h2>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Teks sapaan ramah anak yang tampil pada bagian atas beranda SISPERKA.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Teks sapaan ramah anak yang tampil pada bagian atas beranda SIPERKA.</p>
                 </div>
 
                 <div class="space-y-5">
@@ -113,7 +113,7 @@
                     </div>
 
                     <div>
-                        <label for="about_text" class="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1.5">Teks Pengantar Bagian "Mengenal SISPERKA" <span class="text-rose-500">*</span></label>
+                        <label for="about_text" class="block text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1.5">Teks Pengantar Bagian "Mengenal SIPERKA" <span class="text-rose-500">*</span></label>
                         <textarea id="about_text" name="about_text" rows="4" required class="w-full px-3.5 py-2 text-xs sm:text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-emerald-500">{{ old('about_text', $settings['about_text']) }}</textarea>
                         @error('about_text') <p class="text-xs text-rose-500 mt-1">{{ $message }}</p> @enderror
                     </div>

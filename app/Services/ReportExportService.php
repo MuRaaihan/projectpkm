@@ -63,7 +63,7 @@ class ReportExportService
 
         // Judul & Header Dokumen Resmi
         $sheet->setCellValue('A1', 'MADRASAH TSANAWIYAH SOEBONO MANTOFANI');
-        $sheet->setCellValue('A2', 'REKAPITULASI LAPORAN PERUNDUNGAN (SISPERKA)');
+        $sheet->setCellValue('A2', 'REKAPITULASI LAPORAN PERUNDUNGAN (SIPERKA)');
         $sheet->setCellValue('A3', 'KLASIFIKASI: DOKUMEN RAHASIA - HANYA UNTUK KEPENTINGAN KONSELING & PENANGANAN RESMI');
 
         $sheet->getStyle('A1:A3')->getFont()->setBold(true);
@@ -134,7 +134,7 @@ class ReportExportService
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
-        $filename = 'rekap-laporan-sisperka-rahasia-'.date('Ymd-His').'.xlsx';
+        $filename = 'rekap-laporan-siperka-rahasia-'.date('Ymd-His').'.xlsx';
 
         return response()->streamDownload(function () use ($spreadsheet) {
             $writer = new Xlsx($spreadsheet);

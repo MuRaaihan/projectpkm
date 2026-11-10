@@ -28,7 +28,7 @@ class SettingController extends Controller
             'emergency_contact' => Setting::get('emergency_contact', 'Hubungi Ruang BK atau wali kelas masing-masing'),
             'hero_title' => Setting::get('hero_title', 'Kamu tidak sendirian. Ceritakan di sini, dengan aman.'),
             'hero_subtitle' => Setting::get('hero_subtitle', 'Jika kamu mengalami atau melihat perundungan (bullying) di sekolah, jangan ragu untuk bercerita. Laporanmu dijaga sepenuhnya secara rahasia dan langsung didampingi dengan tulus oleh Guru Bimbingan & Konseling (BK).'),
-            'about_text' => Setting::get('about_text', 'SISPERKA (Sistem Pelaporan Perundungan MTs Soebono Mantofani) hadir sebagai ruang terpercaya bagi seluruh peserta didik madrasah untuk menyampaikan kejadian perundungan, kekerasan verbal, fisik, maupun siber, baik yang dialami sendiri maupun disaksikan pada teman sebaya.'),
+            'about_text' => Setting::get('about_text', 'SIPERKA (Sistem Pelaporan Perundungan MTs Soebono Mantofani) hadir sebagai ruang terpercaya bagi seluruh peserta didik madrasah untuk menyampaikan kejadian perundungan, kekerasan verbal, fisik, maupun siber, baik yang dialami sendiri maupun disaksikan pada teman sebaya.'),
             'data_retention_years' => (int) Setting::get('data_retention_years', 5),
         ];
 

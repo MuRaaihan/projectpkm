@@ -26,7 +26,7 @@ class AuthTest extends TestCase
         $response = $this->get('/login');
 
         $response->assertStatus(200);
-        $response->assertSee('Masuk ke SISPERKA');
+        $response->assertSee('Masuk ke SIPERKA');
         $response->assertSee('ID Pengguna (NIS / NIP / Username)');
     }
 

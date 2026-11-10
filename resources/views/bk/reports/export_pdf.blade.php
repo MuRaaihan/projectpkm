@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Rekapitulasi Laporan Perundungan (SISPERKA)</title>
+    <title>Rekapitulasi Laporan Perundungan (SIPERKA)</title>
     <style>
         @page {
             margin: 1.2cm 1.5cm;
@@ -100,7 +100,7 @@
         <tr>
             <td style="width: 75%;">
                 <h1 class="title">MTs Soebono Mantofani</h1>
-                <p class="subtitle">Sistem Pelaporan Perundungan (SISPERKA) — Rekapitulasi Laporan</p>
+                <p class="subtitle">Sistem Pelaporan Perundungan (SIPERKA) — Rekapitulasi Laporan</p>
             </td>
             <td style="width: 25%; text-align: right; vertical-align: top;">
                 <span class="badge-confidential">DOKUMEN RAHASIA</span>
@@ -168,7 +168,7 @@
     <table class="signature-table">
         <tr>
             <td style="width: 60%; vertical-align: top; font-size: 8pt; color: #64748B;">
-                <em>*Dokumen ini bersifat sangat rahasia dan diterbitkan secara resmi melalui SISPERKA MTs Soebono Mantofani semata-mata untuk penanganan bimbingan dan konseling peserta didik. Penyalahgunaan data merupakan pelanggaran privasi.</em>
+                <em>*Dokumen ini bersifat sangat rahasia dan diterbitkan secara resmi melalui SIPERKA MTs Soebono Mantofani semata-mata untuk penanganan bimbingan dan konseling peserta didik. Penyalahgunaan data merupakan pelanggaran privasi.</em>
             </td>
             <td style="width: 40%; text-align: center;">
                 Tangerang Selatan, {{ now()->translatedFormat('d F Y') }}<br>

@@ -1,4 +1,4 @@
-<x-layouts.public title="Verifikasi Dua Faktor (2FA) - SISPERKA">
+<x-layouts.public title="Verifikasi Dua Faktor (2FA) - SIPERKA">
     <div class="min-h-[80vh] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             {{-- Logo dan Judul --}}

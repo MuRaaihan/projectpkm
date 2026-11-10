@@ -1,6 +1,6 @@
-# UI Guide: SISPERKA
+# UI Guide: SIPERKA
 
-Panduan tampilan, bahasa, dan perilaku antarmuka SISPERKA. Dipakai oleh developer dan agent AI.
+Panduan tampilan, bahasa, dan perilaku antarmuka SIPERKA. Dipakai oleh developer dan agent AI.
 
 **Urutan prioritas jika ada pertentangan:**
 1. [`prd.md`](./prd.md) dan aturan keamanan di [`AGENTS.md`](../AGENTS.md)
@@ -13,7 +13,7 @@ Panduan tampilan, bahasa, dan perilaku antarmuka SISPERKA. Dipakai oleh develope
 
 ## 1. Prinsip Desain
 
-SISPERKA dipakai anak-anak yang mungkin sedang takut, sedih, atau malu. Tampilannya harus terasa **aman, tenang, dan mudah**, bukan keren atau ramai.
+SIPERKA dipakai anak-anak yang mungkin sedang takut, sedih, atau malu. Tampilannya harus terasa **aman, tenang, dan mudah**, bukan keren atau ramai.
 
 | Prinsip | Artinya dalam praktik |
 |---|---|
@@ -292,9 +292,9 @@ Pill kecil dengan teks + warna (lihat bagian 3). Teks selalu ada.
 
 ### 8.1 Beranda (publik)
 Urutan bagian dari atas:
-1. **Header**: Logo resmi madrasah, nama SISPERKA, tautan navigasi (Beranda, Tentang, Cara Kerja), sakelar mode gelap, dan tombol **Masuk**.
+1. **Header**: Logo resmi madrasah, nama SIPERKA, tautan navigasi (Beranda, Tentang, Cara Kerja), sakelar mode gelap, dan tombol **Masuk**.
 2. **Hero**: Judul hangat dengan aksen hijau, kalimat pengantar ramah anak, tombol aksi utama **"Masuk & Buat Laporan"**, dan badge komitmen madrasah.
-3. **Pilar Utama SISPERKA**: Tiga kartu pilar (Kerahasiaan Terjamin, Penanganan Terarah oleh Guru BK, Akses Mudah & Aman).
+3. **Pilar Utama SIPERKA**: Tiga kartu pilar (Kerahasiaan Terjamin, Penanganan Terarah oleh Guru BK, Akses Mudah & Aman).
 4. **Showcase Phone Mockup Interaktif**: Ilustrasi 6 layar HP interaktif berbingkai modern yang memperagakan alur pengisian laporan secara visual kepada siswa.
 5. **Alur Penanganan Laporan**: Linimasa 4 langkah sederhana dari pengiriman, verifikasi BK, tindak lanjut, hingga selesai.
 6. **FAQ Ramah Anak**: Akordeon interaktif pertanyaan yang sering diajukan seputar keamanan data dan proses lapor.
@@ -429,7 +429,7 @@ Grafik **sederhana dan terbaca**: batang untuk kategori/kelas, garis untuk tren 
 
 Skill ini dipakai sebagai inspirasi kerapian visual. Bila bertentangan, **panduan ini menang**:
 
-| Kecenderungan skill | Keputusan SISPERKA |
+| Kecenderungan skill | Keputusan SIPERKA |
 |---|---|
 | `DESIGN_VARIANCE` 8 (tata letak asimetris, tak biasa) | Pakai **3**: tata letak rapi, mudah diprediksi |
 | `MOTION_INTENSITY` 6 (animasi kaya, mikro-interaksi terus-menerus) | Pakai **2**: transisi singkat saja |

@@ -150,7 +150,7 @@ class TwoFactorAuthController extends Controller
             $user->save();
         }
 
-        $otpAuthUri = TotpService::getOtpAuthUri('SISPERKA', $user->login_id, $user->two_factor_secret);
+        $otpAuthUri = TotpService::getOtpAuthUri('SIPERKA', $user->login_id, $user->two_factor_secret);
 
         return view('auth.two-factor-setup', [
             'user' => $user,

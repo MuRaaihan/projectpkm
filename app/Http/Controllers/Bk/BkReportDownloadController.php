@@ -41,7 +41,7 @@ class BkReportDownloadController extends Controller
 
         $pdf = $exportService->exportPdf($reports, $request->all());
 
-        return $pdf->download('rekap-laporan-sisperka-rahasia-'.date('Ymd-His').'.pdf');
+        return $pdf->download('rekap-laporan-siperka-rahasia-'.date('Ymd-His').'.pdf');
     }
 
     /**

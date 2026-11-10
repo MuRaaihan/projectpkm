@@ -1,4 +1,4 @@
-<x-layouts.public title="500 - Terjadi Kendala Server - SISPERKA">
+<x-layouts.public title="500 - Terjadi Kendala Server - SIPERKA">
     <div class="min-h-[calc(100dvh-16rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
         <div class="max-w-md w-full text-center space-y-6">
             <div class="mx-auto w-16 h-16 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 flex items-center justify-center font-bold shadow-xs">

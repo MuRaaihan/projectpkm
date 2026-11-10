@@ -380,7 +380,7 @@ class ReleaseThreeFeaturesTest extends TestCase
             'counseling_hours' => '07.30 - 15.00',
             'hero_title' => 'Judul Baru',
             'hero_subtitle' => 'Penjelasan Hero Baru',
-            'about_text' => 'Tentang SISPERKA Baru',
+            'about_text' => 'Tentang SIPERKA Baru',
             'data_retention_years' => 7,
         ]);
 

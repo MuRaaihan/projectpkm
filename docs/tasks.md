@@ -1,4 +1,4 @@
-# TASKS: SISPERKA
+# TASKS: SIPERKA
 **Sistem Pelaporan Perundungan MTs Soebono Mantofani**
 
 Acuan utama: [`docs/prd.md`](./prd.md). Jika ada pertentangan antara file ini dan PRD, **PRD yang benar**; perbarui file ini.
@@ -67,7 +67,7 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 - [x] Verifikasi lingkungan: **PHP 8.3+** (syarat Laravel 13), Composer, Node.js, dan MySQL/MariaDB (`php -v`, `composer -V`, `node -v`); **jangan** menginstal ulang atau menjalankan skrip internet
 - [x] Verifikasi `.env`: `DB_CONNECTION=mysql` (diset `mariadb`), `DB_HOST=127.0.0.1`, `DB_PORT=3306`, `DB_DATABASE=db_project` (bukan SQLite, yang merupakan bawaan Laravel bila `.env` belum diubah)
 - [x] Jalankan `php artisan db:show` dan pastikan terhubung ke **MySQL/MariaDB `db_project`**, serta tabel bawaan (`users`, `sessions`, `cache`, `jobs`, dll.) ada di sana. Jika tabel justru ada di `database/database.sqlite`, perbaiki `.env` lalu `php artisan migrate` ulang
-- [x] Pastikan `AGENTS.md` berisi aturan SISPERKA dan **tidak** lagi berisi petunjuk bootstrap lama (tag `<laravel-boost-guidelines>`)
+- [x] Pastikan `AGENTS.md` berisi aturan SIPERKA dan **tidak** lagi berisi petunjuk bootstrap lama (tag `<laravel-boost-guidelines>`)
 - [x] Pastikan Taste Skill terdeteksi agent (panel Customizations atau tanya agent), dan stack tampilan tetap **Blade + Tailwind**
 - [x] Inisialisasi Git (bila belum), pastikan `.gitignore` memuat `.env`, `vendor/`, `node_modules/`, file bukti di `storage/`, dan backup; buat commit awal
 - [x] Buat `.env.example` tanpa nilai rahasia
@@ -291,10 +291,10 @@ Legenda: ⬜ belum · 🟨 sedang dikerjakan · ✅ selesai
 
 ## FASE 6: Beranda Publik dan Halaman Informasi
 
-**Tujuan:** halaman sebelum login yang menjelaskan SISPERKA dan membangun kepercayaan.
+**Tujuan:** halaman sebelum login yang menjelaskan SIPERKA dan membangun kepercayaan.
 **Kebutuhan PRD:** FR-40, FR-41, FR-43 (FR-42 di Fase 9)
 
-- [x] **Beranda**: perkenalan SISPERKA (apa itu, tujuan, jaminan kerahasiaan) (FR-40)
+- [x] **Beranda**: perkenalan SIPERKA (apa itu, tujuan, jaminan kerahasiaan) (FR-40)
 - [x] Bagian **Tata Cara Menggunakan** dengan langkah-langkah bergambar/ikon (FR-40)
 - [x] Bagian **alur penanganan laporan** dan **FAQ** singkat (FR-40)
 - [x] Tombol **Masuk** yang jelas menuju halaman login
@@ -463,8 +463,8 @@ Gunakan bagian ini untuk mencatat keputusan, kendala, atau hal yang perlu ditany
 |---|---|---|
 | 17 Okt 2026 | 0 | Stack: **Laravel 13, PHP 8.3+**. Peran memakai kolom `role` (tanpa Spatie). Kolom login bernama `login_id` |
 | 17 Okt 2026 | 0 | Database MySQL bernama `db_project`. Migrasi bawaan sudah dijalankan sekali; akan disesuaikan di Fase 1 dengan `migrate:fresh` (belum ada data asli) |
-| 17 Okt 2026 | 0 | `AGENTS.md` bawaan Laravel (petunjuk bootstrap Boost) diganti dengan aturan SISPERKA. Laravel Boost **opsional**; jangan dijalankan tanpa cadangan `AGENTS.md` |
-| 17 Okt 2026 | 0 | Taste Skill v1 terpasang di folder skills; nilai diturunkan menjadi 3 / 2 / 4. Aturan SISPERKA di `AGENTS.md` menang bila bertentangan |
+| 17 Okt 2026 | 0 | `AGENTS.md` bawaan Laravel (petunjuk bootstrap Boost) diganti dengan aturan SIPERKA. Laravel Boost **opsional**; jangan dijalankan tanpa cadangan `AGENTS.md` |
+| 17 Okt 2026 | 0 | Taste Skill v1 terpasang di folder skills; nilai diturunkan menjadi 3 / 2 / 4. Aturan SIPERKA di `AGENTS.md` menang bila bertentangan |
 | 17 Okt 2026 | 8 | Fase 8 (Deploy VPS fisik) dilewati sementara atas persetujuan pemilik proyek untuk langsung mengembangkan fitur Rilis 2 (Fase 9) dan Rilis 3 (Fase 10) di lingkungan lokal |
 | 17 Okt 2026 | 9 | Fase 9 tuntas: FR-17 (Kelola Pengaturan Madrasah & Beranda), FR-18 (Log Aktivitas Master), FR-27 (Tingkat Urgensi Laporan), FR-36 (Informasi Susulan Siswa), FR-39 (Bantuan & Kontak Darurat), FR-42 (Keluar Cepat). 109 pengujian otomatis lulus (100% green). |
 | 17 Okt 2026 | 10 | Fase 10 tuntas: FR-08 (Autentikasi 2FA TOTP RFC 6238 mandiri & aman untuk staf Master/BK tanpa pihak ketiga, 8 recovery codes darurat, tantangan login rate-limited), Laporan Periodik Otomatis (bulanan/semesteran dengan agregasi anonim), Evaluasi Retensi Data (perintah audit retensi konsol & pengaturan retensi tahunan di Master). Total 124 pengujian otomatis lulus (100% green). |

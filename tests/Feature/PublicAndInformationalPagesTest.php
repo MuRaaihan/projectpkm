@@ -41,13 +41,13 @@ class PublicAndInformationalPagesTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertSee('SISPERKA');
+        $response->assertSee('SIPERKA');
         $response->assertSee('MTs Soebono Mantofani');
         // Hero headline from docs/ui-guide.md baris 47
         $response->assertSee('Kamu tidak sendirian.');
         $response->assertSee('Ceritakan di sini, dengan aman.');
         // Tata cara & Phone Mockup
-        $response->assertSee('Bagaimana Cara Menggunakan SISPERKA?');
+        $response->assertSee('Bagaimana Cara Menggunakan SIPERKA?');
         $response->assertSee('Masuk dengan Akun NIS');
         $response->assertSee('Ceritakan Kejadian');
         $response->assertSee('Pilih Opsi Rahasia');

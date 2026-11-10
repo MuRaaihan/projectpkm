@@ -1,4 +1,4 @@
-# SISPERKA: Sistem Pelaporan Perundungan MTs Soebono Mantofani
+# SIPERKA: Sistem Pelaporan Perundungan MTs Soebono Mantofani
 
 Aplikasi web untuk melaporkan perundungan (bullying) di madrasah. Pengguna ±400 orang, sebagian besar **anak di bawah umur**. Data yang disimpan **sangat sensitif**. Keamanan dan kerahasiaan lebih penting daripada kecepatan atau kecanggihan fitur.
 
@@ -48,7 +48,7 @@ Aplikasi web untuk melaporkan perundungan (bullying) di madrasah. Pengguna ±400
 
 ## Tampilan
 Ikuti `docs/ui-guide.md`. Gunakan skill `design-taste-frontend-v1` hanya sebagai inspirasi kerapian visual, dengan stack di atas.
-Bila `docs/ui-guide.md` atau aturan SISPERKA bertentangan dengan skill, **`ui-guide.md` dan aturan SISPERKA menang**:
+Bila `docs/ui-guide.md` atau aturan SIPERKA bertentangan dengan skill, **`ui-guide.md` dan aturan SIPERKA menang**:
 - Tenang, ramah anak, aman; hindari kesan "startup".
 - Tanpa animasi yang berjalan terus-menerus; transisi sederhana saja.
 - **Mobile-first**, ringan di HP murah, kontras tinggi, ukuran huruf nyaman.
@@ -82,4 +82,4 @@ npm run dev                # Tailwind
 - Mengirim data apa pun ke layanan eksternal
 - Mengubah aturan keamanan di file ini
 - Menjalankan skrip dari internet (`curl ... | bash`, `iex (DownloadString ...)`) atau mengubah/menginstal ulang PHP, Composer, dan Node.js. Jika lingkungan belum siap, **berhenti dan beri tahu saya**
-- Memasang atau menjalankan ulang Laravel Boost (`boost:install`, `boost:update`). Jika Boost sudah terpasang, panduannya melengkapi file ini, tetapi **aturan SISPERKA di file ini menang** bila bertentangan, dan jangan menimpa file ini
+- Memasang atau menjalankan ulang Laravel Boost (`boost:install`, `boost:update`). Jika Boost sudah terpasang, panduannya melengkapi file ini, tetapi **aturan SIPERKA di file ini menang** bila bertentangan, dan jangan menimpa file ini

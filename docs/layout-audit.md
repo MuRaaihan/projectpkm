@@ -1,5 +1,5 @@
 # Laporan Audit Tata Letak & Kesiapan Mode Gelap (Layout & Dark Mode Audit)
-**Sistem Pelaporan Perundungan SISPERKA - MTs Soebono Mantofani**
+**Sistem Pelaporan Perundungan SIPERKA - MTs Soebono Mantofani**
 
 Dokumen ini disusun pada **Tahap 1: Audit (Tanpa Mengubah Kode)** untuk memetakan seluruh masalah tata letak, inkonsistensi visual pada tiga ukuran layar (360px mobile, 768px tablet, 1280px desktop), serta kesenjangan adaptasi mode gelap (*dark mode*) pada seluruh view aplikasi.
 

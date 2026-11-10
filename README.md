@@ -1,4 +1,4 @@
-# SISPERKA — Sistem Pelaporan Perundungan
+# SIPERKA — Sistem Pelaporan Perundungan
 ### MTs Soebono Mantofani
 
 [![Laravel Version](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat&logo=laravel)](https://laravel.com)
@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/badge/License-Proprietary-0F766E)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Production--Ready-success)](docs/prd.md)
 
-**SISPERKA** adalah aplikasi pelaporan dan penanganan insiden perundungan (*bullying*) berbasis web yang dikembangkan khusus untuk lingkungan **MTs Soebono Mantofani**. Sistem ini dirancang untuk menciptakan ruang bercerita yang aman, ramah anak, dan terpercaya bagi siswa, sekaligus memfasilitasi tim Bimbingan Konseling (Guru BK) dalam menindaklanjuti setiap pengaduan secara terstruktur, rapi, dan terdokumentasi.
+**SIPERKA** adalah aplikasi pelaporan dan penanganan insiden perundungan (*bullying*) berbasis web yang dikembangkan khusus untuk lingkungan **MTs Soebono Mantofani**. Sistem ini dirancang untuk menciptakan ruang bercerita yang aman, ramah anak, dan terpercaya bagi siswa, sekaligus memfasilitasi tim Bimbingan Konseling (Guru BK) dalam menindaklanjuti setiap pengaduan secara terstruktur, rapi, dan terdokumentasi.
 
 Pengembangan sistem ini mengacu langsung pada amanat **Permendikbudristek No. 46 Tahun 2023** tentang Pencegahan dan Penanganan Kekerasan di Lingkungan Satuan Pendidikan (PPKSP) serta mematuhi ketentuan perlindungan data pribadi sesuai **UU No. 27 Tahun 2022 (UU PDP)**.
 
@@ -91,7 +91,7 @@ Pengembangan sistem ini mengacu langsung pada amanat **Permendikbudristek No. 46
 1. **Kloning Repositori**:
    ```bash
    git clone https://github.com/MuRaaihan/projectpkm.git
-   cd projectpkm/Sisperka
+   cd projectpkm
    ```
 
 2. **Pasang Dependensi Backend & Frontend**:
@@ -199,4 +199,4 @@ Dokumentasi lengkap dan spesifikasi perancangan sistem tersimpan di folder [`doc
 
 ## 📜 Hak Cipta & Lisensi
 
-Sistem Informasi & Pelaporan Perundungan (**SISPERKA**) dikembangkan khusus untuk **MTs Soebono Mantofani**. Seluruh hak cipta dan kepemilikan kode dilindungi untuk kepentingan madrasah dan perlindungan peserta didik.
+Sistem Informasi & Pelaporan Perundungan (**SIPERKA**) dikembangkan khusus untuk **MTs Soebono Mantofani**. Seluruh hak cipta dan kepemilikan kode dilindungi untuk kepentingan madrasah dan perlindungan peserta didik.

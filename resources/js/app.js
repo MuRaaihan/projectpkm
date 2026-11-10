@@ -7,7 +7,7 @@ window.Chart = Chart;
 window.Swal = Swal;
 
 /**
- * Toast Notification Helper (SISPERKA Style)
+ * Toast Notification Helper (SIPERKA Style)
  */
 window.toast = (icon, title, timer = 3500) => {
     const isDark = document.documentElement.classList.contains('dark');
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Check for Flash Messages from Laravel Blade
-    const flashContainer = document.getElementById('sisperka-flash-messages');
+    const flashContainer = document.getElementById('siperka-flash-messages');
     if (flashContainer) {
         if (flashContainer.dataset.success) {
             window.toast('success', flashContainer.dataset.success);

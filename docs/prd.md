@@ -1,4 +1,4 @@
-# PRD: SISPERKA
+# PRD: SIPERKA
 **Sistem Pelaporan Perundungan Berbasis Web — MTs Soebono Mantofani**
 
 | | |
@@ -6,14 +6,14 @@
 | **Versi** | 1.2 (Selesai Implementasi & Pemolesan UI/UX) |
 | **Status** | Stabil / Production-Ready |
 | **Pemilik produk** | Kepala MTs Soebono Mantofani & Tim Pengembang |
-| **Tim pengembang** | Tim Pengembang SISPERKA |
+| **Tim pengembang** | Tim Pengembang SIPERKA |
 | **Terakhir diperbarui** | November 2026 |
 
 ---
 
 ## 1. Ringkasan
 
-**SISPERKA** adalah aplikasi web untuk melaporkan kasus perundungan (bullying) di MTs Soebono Mantofani. Siswa melapor melalui akun yang dibuatkan sekolah, dengan pilihan **lapor rahasia** (nama disamarkan dari pihak lain). Guru BK menerima, memverifikasi, menindaklanjuti, dan mencatat penanganan laporan. Akun Master mengelola akun pengguna dan memantau statistik tanpa melihat isi laporan.
+**SIPERKA** adalah aplikasi web untuk melaporkan kasus perundungan (bullying) di MTs Soebono Mantofani. Siswa melapor melalui akun yang dibuatkan sekolah, dengan pilihan **lapor rahasia** (nama disamarkan dari pihak lain). Guru BK menerima, memverifikasi, menindaklanjuti, dan mencatat penanganan laporan. Akun Master mengelola akun pengguna dan memantau statistik tanpa melihat isi laporan.
 
 **Perkiraan pengguna:** ±400 orang (siswa, guru BK, master).
 
@@ -69,7 +69,7 @@ Siswa dan Guru BK **tidak dapat mendaftar sendiri**. Hanya ada **satu halaman lo
 
 **Publik (sebelum login)**
 1. **Beranda**
-   - Perkenalan SISPERKA (apa itu, tujuan, jaminan kerahasiaan)
+   - Perkenalan SIPERKA (apa itu, tujuan, jaminan kerahasiaan)
    - Tata cara menggunakan (langkah-langkah bergambar/ikon)
    - Interactive Phone Mockups (pratinjau alur pelaporan ramah anak)
    - Alur penanganan laporan, FAQ singkat, dan tombol **Masuk**
@@ -248,7 +248,7 @@ Prioritas: **P0** = wajib rilis pertama, **P1** = penting, **P2** = tahap beriku
 | Grafik statistik | Chart.js |
 | Anti-spam | Cloudflare Turnstile dan rate limiting |
 | Hosting | VPS lokal Indonesia (1–2 vCPU, 2 GB RAM); wajib mendukung **PHP 8.3+** |
-| Domain | Subdomain `.sch.id` (mis. `sisperka.mtssoebonomantofani.sch.id`) |
+| Domain | Subdomain `.sch.id` (mis. `siperka.mtssoebonomantofani.sch.id`) |
 | SSL | Let's Encrypt |
 
 > Pilihan akhir dapat menyesuaikan keahlian tim yang akan merawat sistem.
@@ -289,7 +289,7 @@ Prioritas: **P0** = wajib rilis pertama, **P1** = penting, **P2** = tahap beriku
 
 ## 13. Kebijakan Penanganan (Non-Teknis, Disiapkan Paralel)
 
-- [ ] SK pembentukan **Tim TPPK** dan penetapan Guru BK pengelola SISPERKA
+- [ ] SK pembentukan **Tim TPPK** dan penetapan Guru BK pengelola SIPERKA
 - [ ] **SOP penanganan laporan** (siapa memproses, batas respons 3×24 jam, alur eskalasi)
 - [ ] Aturan **perlindungan pelapor** dari pembalasan
 - [ ] Jalur rujukan kasus berat (psikolog, P2TP2A, kepolisian)

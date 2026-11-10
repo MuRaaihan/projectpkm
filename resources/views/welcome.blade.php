@@ -1,4 +1,4 @@
-<x-layouts.public title="SISPERKA - Ruang Aman Pelaporan Perundungan MTs Soebono Mantofani">
+<x-layouts.public title="SIPERKA - Ruang Aman Pelaporan Perundungan MTs Soebono Mantofani">
     <div class="animate-fade-in">
         {{-- ===================================================
             1. HERO SECTION (Sesuai Desain frontend/src/app/page.tsx:784-850)
@@ -161,7 +161,7 @@
                     </span>
 
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                        Bagaimana Cara Menggunakan SISPERKA?
+                        Bagaimana Cara Menggunakan SIPERKA?
                     </h2>
 
                     <p class="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">

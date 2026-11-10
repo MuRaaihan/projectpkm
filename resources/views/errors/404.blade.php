@@ -1,4 +1,4 @@
-<x-layouts.public title="404 - Halaman Tidak Ditemukan - SISPERKA">
+<x-layouts.public title="404 - Halaman Tidak Ditemukan - SIPERKA">
     <div class="min-h-[calc(100dvh-16rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 animate-fade-in">
         <div class="max-w-md w-full text-center space-y-6">
             <div class="mx-auto w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold shadow-xs">

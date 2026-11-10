@@ -13,7 +13,7 @@
                     Impor {{ $count }} Akun Berhasil Disimpan!
                 </h1>
                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2">
-                    Seluruh akun {{ $type === 'siswa' ? 'siswa' : 'Guru BK' }} telah berhasil didaftarkan ke sistem SISPERKA dengan kata sandi acak yang aman.
+                    Seluruh akun {{ $type === 'siswa' ? 'siswa' : 'Guru BK' }} telah berhasil didaftarkan ke sistem SIPERKA dengan kata sandi acak yang aman.
                 </p>
             </div>
 

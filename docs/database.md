@@ -1,4 +1,4 @@
-# Rancangan Database: SISPERKA
+# Rancangan Database: SIPERKA
 
 Diturunkan dari bagian *Model Data* di [`prd.md`](./prd.md). Database: **MySQL/MariaDB**, charset `utf8mb4`, engine InnoDB.
 

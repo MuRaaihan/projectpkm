@@ -1,4 +1,4 @@
-<x-layouts.public title="Kebijakan Privasi & Batas Kerahasiaan - SISPERKA">
+<x-layouts.public title="Kebijakan Privasi & Batas Kerahasiaan - SIPERKA">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-8 animate-fade-in">
         {{-- Header Halaman --}}
         <div class="space-y-3 pb-6 border-b border-slate-200 dark:border-slate-800">
@@ -23,7 +23,7 @@
                     Komitmen Perlindungan Peserta Didik
                 </h2>
                 <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                    SISPERKA (Sistem Pelaporan Perundungan MTs Soebono Mantofani) dibangun semata-mata untuk mewujudkan lingkungan madrasah yang bebas dari kekerasan fisik, verbal, relasional, maupun siber (<em>cyberbullying</em>), mengacu pada <strong>Permendikbudristek No. 46 Tahun 2023</strong> tentang Pencegahan dan Penanganan Kekerasan di Lingkungan Satuan Pendidikan.
+                    SIPERKA (Sistem Pelaporan Perundungan MTs Soebono Mantofani) dibangun semata-mata untuk mewujudkan lingkungan madrasah yang bebas dari kekerasan fisik, verbal, relasional, maupun siber (<em>cyberbullying</em>), mengacu pada <strong>Permendikbudristek No. 46 Tahun 2023</strong> tentang Pencegahan dan Penanganan Kekerasan di Lingkungan Satuan Pendidikan.
                 </p>
             </div>
 

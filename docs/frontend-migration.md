@@ -1,6 +1,6 @@
-# Rencana & Inventarisasi Migrasi Frontend SISPERKA
+# Rencana & Inventarisasi Migrasi Frontend SIPERKA
 
-Dokumen ini disusun pada **Tahap 1: Inventarisasi** untuk memetakan seluruh aset desain di folder `frontend/` ke dalam view Blade Laravel di project SISPERKA tanpa merusak backend yang sudah berjalan.
+Dokumen ini disusun pada **Tahap 1: Inventarisasi** untuk memetakan seluruh aset desain di folder `frontend/` ke dalam view Blade Laravel di project SIPERKA tanpa merusak backend yang sudah berjalan.
 
 ---
 
@@ -58,7 +58,7 @@ Dokumen ini disusun pada **Tahap 1: Inventarisasi** untuk memetakan seluruh aset
 | 8 | Riwayat Laporan Siswa (`GET /siswa/laporan`) | `resources/views/siswa/reports/index.blade.php` | `frontend/src/app/laporan/page.tsx` | **Selesai 100%** (`e3c3dae`) |
 | 9 | Form Buat Laporan Siswa (`GET /siswa/laporan/buat`, `POST /siswa/laporan`) | `resources/views/siswa/reports/create.blade.php` | `frontend/src/app/laporan/buat/page.tsx` | **Selesai 100%** (`e28b9c4`) |
 | 10 | Detail Laporan Siswa (`GET /siswa/laporan/{report}`) | `resources/views/siswa/reports/show.blade.php` | `frontend/src/app/laporan/[id]/page.tsx` | **Selesai 100%** (`e3c3dae`) |
-| 11 | Bantuan & Kontak Siswa (`GET /siswa/bantuan`) | `resources/views/siswa/bantuan.blade.php` | Diadaptasi konsisten dengan gaya SISPERKA | **Selesai 100%** (`8cb0649`) |
+| 11 | Bantuan & Kontak Siswa (`GET /siswa/bantuan`) | `resources/views/siswa/bantuan.blade.php` | Diadaptasi konsisten dengan gaya SIPERKA | **Selesai 100%** (`8cb0649`) |
 | 12 | Profil Siswa (`GET /siswa/profil`) | `resources/views/siswa/profile.blade.php` | `frontend/src/app/profil/page.tsx` | **Selesai 100%** (`5fbdbb3`) |
 | 13 | Dashboard Guru BK (`GET /bk/dashboard`) | `resources/views/bk/dashboard.blade.php` | `frontend/src/app/guru-bk/dashboard/page.tsx` | **Selesai 100%** (`ae93efd`) |
 | 14 | Daftar Laporan Guru BK (`GET /bk/laporan`) | `resources/views/bk/reports/index.blade.php` | `frontend/src/app/guru-bk/laporan/page.tsx` | **Selesai 100%** (`47cf7dd`) |
@@ -84,7 +84,7 @@ Dokumen ini disusun pada **Tahap 1: Inventarisasi** untuk memetakan seluruh aset
 | 34 | Pengaturan Website (`GET /master/settings`) | `resources/views/master/settings/index.blade.php` | Diadaptasi konsisten dari form pengaturan modern | **Selesai 100%** (`e8e7e2c`) |
 | 35 | Halaman Error 403 / 404 / 500 | `resources/views/errors/403.blade.php`, `404`, `500` | Diadaptasi konsisten dengan ilustrasi ramah madrasah | **Selesai 100%** (`362a29e`) |
 | - | Template Cetak Rekapitulasi PDF BK | `resources/views/bk/reports/export_pdf.blade.php` | Diadaptasi format cetak resmi madrasah | **Selesai 100%** (`2393c70`) |
-| - | Registrasi Siswa Mandiri (`/register`) | *Tidak ada di backend* | `frontend/src/app/register/page.tsx` | **Diabaikan (Sesuai Aturan Keamanan SISPERKA)** |
+| - | Registrasi Siswa Mandiri (`/register`) | *Tidak ada di backend* | `frontend/src/app/register/page.tsx` | **Diabaikan (Sesuai Aturan Keamanan SIPERKA)** |
 | - | Lupa Password Mandiri (`/lupa-password`) | *Tidak ada di backend* | `frontend/src/app/lupa-password/page.tsx` | **Diabaikan (Siswa Melapor ke Guru BK)** |
 | - | Admin Monitoring Laporan (`/admin/laporan`) | *Tidak ada di backend* | `frontend/src/app/admin/laporan/page.tsx` | **Dilarang (Perlindungan Kerahasiaan Korban)** |
 

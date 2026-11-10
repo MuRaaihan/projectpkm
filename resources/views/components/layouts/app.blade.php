@@ -610,7 +610,7 @@
             {{-- Main Content Slot --}}
             <main class="flex-1 w-full min-w-0">
                 {{-- Flash Message Helper for SweetAlert2 --}}
-                <div id="sisperka-flash-messages" class="hidden"
+                <div id="siperka-flash-messages" class="hidden"
                     @if(session('success')) data-success="{{ session('success') }}" @endif
                     @if(session('error')) data-error="{{ session('error') }}" @endif
                     @if(session('status')) data-status="{{ session('status') }}" @endif

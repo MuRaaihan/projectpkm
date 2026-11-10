@@ -64,7 +64,7 @@ class ExcelImportService
         return response()->streamDownload(function () use ($spreadsheet) {
             $writer = new Xlsx($spreadsheet);
             $writer->save('php://output');
-        }, 'template-impor-siswa-sisperka.xlsx', [
+        }, 'template-impor-siswa-siperka.xlsx', [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ]);
     }
@@ -93,7 +93,7 @@ class ExcelImportService
         return response()->streamDownload(function () use ($spreadsheet) {
             $writer = new Xlsx($spreadsheet);
             $writer->save('php://output');
-        }, 'template-impor-guru-bk-sisperka.xlsx', [
+        }, 'template-impor-guru-bk-siperka.xlsx', [
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ]);
     }
